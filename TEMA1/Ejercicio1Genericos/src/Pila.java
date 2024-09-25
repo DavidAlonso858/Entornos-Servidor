@@ -43,7 +43,7 @@ public class Pila<T> implements ColeccionSimpleGenerica<T> {
     }
 
     @Override
-    public void añadir(T e) {
-        pila.addFirst(e);
+    public boolean añadir(T e) {
+        return pila.add(e);
     }
 }
