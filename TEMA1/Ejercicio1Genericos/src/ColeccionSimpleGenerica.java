@@ -7,5 +7,5 @@ public interface ColeccionSimpleGenerica<T> {
 
     public T primero();
 
-    public boolean añadir(T e);
+    public void añadir(T e);
 }
