@@ -5,36 +5,45 @@ import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JUnit_PilaArray {
-    Pila<Integer> pila;
+    PilaArray<Integer> pila;
 
     @BeforeEach
     void setUp() {
-        pila = new Pila<>();
+        pila = new PilaArray<>(0);
     }
 
     @Test
     @DisplayName("Añadir")
     void testAñadirPila() {
-        assert pila.añadir(6);
+        // verificar que se complete el ñaadir
+        assertTrue(pila.añadir(6));
     }
 
     @Test
     @DisplayName("Pila Vacia")
     void testPilaVacia() {
-        assert pila.estaVacia();
+        // verificar que comprueba que está vacia
+        assertTrue(pila.estaVacia());
     }
 
     @Test
     @DisplayName("Extraer Pila")
     void testExtraerPila() {
+        // añado dos y verifico si extrae el ultimo
         pila.añadir(8);
         pila.añadir(7);
-        assertEquals(6, pila.extraer());
+        assertEquals(7, pila.extraer());
+        /*
+         assertEquals es una declaracion de afirmacion
+         que valida que el valor esperado
+         y real es el mismo, si no, se muestra un mensaje al final del metodo
+         */
     }
 
     @Test
     @DisplayName("PrimeroPila")
     void testPrimeroPila() {
-        assertEquals(8, pila.primero());
+        pila.añadir(10);
+        assertEquals(10, pila.primero());
     }
 }
