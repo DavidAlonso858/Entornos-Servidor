@@ -3,17 +3,17 @@ import java.util.Arrays;
 public class Matriz<T> {
     T[][] matriz;
 
-    public Matriz(int columnas, int filas) { // constructor
-        this.matriz = (T[][]) new Object[columnas][filas];
+    public Matriz(int filas, int columnas) { // constructor
+        this.matriz = (T[][]) new Object[filas][columnas];
     }
 
-    public void set(int columnas, int filas, T elemento) { // metodo para insertar el elemento en la posicion adecuada
-        matriz[columnas][filas] = elemento;
+    public void set(int filas, int columnas, T elemento) { // metodo para insertar el elemento en la posicion adecuada
+        matriz[filas][columnas] = elemento;
     }
 
     public T get(int filas, int columnas) {
         T elemento = null;
-        return elemento = matriz[columnas][filas];
+        return elemento = matriz[filas-1][columnas-1];
     }
 
     public Integer columnas() {
@@ -29,7 +29,13 @@ public class Matriz<T> {
 
     @Override
     public String toString() {
-        return "Matriz{" + Arrays.toString(matriz) +
-                '}';
+        String cadena = "";
+        for (T[] fila : matriz) {
+            for (T elemento : fila) {
+                cadena += elemento + ", ";
+            }
+            cadena += "\n";
+        }
+        return cadena;
     }
 }
