@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
 
-public class Pila<T> implements ColeccionSimpleGenerica {
+public class Pila<T> implements ColeccionSimpleGenerica<T> {
     private List<T> pila;
 
     public Pila() {
@@ -17,7 +17,7 @@ public class Pila<T> implements ColeccionSimpleGenerica {
     public T extraer() {
         T extraer = null;
 
-        if (pila.size() < 0) {
+        if (pila.size() <= 0) {
             System.out.println("La lista esta vacia");
         } else {
             extraer = pila.remove(pila.size() - 1);
@@ -27,7 +27,13 @@ public class Pila<T> implements ColeccionSimpleGenerica {
 
     @Override
     public T primero() {
-
+        T extraer = null;
+        if (pila.size() <= 0) {
+            System.out.println("La lista esta vacia");
+        } else {
+            extraer = pila.get(0);
+        }
+        return extraer;
     }
 
     @Override
@@ -36,7 +42,7 @@ public class Pila<T> implements ColeccionSimpleGenerica {
     }
 
     @Override
-    public boolean añadir(Object e) {
-        return false;
+    public boolean añadir(T e) {
+        return pila.add(e);
     }
 }
