@@ -39,7 +39,12 @@ public class Pila<T> implements ColeccionSimpleGenerica<T> {
 
     @Override
     public String toString() {
-        return "Pila{" + pila + '}';
+        String cadena = "";
+
+        for (T elemento : pila) {
+            cadena += elemento.toString();
+        }
+        return cadena;
     }
 
     @Override
