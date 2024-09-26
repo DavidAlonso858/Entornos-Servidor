@@ -27,13 +27,14 @@ public class Pila<T> implements ColeccionSimpleGenerica<T> {
 
     @Override
     public T primero() {
-        T extraer = null;
+        T primero = null;
+
         if (pila.size() <= 0) {
             System.out.println("La lista esta vacia");
         } else {
-            extraer = pila.get(0);
+            primero = pila.get(0);
         }
-        return extraer;
+        return primero;
     }
 
     @Override
