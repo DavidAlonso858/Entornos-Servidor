@@ -30,11 +30,15 @@ public class Empresa {
     private String nombre;
 
     public static Empresa cargadorDeContexto() {
-     DatosEmpleados datosEmpleados =   Empresa.class.getAnnotation(DatosEmpleados.class);
+        Empresa empresa = new Empresa("DavidCEO");
+        DatosEmpleados datosEmpleados = Empresa.class.getAnnotation(DatosEmpleados.class);
         System.out.println(datosEmpleados.apellidos());
-    }
 
+        return empresa;
+    }
+;
     public Empresa(String nombre) {
         this.nombre = nombre;
+        this.empleadosEmpresa = new Empleado[3];
     }
 }
