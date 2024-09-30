@@ -8,8 +8,7 @@ import java.lang.annotation.*;
 
 @Target(ElementType.TYPE)
 // para que se puede usar en clases
-@Repeatable(Empleados.class)
-public @interface DatosEmpleados {
+public @interface DatosTecnico {
     String nombre();
 
     String apellidos();
@@ -20,15 +19,9 @@ public @interface DatosEmpleados {
 
     int telefono();
 
-    String clase(); // Directivo, Tecnico, Oficial
-
-    int codigoDespacho() default 1;
 
     int codigoTaller() default 1; // Para Operario y subclases
 
     String perfil() default "";      // Para Técnico
 
-    String categoria() default ""; // Para Oficial
 }
-
-
