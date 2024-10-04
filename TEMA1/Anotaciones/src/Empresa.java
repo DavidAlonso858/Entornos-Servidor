@@ -41,29 +41,31 @@ public class Empresa {
         DatosDirectivo[] directivos = Empresa.class.getAnnotationsByType((DatosDirectivo.class));
         for (DatosDirectivo d : directivos) {
             Empleado directivo = null;
-            directivo = new Directivo(d.nombre(), d.apellidos(), d.dni(), d.direccion(), d.telefono(), d.codigoDespacho());
+            directivo = new Directivo(d.nombre(), d.apellidos(), d.direccion(), d.dni(), d.telefono(), d.codigoDespacho());
             if (directivo != null) {
                 empresa.empleados.add(directivo);
             }
         }
         return empresa;
     }
+
     public static Empresa cargadorTecnico(Empresa empresa) {
         DatosTecnico[] tecnicos = Empresa.class.getAnnotationsByType((DatosTecnico.class));
         for (DatosTecnico t : tecnicos) {
             Empleado tecnico = null;
-            tecnico = new Tecnico(t.nombre(), t.apellidos(), t.dni(), t.direccion(), t.telefono(), t.codigoTaller(), t.perfil());
+            tecnico = new Tecnico(t.nombre(), t.apellidos(), t.direccion(), t.dni(), t.telefono(), t.codigoTaller(), t.perfil());
             if (tecnico != null) {
                 empresa.empleados.add(tecnico);
             }
         }
         return empresa;
     }
+
     public static Empresa cargadorOficial(Empresa empresa) {
         DatosOficial[] oficiales = Empresa.class.getAnnotationsByType((DatosOficial.class));
         for (DatosOficial o : oficiales) {
             Empleado oficial = null;
-            oficial = new Oficial(o.nombre(), o.apellidos(), o.dni(), o.direccion(), o.telefono(), o.codigoTaller(), o.categoria());
+            oficial = new Oficial(o.nombre(), o.apellidos(), o.direccion(),o.dni(), o.telefono(), o.codigoTaller(), o.categoria());
             if (oficial != null) {
                 empresa.empleados.add(oficial);
             }

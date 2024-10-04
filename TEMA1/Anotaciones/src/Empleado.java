@@ -5,10 +5,10 @@ public class Empleado {
     private Integer telefono;
     private String dni;
 
-    public Empleado(String nombre, String direccion, String apellido, Integer telefono, String dni) {
+    public Empleado(String nombre, String apellido,String direccion, Integer telefono, String dni) {
         this.nombre = nombre;
-        this.direccion = direccion;
         this.apellido = apellido;
+        this.direccion = direccion;
         this.telefono = telefono;
         this.dni = dni;
     }
