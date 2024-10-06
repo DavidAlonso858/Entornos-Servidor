@@ -156,18 +156,12 @@ class TiendaTest {
 
             List<Producto> listProd = productosDAOImpl.findAll();
 
-            List<String> nombre;
-            List<Double> precios;
+            listProd.stream()
+                    .map(Producto::getNombre).forEach(System.out::println);
+            System.out.println();
+            listProd.stream()
+                    .map(Producto::getPrecio).forEach(System.out::println);
 
-            nombre = listProd.stream()
-                    .map(Producto::getNombre)
-                    .toList();
-            precios = listProd.stream()
-                    .map(Producto::getPrecio)
-                    .toList();
-            for (int i = 0; i < listProd.size(); i++) {
-                System.out.println("nombre: " + nombre.get(i) + "precio:" + precios.get(i));
-            }
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -234,6 +228,19 @@ class TiendaTest {
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
 
+            listFab.stream()
+                    .map(f -> f.getNombre()).forEach(System.out::println);
+
+            System.out.println();
+            // muestro los dos
+            listFab.stream()
+                    .map(f -> f.getNombre().toUpperCase()).forEach(nombre -> {
+                        char primeraLetra = nombre.charAt(0);
+                        char segundaLetra = nombre.charAt(1);
+
+                        System.out.println(primeraLetra + " " + segundaLetra);
+                    });
+
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -252,6 +259,10 @@ class TiendaTest {
             fabricantesDAOImpl.beginTransaction();
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
+            // filtro por los que devuelven algo en producto
+            listFab.stream().filter(f -> f.getProductos() != null).forEach(fabricante -> {
+                System.out.println(fabricante.getIdFabricante());
+            });
 
             //TODO STREAMS
 
@@ -271,7 +282,8 @@ class TiendaTest {
             fabricantesDAOImpl.beginTransaction();
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
-
+            // no hace falta pasarle nada al sorted porque el mapa ya trabaja con los nombres
+            listFab.stream().map(fabricante -> fabricante.getNombre()).sorted().forEach(System.out::println);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -290,7 +302,11 @@ class TiendaTest {
             productosDAOImpl.beginTransaction();
 
             List<Producto> listProd = productosDAOImpl.findAll();
-
+            // nombre ascendente
+            listProd.stream().map(Producto::getNombre).sorted().forEach(System.out::println);
+            System.out.println();
+            // precio descendente
+            listProd.stream().map(Producto::getPrecio).sorted(Comparator.reverseOrder()).forEach(System.out::println);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
