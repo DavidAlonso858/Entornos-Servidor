@@ -661,15 +661,9 @@ class TiendaTest {
 
             listProd.stream()
                     .filter(p -> p.getPrecio() >= 180)
-                    .sorted(comparing(Producto::getPrecio))
-                    .forEach(p -> System.out.println(p.getPrecio()));
-
-            System.out.println();
-
-            listProd.stream()
-                    .filter(p -> p.getPrecio() >= 180)
-                    .map(Producto::getNombre).sorted(Comparator.reverseOrder())
-                    .forEach(System.out::println);
+                    .sorted(Comparator.comparing(Producto::getPrecio).reversed() // Ordenar por precio en orden descendente
+                            .thenComparing(Producto::getNombre)) // Ordenar por nombre en orden ascendente
+                    .forEach(p -> System.out.println("Nombre: " + p.getNombre() + ", Precio: " + p.getPrecio()));
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -690,7 +684,14 @@ class TiendaTest {
 
             List<Producto> listProd = productosDAOImpl.findAll();
 
+            List<String> listaTotal;
 
+            listaTotal = listProd.stream()
+                    .sorted(Comparator.comparing(producto -> producto.getFabricante().getNombre()))
+                    .map(producto -> producto.getNombre() + " " + producto.getPrecio() + " " + producto.getFabricante().getNombre())
+                    .collect(toList());
+
+            listaTotal.forEach(System.out::println);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -711,9 +712,9 @@ class TiendaTest {
 
             List<Producto> listProd = productosDAOImpl.findAll();
 
-            listProd.stream()
+            listProd.stream() // saco cual es el mas grande con el reduce
                     .reduce((p1, p2) -> p1.getPrecio() > p2.getPrecio() ? p1 : p2).
-                    ifPresent(p -> System.out.println(p.getNombre() + " " + p.getPrecio() + " "+ p.getFabricante().getNombre()));
+                    ifPresent(p -> System.out.println(p.getNombre() + " " + p.getPrecio() + " " + p.getFabricante().getNombre()));
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -733,6 +734,13 @@ class TiendaTest {
 
             List<Producto> listProd = productosDAOImpl.findAll();
 
+            List<Producto> listaCrucial;
+
+            listaCrucial = listProd.stream()
+                    .filter(producto -> producto.getFabricante().getNombre().equals("Crucial") && producto.getPrecio() > 200)
+                    .toList();
+
+            listaCrucial.forEach(System.out::println);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -751,7 +759,13 @@ class TiendaTest {
             productosDAOImpl.beginTransaction();
 
             List<Producto> listProd = productosDAOImpl.findAll();
+            List<Producto> listaMarcas;
 
+            listaMarcas = listProd.stream()
+                    .filter(producto -> producto.getFabricante().getNombre().equals("Asus") || producto.getFabricante().getNombre().equals("Seagate") || producto.getFabricante().getNombre().equals("Hewlett-Packard"))
+                    .toList();
+
+            listaMarcas.forEach(System.out::println);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
