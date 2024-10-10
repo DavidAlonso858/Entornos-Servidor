@@ -1,6 +1,7 @@
 package org.iesbelen.tiendainformatica.stream.test;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.iesbelen.tiendainformatica.entity.Fabricante;
 import org.iesbelen.tiendainformatica.dao.FabricanteDAOImpl;
@@ -301,11 +302,17 @@ class TiendaTest {
 
             List<Producto> listProd = productosDAOImpl.findAll();
             // nombre ascendente
-            listProd.stream().map(Producto::getNombre).sorted().forEach(System.out::println);
-            System.out.println();
-            // precio descendente
-            listProd.stream().map(Producto::getPrecio).sorted(Comparator.reverseOrder()).forEach(System.out::println);
-            //TODO STREAMS
+
+            listProd.stream().
+                    sorted(Comparator.comparing(Producto::getNombre)
+                            .thenComparing(Comparator.comparing(Producto::getPrecio).reversed()))
+                    .forEach(p -> System.out.println(p.getNombre() + " - " + p.getPrecio()));
+
+//            listProd.stream().map(Producto::getNombre).sorted().forEach(System.out::println);
+//            System.out.println();
+//            // precio descendente
+//            listProd.stream().map(Producto::getPrecio).sorted(Comparator.reverseOrder()).forEach(System.out::println);
+//            //TODO STREAMS
 
         } catch (RuntimeException e) {
             productosDAOImpl.rollbackTransaction();
@@ -354,7 +361,7 @@ class TiendaTest {
 
             List<Fabricante> listaDos;
             listaDos = listFab.stream()
-                    .filter(f -> f.getIdFabricante() > 3)
+                    .skip(3) // se salta los 3 primeros
                     .limit(2)
                     .toList();
 
@@ -863,6 +870,23 @@ class TiendaTest {
             fabricantesDAOImpl.beginTransaction();
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
+            listFab.stream()
+                    .forEach(f -> {
+                        System.out.println("Fabricante: " + f.getNombre());
+                        System.out.println("\nProductos: ");
+
+                        String productos = f.getProductos().stream()
+                                .map(Producto::getNombre)
+                                .collect(Collectors.joining("\n"));
+
+                        if (productos.isEmpty()) {
+                            System.out.println();
+                        } else {
+                            System.out.println(productos);
+                        }
+
+                        System.out.println("\n");
+                    });
 
             //TODO STREAMS
 
@@ -882,7 +906,13 @@ class TiendaTest {
             fabricantesDAOImpl.beginTransaction();
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
+            List<Fabricante> proAsociado;
 
+            proAsociado = listFab.stream()
+                    .filter(fabricante -> fabricante.getProductos().isEmpty())
+                    .toList();
+
+            proAsociado.forEach(System.out::println);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -902,6 +932,9 @@ class TiendaTest {
 
             List<Producto> listProd = productosDAOImpl.findAll();
 
+            Long total = listProd.stream().count();
+
+            System.out.println(total);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -922,6 +955,9 @@ class TiendaTest {
 
             List<Producto> listProd = productosDAOImpl.findAll();
 
+            Long total = listProd.stream().map(producto -> producto.getFabricante().getProductos()).count();
+
+            System.out.println(total);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -943,6 +979,10 @@ class TiendaTest {
 
             List<Producto> listProd = productosDAOImpl.findAll();
 
+            System.out.println(listProd.stream()
+                    .mapToDouble(Producto::getPrecio)// lo va recogiendo en double para usar el average
+                    .average());
+
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -961,7 +1001,9 @@ class TiendaTest {
             productosDAOImpl.beginTransaction();
 
             List<Producto> listProd = productosDAOImpl.findAll();
-
+            System.out.println(listProd.stream()
+                    .mapToDouble(Producto::getPrecio)
+                    .min());
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -980,7 +1022,10 @@ class TiendaTest {
             productosDAOImpl.beginTransaction();
 
             List<Producto> listProd = productosDAOImpl.findAll();
-
+            listProd.stream()
+                    .map(Producto::getPrecio)
+                    .reduce(Double::sum)
+                    .ifPresent(System.out::println);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -1000,6 +1045,11 @@ class TiendaTest {
 
             List<Producto> listProd = productosDAOImpl.findAll();
 
+            Long total = listProd.stream()
+                    .filter(producto -> producto.getFabricante().getNombre().equals("Asus"))
+                    .count();
+
+            System.out.println(total);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -1018,6 +1068,10 @@ class TiendaTest {
             productosDAOImpl.beginTransaction();
 
             List<Producto> listProd = productosDAOImpl.findAll();
+            System.out.println(listProd.stream()
+                    .filter(producto -> producto.getFabricante().getNombre().equals("Asus"))
+                    .mapToDouble(Producto::getPrecio)
+                    .average());
 
             //TODO STREAMS
 
@@ -1040,6 +1094,10 @@ class TiendaTest {
 
             List<Producto> listProd = productosDAOImpl.findAll();
 
+
+            System.out.println(listProd.stream()
+                    .filter(producto -> producto.getFabricante().getNombre().equals("Crucial"))
+                    .collect(summarizingDouble(Producto::getPrecio))); // devuelve la cuenta,la suma, la media, minimo, y maximo
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -1134,7 +1192,14 @@ class TiendaTest {
             fabricantesDAOImpl.beginTransaction();
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
+            List<String> nombres;
 
+            nombres = listFab.stream()
+                    .filter(fabricante -> fabricante.getProductos().size() > 1)
+                    .map(Fabricante::getNombre)
+                    .toList();
+
+            nombres.forEach(System.out::println);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -1173,7 +1238,14 @@ class TiendaTest {
             fabricantesDAOImpl.beginTransaction();
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
-
+//            List<String> nombres;
+//
+//            nombres = listFab.stream()
+//                    .filter(fabricante -> fabricante.getProductos()
+//                    .map(Fabricante::getNombre)
+//                    .toList();
+//
+//            nombres.forEach(System.out::println);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
