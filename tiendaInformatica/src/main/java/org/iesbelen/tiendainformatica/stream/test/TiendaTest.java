@@ -1154,6 +1154,38 @@ class TiendaTest {
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
 
+            listFab.forEach(fabricante -> {
+                Double[] result = fabricante.getProductos().stream()
+                        .map(Producto::getPrecio) // Obtener precios de los productos
+                        .reduce(
+                                new Double[]{Double.MAX_VALUE, Double.MIN_VALUE, 0.0, 0.0}, // Acumulador inicial: [min, max, suma, contador]
+                                (acc, precio) -> {
+                                    acc[0] = Math.min(acc[0], precio); // Precio mínimo
+                                    acc[1] = Math.max(acc[1], precio); // Precio máximo
+                                    acc[2] += precio;                 // Suma de precios
+                                    acc[3]++;                         // Contador de productos
+                                    return acc;
+                                }, // trabaja con las acumulaciones hechas en el anterior
+                                (acc1, acc2) -> new Double[]{
+                                        Math.min(acc1[0], acc2[0]),
+                                        Math.max(acc1[1], acc2[1]),
+                                        acc1[2] + acc2[2],
+                                        acc1[3] + acc2[3]
+                                }
+                        );
+
+                // Si el contador es mayor que cero lo divide con el total y si no pues 0
+                double precioMedio = (result[3] > 0) ? result[2] / result[3] : 0.0;
+
+                System.out.println(
+                        fabricante.getNombre() + "--Precio Minimo: " +
+                                (result[0] == Double.MAX_VALUE ? 0 : result[0]) // Si no hay productos, se muestra 0 como mínimo
+                                + " Precio Maximo " +
+                                (result[1] == Double.MIN_VALUE ? 0 : result[1]) // Si no hay productos, se muestra 0 como máximo
+                                + " Precio Medio " +
+                                precioMedio
+                );
+            });
             //TODO STREAMS
 
         } catch (RuntimeException e) {
