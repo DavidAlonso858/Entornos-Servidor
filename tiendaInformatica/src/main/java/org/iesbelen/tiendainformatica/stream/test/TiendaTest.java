@@ -870,23 +870,16 @@ class TiendaTest {
             fabricantesDAOImpl.beginTransaction();
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
-            listFab.stream()
-                    .forEach(f -> {
-                        System.out.println("Fabricante: " + f.getNombre());
-                        System.out.println("\nProductos: ");
 
-                        String productos = f.getProductos().stream()
-                                .map(Producto::getNombre)
-                                .collect(Collectors.joining("\n"));
+            List<String> listCadena = listFab.stream()
+                    .map(fabricante -> "\nFabricante: " + fabricante.getNombre()
+                            + "\n\tProducto:\n"
+                            + fabricante.getProductos().stream()
+                            .map(producto -> "\t" + producto.getNombre())
+                            .collect(joining("\n")) + "\n")
+                    .collect(toList());
 
-                        if (productos.isEmpty()) {
-                            System.out.println();
-                        } else {
-                            System.out.println(productos);
-                        }
-
-                        System.out.println("\n");
-                    });
+            listCadena.forEach(System.out::println);
 
             //TODO STREAMS
 
@@ -1081,6 +1074,7 @@ class TiendaTest {
         }
     }
 
+// NO CAE
 
     /**
      * 37. Muestra el precio máximo, precio mínimo, precio medio y el número total de productos que tiene el fabricante Crucial.
@@ -1095,9 +1089,32 @@ class TiendaTest {
             List<Producto> listProd = productosDAOImpl.findAll();
 
 
-            System.out.println(listProd.stream()
-                    .filter(producto -> producto.getFabricante().getNombre().equals("Crucial"))
-                    .collect(summarizingDouble(Producto::getPrecio))); // devuelve la cuenta,la suma, la media, minimo, y maximo
+            Double[] resultado = listProd.stream()
+                    .filter(producto -> "Crucial".equalsIgnoreCase(producto.getFabricante().getNombre()))
+                    .reduce(new Double[]{Double.MIN_VALUE, Double.MAX_VALUE, 0.0, 0.0},
+
+                            (acumulador, producto) ->
+
+                            {
+                                Double precio = producto.getPrecio();
+                                acumulador[0] = Math.max(acumulador[0], precio);
+                                acumulador[1] = Math.min(acumulador[1], precio);
+                                acumulador[2] += precio;
+                                acumulador[3] += 1;
+
+                                return acumulador;
+                            }, (acc1, acc2) -> acc1);
+
+
+            // Imprimir resultados
+            System.out.println("Precio máximo: " + resultado[0]);
+            System.out.println("Precio mínimo: " + resultado[1]);
+            System.out.println("Precio medio: " + resultado[2] / resultado[3]);
+            System.out.println("Número total de productos: " + resultado[3]);
+            System.out.println("------------------------------------------------------");
+            System.out.println("------------------------------------------------------");
+
+
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -1133,6 +1150,9 @@ class TiendaTest {
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
 
+            System.out.println("Fabricante    Producto");
+            listFab.stream().forEach(f -> System.out.println(f.getNombre() + "     " + f.getProductos().size()));
+
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -1140,6 +1160,8 @@ class TiendaTest {
             throw e; // or display error message
         }
     }
+
+// NO CAE
 
     /**
      * 39. Muestra el precio máximo, precio mínimo y precio medio de los productos de cada uno de los fabricantes.
@@ -1194,6 +1216,8 @@ class TiendaTest {
         }
     }
 
+// NO CAE
+
     /**
      * 40. Muestra el precio máximo, precio mínimo, precio medio y el número total de productos de los fabricantes que tienen un precio medio superior a 200€.
      * No es necesario mostrar el nombre del fabricante, con el código del fabricante es suficiente.
@@ -1205,9 +1229,12 @@ class TiendaTest {
             fabricantesDAOImpl.beginTransaction();
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
-
-            //TODO STREAMS
-
+            listFab.stream()
+                    .filter(f -> f.getProductos().stream().mapToDouble(Producto::getPrecio).average().orElse(0) > 200)
+                    .map(f -> {
+                        DoubleSummaryStatistics stats = f.getProductos().stream().collect(summarizingDouble(Producto::getPrecio));
+                        return f.getIdFabricante() + " Stats: " + stats;
+                    }).forEach(System.out::println);
         } catch (RuntimeException e) {
             fabricantesDAOImpl.rollbackTransaction();
             throw e; // or display error message
@@ -1252,6 +1279,11 @@ class TiendaTest {
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
 
+            List<String> fabProdNum = listFab.stream()
+                    .map(fabricante -> "fabricante: " + fabricante.getNombre() + "productos: " + fabricante.getProductos().stream().filter(producto -> producto.getPrecio() >= 220).toList().size())
+                    .toList();
+
+            fabProdNum.forEach(System.out::println);
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -1285,6 +1317,7 @@ class TiendaTest {
             throw e; // or display error message
         }
     }
+// NO CAE
 
     /**
      * 44. Devuelve un listado con los nombres de los fabricantes donde la suma del precio de todos sus productos es superior a 1000 €
@@ -1305,6 +1338,7 @@ class TiendaTest {
             throw e; // or display error message
         }
     }
+// NO CAE
 
     /**
      * 45. Devuelve un listado con el nombre del producto más caro que tiene cada fabricante.
