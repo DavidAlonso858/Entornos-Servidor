@@ -206,7 +206,7 @@ class TiendaTest {
             List<Producto> listProd = productosDAOImpl.findAll();
 
             listProd.stream()
-                    .map(p -> p.getNombre().toUpperCase() + " " + p.getPrecio()).forEach(System.out::println);
+                    .forEach(producto -> System.out.println(producto.getNombre().toUpperCase() + " " + producto.getPrecio()));
 
             //TODO STREAMS
 
@@ -1175,39 +1175,42 @@ class TiendaTest {
             fabricantesDAOImpl.beginTransaction();
 
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
+            listFab.stream().map(fabricante -> {
+                DoubleSummaryStatistics stats = fabricante.getProductos().stream()
+                        .mapToDouble(Producto::getPrecio)
+                        .summaryStatistics();
 
-            listFab.forEach(fabricante -> {
-                Double[] result = fabricante.getProductos().stream()
-                        .map(Producto::getPrecio) // Obtener precios de los productos
-                        .reduce(
-                                new Double[]{Double.MAX_VALUE, Double.MIN_VALUE, 0.0, 0.0}, // Acumulador inicial: [min, max, suma, contador]
-                                (acc, precio) -> {
-                                    acc[0] = Math.min(acc[0], precio); // Precio mínimo
-                                    acc[1] = Math.max(acc[1], precio); // Precio máximo
-                                    acc[2] += precio;                 // Suma de precios
-                                    acc[3]++;                         // Contador de productos
-                                    return acc;
-                                }, // trabaja con las acumulaciones hechas en el anterior
-                                (acc1, acc2) -> new Double[]{
-                                        Math.min(acc1[0], acc2[0]),
-                                        Math.max(acc1[1], acc2[1]),
-                                        acc1[2] + acc2[2],
-                                        acc1[3] + acc2[3]
-                                }
-                        );
-
-                // Si el contador es mayor que cero lo divide con el total y si no pues 0
-                double precioMedio = (result[3] > 0) ? result[2] / result[3] : 0.0;
-
-                System.out.println(
-                        fabricante.getNombre() + "--Precio Minimo: " +
-                                (result[0] == Double.MAX_VALUE ? 0 : result[0]) // Si no hay productos, se muestra 0 como mínimo
-                                + " Precio Maximo " +
-                                (result[1] == Double.MIN_VALUE ? 0 : result[1]) // Si no hay productos, se muestra 0 como máximo
-                                + " Precio Medio " +
-                                precioMedio
-                );
+                return fabricante.getNombre() + " Precio Maximo " + stats.getMax()
+                        + " Precio Minimo " + stats.getMin()
+                        + " Precio Avg " + stats.getAverage();
             });
+
+            //            listFab.forEach(fabricante -> {
+//                        Double[] result = fabricante.getProductos().stream()
+//                                .map(Producto::getPrecio) // Obtener precios de los productos
+//                                .reduce(
+//                                        new Double[]{Double.MAX_VALUE, Double.MIN_VALUE, 0.0, 0.0}, // Acumulador inicial: [min, max, suma, contador]
+//                                        (acc, precio) -> {
+//                                            acc[0] = Math.min(acc[0], precio); // Precio mínimo
+//                                            acc[1] = Math.max(acc[1], precio); // Precio máximo
+//                                            acc[2] += precio;                 // Suma de precios
+//                                            acc[3]++;                         // Contador de productos
+//                                            return acc;
+//                                        }, // trabaja con las acumulaciones hechas en el anterior
+//                                        (acc1, acc2) -> acc1);
+//                        System.out.println(
+//                                fabricante.getNombre() + "--Precio Minimo: " +
+//                                        (result[0] == Double.MAX_VALUE ? 0 : result[0]) // Si no hay productos, se muestra 0 como mínimo
+//                                        + " Precio Maximo " +
+//                                        (result[1] == Double.MIN_VALUE ? 0 : result[1]) // Si no hay productos, se muestra 0 como máximo
+//
+//                        );
+//                    }
+//            );
+
+            // Si el contador es mayor que cero lo divide con el total y si no pues 0
+
+
             //TODO STREAMS
 
         } catch (RuntimeException e) {
@@ -1280,7 +1283,8 @@ class TiendaTest {
             List<Fabricante> listFab = fabricantesDAOImpl.findAll();
 
             List<String> fabProdNum = listFab.stream()
-                    .map(fabricante -> "fabricante: " + fabricante.getNombre() + "productos: " + fabricante.getProductos().stream().filter(producto -> producto.getPrecio() >= 220).toList().size())
+                    .map(fabricante -> "fabricante: " + fabricante.getNombre() + "productos: " + fabricante.getProductos().stream().filter(producto -> producto.getPrecio() >= 220).
+                            toList().size())
                     .toList();
 
             fabProdNum.forEach(System.out::println);
