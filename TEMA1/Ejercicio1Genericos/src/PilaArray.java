@@ -4,7 +4,7 @@ public class PilaArray<T> implements ColeccionSimpleGenerica<T> {
     private T pila[];
     private int contador;
 
-    public PilaArray(int i) {
+    public PilaArray() {
         contador = 0;
         this.pila = (T[]) new Object[contador];
     }
