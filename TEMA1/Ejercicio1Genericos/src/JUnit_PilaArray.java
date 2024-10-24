@@ -9,7 +9,7 @@ public class JUnit_PilaArray {
 
     @BeforeEach
     void setUp() {
-        pila = new PilaArray<>(0);
+        pila = new PilaArray<>();
     }
 
     @Test
