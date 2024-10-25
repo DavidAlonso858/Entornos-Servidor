@@ -51,7 +51,6 @@
             "tortuga-marina.svg"
     };
     int random = (int) (Math.random() * (fotos.length));
-    System.out.println(nombres[random] + "\n" + fotos[random]);
 %>
 <!DOCTYPE html>
 <html>
