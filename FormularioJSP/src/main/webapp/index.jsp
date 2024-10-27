@@ -18,7 +18,6 @@
     <select id="edad" name="edad">
         <option selected value="...">...</option>
         <option value="+18">+18</option>
-        <option value="+18">+18</option>
         <option value="-18">-18</option>
         <option value="+30">+30</option>
         <option value="+40">+40</option>
