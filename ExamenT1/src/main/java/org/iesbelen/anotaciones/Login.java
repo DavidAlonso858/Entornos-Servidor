@@ -1,6 +1,8 @@
 package org.iesbelen.anotaciones;
 
 
+import org.hibernate.loader.plan.spi.Return;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -71,11 +73,19 @@ public class Login {
 
     }
 
-//    public static Login cargadorContexto(Login l) {
-//        Credencial[] credenciales = Login.class.getAnnotationsByType(Credencial.class);
-//
-//        for (Credencial c : credenciales) {
-//        }
-//    }
+    public static Login cargadorContexto(Login l) {
+        Credencial[] credenciales = Login.class.getAnnotationsByType(Credencial.class);
+
+        for (Credencial c : credenciales) {
+            DatosCredencial cre = null;
+
+            cre = new DatosCredencial(c.usuario(), c.password());
+            if (cre != null) {
+                l.datosCredencial.add(cre);
+            }
+
+        }
+        return l;
+    }
 
 }
