@@ -6,11 +6,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.iesbelen.dao.FabricanteDAO;
+import org.iesbelen.dao.FabricanteDAOImpl;
 import org.iesbelen.dao.ProductoDAO;
 import org.iesbelen.dao.ProductoDAOImpl;
+import org.iesbelen.model.Fabricante;
+import org.iesbelen.model.FabricanteDTO;
 import org.iesbelen.model.Producto;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "productosServlet", value = "/tienda/productos/*")
 public class ProductosServlet extends HttpServlet {
@@ -56,10 +62,17 @@ public class ProductosServlet extends HttpServlet {
             String[] pathParts = pathInfo.split("/");
 
             if (pathParts.length == 2 && "crear".equals(pathParts[1])) {
-
+                FabricanteDAO fabDAO = new FabricanteDAOImpl();
                 // GET
                 // /productos/crear
-                dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/crear-producto.jsp");
+
+                // paso para que almacene los datos de los fabricantes
+                List<Fabricante> listaFabricantes = fabDAO.getAll();
+
+
+                request.setAttribute("listaFabricantes", listaFabricantes);
+
+                dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/productos/crear-producto.jsp");
 
 
             } else if (pathParts.length == 2) {
@@ -108,7 +121,7 @@ public class ProductosServlet extends HttpServlet {
             throws ServletException, IOException {
 
         RequestDispatcher dispatcher;
-        String __method__ = request.getMethod();
+        String __method__ = request.getParameter("__method__");
 
         if (__method__ == null) {
             // Crear uno nuevo
@@ -116,7 +129,7 @@ public class ProductosServlet extends HttpServlet {
 
             String nombre = request.getParameter("nombre");
             Double precio = Double.parseDouble(request.getParameter("precio"));
-            Integer idFabricante = Integer.parseInt(request.getParameter("id"));
+            Integer idFabricante = Integer.parseInt(request.getParameter("fab"));
             Producto nuevoProd = new Producto();
 
             nuevoProd.setNombre(nombre);

@@ -77,7 +77,7 @@ public class FabricantesServlet extends HttpServlet {
                 // GET
                 // /fabricantes/{id}
                 try {
-                    int id = Integer.parseInt(pathParts[1]); // almaceno la id 
+                    int id = Integer.parseInt(pathParts[1]); // almaceno la id
                     Optional<Fabricante> fabricante = fabDAO.find(id);
                     Optional<FabricanteDTO> fabricanteDTO = fabricante.map(fabricante1 -> new FabricanteDTO(fabricante1, fabDAO.getCountProductos(fabricante1.getIdFabricante()).orElse(0)));
 
