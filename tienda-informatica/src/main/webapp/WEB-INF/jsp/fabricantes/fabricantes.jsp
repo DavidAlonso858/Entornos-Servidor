@@ -86,6 +86,34 @@
     No hay registros de fabricante
     <% } %>
 </div>
+<br>
+<br>
+<div>
+    <!--Metodo get y ruta para que entre en el get-->
+    <form method="get" action="${pageContext.request.contextPath}/tienda/fabricantes/">
+        <fieldset>
+            <legend>Ordenar-por</legend>
+            <select name="ord" id="ord">
+                <option value="nom">nombre
+
+                </option>
+                <option value="cod">codigo
+
+                </option>
+            </select>
+            <select name="modo" id="modo">
+                <option value="asc">asc
+
+                </option>
+                <option value="desc">desc
+
+                </option>
+
+            </select>
+            <button type="submit" id="botonFinal">Aplicarlo</button>
+        </fieldset>
+    </form>
+</div>
 </body>
 </body>
 </html>

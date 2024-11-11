@@ -1,6 +1,7 @@
 package org.iesbelen.servlet;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,37 @@ public class FabricantesServlet extends HttpServlet {
             //	/fabricantes
 
             List<Fabricante> listaFabricantes = fabDAO.getAll();
+
+            String ord = request.getParameter("ord");
+            String modo = request.getParameter("modo");
+
+// guardo en un string el valor de cada select (tengo que ponerle que no sea nulo para que no petardee
+            if (ord != null && modo != null) {
+                switch (ord) {
+                    case "nom":
+                        switch (modo) {
+                            case "asc": // trabajo con la misma lista pero la ordeno en cada caso
+                                listaFabricantes.sort(Comparator.comparing(Fabricante::getNombre));
+                                break;
+                            case "desc":
+                                listaFabricantes.sort(Comparator.comparing(Fabricante::getNombre).reversed());
+                                break;
+                        }
+                        break;
+                    case "cod":
+                        switch (modo) {
+                            case "asc":
+                                listaFabricantes.sort(Comparator.comparing(Fabricante::getIdFabricante));
+                                break;
+                            case "desc":
+                                listaFabricantes.sort(Comparator.comparing(Fabricante::getIdFabricante).reversed());
+                                break;
+                        }
+                        break;
+                }
+            }
+
+
             List<FabricanteDTO> listaFabricanteDTO = listaFabricantes.stream()
                     .map(fabricante -> new FabricanteDTO(fabricante, fabDAO.getCountProductos(fabricante.getIdFabricante()).orElse(0))).toList();
 
