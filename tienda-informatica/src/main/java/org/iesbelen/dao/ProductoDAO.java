@@ -12,5 +12,7 @@ public interface ProductoDAO {
 	public Optional<Producto>  find(int id);
 	public void update(Producto producto);
 	public void delete(int id);
+	public List<Producto> stringNombre(String nombre);
+
 
 }

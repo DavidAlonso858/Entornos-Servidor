@@ -46,7 +46,18 @@ public class ProductosServlet extends HttpServlet {
             //	/productos/
             //	/productos
 
-            request.setAttribute("listaProductos", fabDAO.getAll());
+            String filtro = request.getParameter("filtro");
+
+            List<Producto> listaProducto;
+
+            if (filtro != null && !filtro.isEmpty()) {
+                // Llama al método con el filtro para obtener productos que coincidan
+                listaProducto = fabDAO.stringNombre(filtro);
+            } else {
+                // Si no hay filtro, usa otro método que devuelva todos los productos
+                listaProducto = fabDAO.getAll();
+            }
+            request.setAttribute("listaProductos", listaProducto);
             dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/productos/productos.jsp");
 
         } else {

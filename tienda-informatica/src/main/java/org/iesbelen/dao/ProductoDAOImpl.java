@@ -9,9 +9,48 @@ import java.util.Optional;
 
 public class ProductoDAOImpl extends AbstractDAOImpl implements ProductoDAO{
 
+
 	/**
 	 * Inserta en base de datos el nuevo fabricante, actualizando el id en el bean fabricante.
 	 */
+
+	@Override
+	public List<Producto> stringNombre(String filtro) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		List<Producto> listProd = new ArrayList<>();
+
+		try {
+			conn = connectDB();
+
+			String sql = "SELECT * FROM productos WHERE nombre LIKE ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, "%" + filtro + "%"); // Pasa el filtro con los comodines de LIKE
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Producto prod = new Producto();
+				int idx = 1;
+				prod.setIdProducto(rs.getInt(idx++));
+				prod.setNombre(rs.getString(idx++));
+				prod.setPrecio(rs.getDouble(idx++));
+				prod.setCodigo_fabricante(rs.getInt(idx));
+				listProd.add(prod);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			closeDb(conn, ps, rs);
+		}
+		return listProd;
+
+	}
+
 	@Override	
 	public synchronized void create(Producto producto) {
 		
