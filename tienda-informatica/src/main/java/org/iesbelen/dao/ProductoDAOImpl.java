@@ -27,7 +27,7 @@ public class ProductoDAOImpl extends AbstractDAOImpl implements ProductoDAO{
 
 			String sql = "SELECT * FROM productos WHERE nombre LIKE ?";
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, "%" + filtro + "%"); // Pasa el filtro con los comodines de LIKE
+			ps.setString(1, "%" + filtro + "%"); // el 1 desde el primero que encuentre y Pasa el filtro con los comodines de LIKE que contenga el escrito
 
 			rs = ps.executeQuery();
 			while (rs.next()) {
