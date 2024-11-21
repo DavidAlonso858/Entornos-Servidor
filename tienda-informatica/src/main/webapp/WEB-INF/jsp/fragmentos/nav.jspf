@@ -1,0 +1,9 @@
+<!-- Menu Navigation Bar -->
+<nav class="menu">
+    <a href="${pageContext.request.contextPath}"><i class="bi bi-house-lock-fill"></i> HOME</a>
+    <a href="${pageContext.request.contextPath}/tienda/fabricantes/"><i class="bi bi-buildings-fill"></i>Fabricantes</a>
+    <a href="${pageContext.request.contextPath}/tienda/productos/"><i class="bi bi-backpack"></i> Producto</a>
+    <div class="menu-log">
+        <a href="#login"><i class="bi bi-door-open"></i> LOGIN</a>
+    </div>
+</nav>

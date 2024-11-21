@@ -1,0 +1,59 @@
+<style>
+
+    #contenedor {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .head1 {
+        font-size: 50px;
+        color: #009900;
+        font-weight: bold;
+    }
+
+    .head2 {
+        font-size: 17px;
+        margin-left: 10px;
+        margin-bottom: 15px;
+    }
+
+
+    .menu {
+        position: sticky;
+        top: 0;
+        background-color: #6fdc6f;
+        padding: 0px 0px 0px 0px;
+        color: white;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .menu a {
+        float: left;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 20px;
+    }
+
+    .menu-log {
+        right: auto;
+        float: right;
+    }
+
+    footer {
+        width: 100%;
+        bottom: 0px;
+        background-color: #000;
+        color: #fff;
+        position: relative;
+        padding-top: 20px;
+        padding-bottom: 50px;
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+    }
+</style>
