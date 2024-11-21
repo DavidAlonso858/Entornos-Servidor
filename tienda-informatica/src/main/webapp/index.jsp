@@ -12,7 +12,7 @@
 <%@include file="WEB-INF/jsp/fragmentos/header.jspf" %>
 <%@include file="WEB-INF/jsp/fragmentos/nav.jspf" %>
 <main>
-    <div class="d-grid gap-2 p-5" id="contenedor">
+    <div class="d-grid gap-2 p-5" style="margin: 100px 100px 360px 100px" id="contenedor">
         <a class="btn btn-primary btn-lg" href="<%=application.getContextPath()%>/tienda/fabricantes">FABRICANTES</a>
         <a class="btn btn-success btn-lg" href="<%=application.getContextPath()%>/tienda/productos">PRODUCTOS</a>
     </div>
