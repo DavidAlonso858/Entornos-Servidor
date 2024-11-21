@@ -56,13 +56,14 @@ public class HelloServlet extends HttpServlet {
         // Hello
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
+        out.println("<h1>" + message + "<h1>");
         out.println("<h1>" + "Nombre: " + nombre + "</h1>");
-        out.println("<h2>"+ "Apellidos: " + apellido + "</h2>");
-        out.println("<h3>"+ "Edad: " + edad + "</h3>");
-        out.println("<h4>"+ "Peso: " + peso + "</h4>");
-        out.println("<h5>"+"Sexo: " + sexo + "</h5>");
-        out.println("<h6>"+ "Estado: " + estado + "</h6>");
-        out.println("<p>"+"Aficiones: " + aficiones.toString() + "</p>");
+        out.println("<h2>" + "Apellidos: " + apellido + "</h2>");
+        out.println("<h3>" + "Edad: " + edad + "</h3>");
+        out.println("<h4>" + "Peso: " + peso + "</h4>");
+        out.println("<h5>" + "Sexo: " + sexo + "</h5>");
+        out.println("<h6>" + "Estado: " + estado + "</h6>");
+        out.println("<p>" + "Aficiones: " + aficiones.toString() + "</p>");
         out.println("</body></html>");
     }
 
