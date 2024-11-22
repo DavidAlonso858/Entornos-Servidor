@@ -11,11 +11,9 @@ import org.iesbelen.dao.FabricanteDAOImpl;
 import org.iesbelen.dao.ProductoDAO;
 import org.iesbelen.dao.ProductoDAOImpl;
 import org.iesbelen.model.Fabricante;
-import org.iesbelen.model.FabricanteDTO;
 import org.iesbelen.model.Producto;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "productosServlet", value = "/tienda/productos/*")

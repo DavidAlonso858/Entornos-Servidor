@@ -44,10 +44,10 @@
                 <hr/>
             </div>
             <div class="clearfix">
-                <div style="float: left;width: 25%">Código</div>
-                <div style="float: left;width: 25%">Nombre</div>
-                <div style="float: left;width: 25%">Nº Productos</div>
-                <div style="float: none;width: auto;overflow: hidden;">Acción</div>
+                <div style="float: left;width: 10%">Código</div>
+                <div style="float: left;width: 30%">Nombre</div>
+                <div style="float: left;width: 20%">Nº Productos</div>
+                <div style="float: none;width: 20%;overflow: hidden;">Acción</div>
             </div>
             <div class="clearfix">
                 <hr/>
@@ -60,11 +60,11 @@
             %>
 
             <div style="margin-top: 6px;" class="clearfix">
-                <div style="float: left;width: 25%"><%= fabricante.getIdFabricante()%>
+                <div style="float: left;width: 10%"><%= fabricante.getIdFabricante()%>
                 </div>
-                <div style="float: left;width: 25%"><%= fabricante.getNombre()%>
+                <div style="float: left;width: 30%"><%= fabricante.getNombre()%>
                 </div>
-                <div style="float: left;width: 25%"><%= fabricante.getConteo()%>
+                <div style="float: left;width: 20%"><%= fabricante.getConteo()%>
                 </div>
                 <div style="float: none;width: auto;overflow: hidden;">
                     <form action="${pageContext.request.contextPath}/tienda/fabricantes/<%= fabricante.getIdFabricante()%>"

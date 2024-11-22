@@ -15,6 +15,7 @@
     <div class="d-grid gap-2 p-5" style="margin: 100px 100px 360px 100px" id="contenedor">
         <a class="btn btn-primary btn-lg" href="<%=application.getContextPath()%>/tienda/fabricantes">FABRICANTES</a>
         <a class="btn btn-success btn-lg" href="<%=application.getContextPath()%>/tienda/productos">PRODUCTOS</a>
+        <a class="btn btn-danger btn-lg" href="<%=application.getContextPath()%>/tienda/usuarios">USUARIOS</a>
     </div>
 </main>
 <%@include file="WEB-INF/jsp/fragmentos/footer.jspf" %>
