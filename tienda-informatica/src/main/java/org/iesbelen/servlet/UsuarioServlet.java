@@ -13,6 +13,7 @@ import org.iesbelen.model.Producto;
 import org.iesbelen.model.Usuario;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
@@ -125,10 +126,19 @@ public class UsuarioServlet extends HttpServlet {
             String rol = request.getParameter("rol");
             Usuario nuevoUsu = new Usuario();
 
-            nuevoUsu.setUsuario(usuario);
-            nuevoUsu.setPassword(password);
-            nuevoUsu.setRol(rol);
-            usuDAO.create(nuevoUsu);
+            try {
+                // Hashear la contraseña antes de almacenarla
+                String hashedPassword = Usuario.hashPassword(password);
+
+                nuevoUsu.setPassword(hashedPassword);  // Establecer la contraseña hasheada
+
+                nuevoUsu.setUsuario(usuario);
+                nuevoUsu.setRol(rol);
+                usuDAO.create(nuevoUsu);  // Insertar con la contraseña hasheada
+
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace(); // Manejar errores en el hash
+            }
 
         } else if (__method__ != null && "put".equalsIgnoreCase(__method__)) {
             // Actualizar uno existente

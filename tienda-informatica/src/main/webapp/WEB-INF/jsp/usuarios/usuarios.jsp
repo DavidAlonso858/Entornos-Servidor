@@ -87,7 +87,7 @@
                     <form action="${pageContext.request.contextPath}/tienda/usuarios/borrar/" method="post"
                           style="display: inline; ">
                         <input type="hidden" name="__method__" value="delete"/>
-                        <input type="hidden" name="codigo" value="<%= usu.getIdUsuario()%>"/>
+                        <input type="hidden" name="idUsuario" value="<%= usu.getIdUsuario()%>"/>
                         <input type="submit" value="Eliminar"/>
                     </form>
                 </div>

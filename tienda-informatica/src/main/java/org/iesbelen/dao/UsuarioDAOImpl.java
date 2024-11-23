@@ -146,7 +146,7 @@ public class UsuarioDAOImpl extends AbstractDAOImpl implements UsuarioDAO {
         try {
             conn = connectDB();
 
-            ps = conn.prepareStatement("UPDATE usuario SET usuario = ?,password = ?,rol = ?  WHERE idUsuario = ?");
+            ps = conn.prepareStatement("UPDATE usuarios SET usuario = ?,password = ?,rol = ?  WHERE idUsuario = ?");
             int idx = 1;
             ps.setString(idx++, usuario.getUsuario());
             ps.setString(idx++, usuario.getPassword());
