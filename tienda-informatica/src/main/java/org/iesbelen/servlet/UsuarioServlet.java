@@ -75,7 +75,7 @@ public class UsuarioServlet extends HttpServlet {
             } else if (pathParts.length == 2) {
                 UsuarioDAO usuDAO = new UsuarioDAOImpl();
                 // GET
-                // /fabricantes/{id}
+                // /usuarios/{id}
                 try {
                     int id = Integer.parseInt(pathParts[1]); // almaceno la id
                     Optional<Usuario> usuario = usuDAO.find(id);
@@ -91,7 +91,7 @@ public class UsuarioServlet extends HttpServlet {
                 UsuarioDAO usuDAO = new UsuarioDAOImpl();
 
                 // GET
-                // /fabricantes/editar/{id}
+                // /usuarios/editar/{id}
                 try {
                     request.setAttribute("usuario", usuDAO.find(Integer.parseInt(pathParts[2])));
                     dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/usuarios/editar-usuario.jsp");
@@ -187,7 +187,7 @@ public class UsuarioServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher;
         UsuarioDAO usuDAO = new UsuarioDAOImpl();
-        String idUsu = request.getParameter("idUsuario");
+        String idUsu = request.getParameter("idUsuario"); // valor del name del form del usuario
 
         try {
 
