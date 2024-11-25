@@ -71,7 +71,7 @@
                 </div>
                 <div style="float: left;width: 30%"><%= usu.getUsuario()%>
                 </div>
-                <div style="float: left;width: 20%"><%= usu.getPassword()%>
+                <div style="float: left;width: 20%"><%= usu.getPassword().substring(0,4)%> <!--Para que no muestre todo el hash -->
                 </div>
                 <div style="float: left;width: 10%"><%= usu.getRol()%>
                 </div>

@@ -173,11 +173,11 @@ public class UsuarioServlet extends HttpServlet {
             int id = Integer.parseInt(idUsuario);
             usu.setIdUsuario(id);
             usu.setUsuario(usuario);
-            usu.setPassword(password);
+            usu.setPassword(Util.hashPassword(password));
             usu.setRol(rol);
             usuDao.update(usu);
 
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException | NoSuchAlgorithmException nfe) {
             nfe.printStackTrace();
         }
 
