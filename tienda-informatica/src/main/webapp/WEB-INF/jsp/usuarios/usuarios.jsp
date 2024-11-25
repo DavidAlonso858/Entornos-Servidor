@@ -52,7 +52,7 @@
             <div class="clearfix">
                 <div style="float: left;width: 10%">idUsuario</div>
                 <div style="float: left;width: 30%">Usuario</div>
-                <div style="float: left;width: 20%">Password</div>
+                <div style="float: left;width: 20%;">Password</div>
                 <div style="float: left;width: 10%;overflow: hidden;">Rol</div>
                 <div style="float: left;width: 10%;overflow: hidden;">Accion</div>
             </div>

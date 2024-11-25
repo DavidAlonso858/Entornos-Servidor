@@ -11,7 +11,8 @@ import org.iesbelen.dao.*;
 import org.iesbelen.model.Fabricante;
 import org.iesbelen.model.Producto;
 import org.iesbelen.model.Usuario;
-
+import org.iesbelen.utilities.Util;
+import javax.swing.text.Utilities;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -124,11 +125,11 @@ public class UsuarioServlet extends HttpServlet {
             String usuario = request.getParameter("usuario");
             String password = request.getParameter("password");
             String rol = request.getParameter("rol");
-            Usuario nuevoUsu = new Usuario();
 
+            Usuario nuevoUsu = new Usuario();
             try {
                 // Hashear la contraseña antes de almacenarla
-                String hashedPassword = Usuario.hashPassword(password);
+                String hashedPassword = Util.hashPassword(password); // importada la clase
 
                 nuevoUsu.setPassword(hashedPassword);  // Establecer la contraseña hasheada
 
