@@ -12,6 +12,7 @@ import org.iesbelen.model.Fabricante;
 import org.iesbelen.model.Producto;
 import org.iesbelen.model.Usuario;
 import org.iesbelen.utilities.Util;
+
 import javax.swing.text.Utilities;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -62,6 +63,8 @@ public class UsuarioServlet extends HttpServlet {
             // 		/usuarios/edit/{id}/
             // 		/usuarios/crear
             // 		/usuarios/crear/
+            //      /usuarios/login
+            //      /usuarios/login/
 
             pathInfo = pathInfo.replaceAll("/$", "");
             String[] pathParts = pathInfo.split("/");
@@ -71,6 +74,10 @@ public class UsuarioServlet extends HttpServlet {
                 // GET
                 // /usuarios/crear
                 dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/usuarios/crear-usuario.jsp");
+            } else if (pathParts.length == 2 && "login".equals(pathParts[1])) {
+                // GET
+                // /usuarios/login
+                dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/usuarios/login.jsp");
 
             } else if (pathParts.length == 2) {
                 UsuarioDAO usuDAO = new UsuarioDAOImpl();
@@ -100,6 +107,7 @@ public class UsuarioServlet extends HttpServlet {
                     nfe.printStackTrace();
                     dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/usuarios/usuarios.jsp");
                 }
+
             } else {
                 System.out.println("Opción POST no soportada.");
                 dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/usuarios/usuarios.jsp");

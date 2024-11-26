@@ -5,6 +5,6 @@
     <a href="${pageContext.request.contextPath}/tienda/productos/"><i class="bi bi-backpack"></i> Productos</a>
     <a href="${pageContext.request.contextPath}/tienda/usuarios/"><i class="bi bi-people-fill"></i> Usuarios</a>
     <div class="menu-log">
-        <a href="${pageContext.request.contextPath}/tienda/usuarios/"><i class="bi bi-door-open"></i> LOGIN</a>
+        <a href="${pageContext.request.contextPath}/tienda/usuarios/login/"><i class="bi bi-door-open"></i> LOGIN</a>
     </div>
 </nav>
