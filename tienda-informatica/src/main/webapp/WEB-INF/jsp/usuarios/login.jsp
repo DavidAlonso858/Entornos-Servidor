@@ -16,14 +16,14 @@
 <div id="contenedora" style="float:none; margin: 0 auto;width: 900px;">
     <div class="clearfix">
         <div style="float: left; width: 50%">
-            <h1>Iniciar Sesion</h1>
+            <h1 class="header mt-5">Iniciar Sesion</h1>
         </div>
         <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
 
             <div style="position: absolute; left: 39%; top : 39%;">
 
                 <form action="${pageContext.request.contextPath}/tienda/usuarios">
-                    <input type="submit" value="Volver"/>
+                    <input  type="submit" value="Volver"/>
                 </form>
             </div>
 
@@ -37,7 +37,7 @@
                 Usuario
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
-                <input name="usuario"/>
+                <input type="text" name="usuario" required pattern="[A-Za-z0-9]+" title="Solo se permiten letras y números"/>
             </div>
         </div>
 
@@ -46,7 +46,7 @@
                 Password
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
-                <input name="password"/>
+                <input type="password" minlength="6"  title="minimo 6 caracteres" name="password" required/>
             </div>
         </div>
         <div class="d-flex justify-content-center">
