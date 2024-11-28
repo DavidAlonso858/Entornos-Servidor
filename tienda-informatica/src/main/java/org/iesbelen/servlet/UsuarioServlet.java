@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import jakarta.servlet.http.HttpSession;
 import org.iesbelen.dao.*;
 import org.iesbelen.model.Fabricante;
 import org.iesbelen.model.Producto;
@@ -126,6 +127,7 @@ public class UsuarioServlet extends HttpServlet {
         RequestDispatcher dispatcher;
         String __method__ = request.getParameter("__method__");
 
+
         if (__method__ == null) {
             // Crear uno nuevo
             UsuarioDAO usuDAO = new UsuarioDAOImpl();
@@ -158,11 +160,39 @@ public class UsuarioServlet extends HttpServlet {
             // Borrar uno existente
             //Dado que los forms de html sólo soportan method GET y POST utilizo parámetro oculto para indicar la operación de actulización DELETE.
             doDelete(request, response);
+        } else if (__method__ != null && "login".equalsIgnoreCase(__method__)) {
+            // Login
+            //Dado que los forms de html sólo soportan method GET y POST utilizo parámetro oculto para indicar la operación de actulización DELETE.
+            UsuarioDAO usuDAO = new UsuarioDAOImpl();
+            String usuario = request.getParameter("usuario");
+            String password = request.getParameter("password");
+
+            try {
+                String password2 = Util.hashPassword(password);
+                Optional<Usuario> usuOpt = usuDAO.findLogin(usuario);
+                System.out.println("Password hasheado (de entrada): " + password);
+                System.out.println("Password almacenado en BD: " + usuOpt.get().getPassword());
+
+                if (usuOpt.get().getPassword().equals(password2)) {
+                    if (usuOpt.isPresent()) {
+                        HttpSession session = request.getSession(true);
+                        session.setAttribute("usuario-logado", usuOpt);
+                        System.out.println("Hola");
+                    } else {
+                        // Usuario o contraseña incorrectos
+                        request.setAttribute("error", "Usuario o contraseña incorrectos.");
+                    }
+                }
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+
+
         } else {
             System.out.println("Opción POST no soportada.");
         }
 
-        //response.sendRedirect("../../../tienda/fabricantes");
+        //response.sendRedirect("../../../tienda/usuarios");
         response.sendRedirect(request.getContextPath() + "/tienda/usuarios");
     }
 

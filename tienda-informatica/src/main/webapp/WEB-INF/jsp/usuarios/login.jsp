@@ -31,7 +31,7 @@
     </div>
 
     <hr>
-    <form action="${pageContext.request.contextPath}/tienda/usuarios/login" method="get">
+    <form action="${pageContext.request.contextPath}/tienda/usuarios/login" method="post">
         <div style="margin-top: 6px;" class="clearfix">
             <div style="float: left;width: 50%">
                 Usuario
@@ -50,6 +50,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center">
+            <input type="hidden" name="__method__" value="login">
             <button class="button bg-primary text-white mt-5" type="submit" name="inicioSesion">Iniciar
             </button>
         </div>

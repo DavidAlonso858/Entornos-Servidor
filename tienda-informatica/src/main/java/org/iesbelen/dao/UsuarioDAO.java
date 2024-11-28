@@ -16,4 +16,6 @@ public interface UsuarioDAO {
 
     public void delete(int id);
 
+    public Optional<Usuario> findLogin(String usuario);
+
 }
