@@ -126,7 +126,7 @@ public class UsuarioServlet extends HttpServlet {
 
         RequestDispatcher dispatcher;
         String __method__ = request.getParameter("__method__");
-
+        HttpSession session = request.getSession(true);
 
         if (__method__ == null) {
             // Crear uno nuevo
@@ -175,24 +175,28 @@ public class UsuarioServlet extends HttpServlet {
 
                 if (usuOpt.get().getPassword().equals(password2)) {
                     if (usuOpt.isPresent()) {
-                        HttpSession session = request.getSession(true);
                         session.setAttribute("usuario-logado", usuOpt);
                         System.out.println("Hola");
+                        dispatcher = request.getRequestDispatcher("/");
+                        dispatcher.forward(request, response);
                     } else {
                         // Usuario o contraseña incorrectos
                         request.setAttribute("error", "Usuario o contraseña incorrectos.");
+                        dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/usuarios/usuarios.jsp");
                     }
                 }
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException(e);
             }
 
-
+        } else if (__method__ != null && "logout".equalsIgnoreCase(__method__)) {
+            System.out.println("Holaaaaa");
+            session.setAttribute("usuario-logado", null); // Eliminar el usuario logado
         } else {
             System.out.println("Opción POST no soportada.");
         }
 
-        //response.sendRedirect("../../../tienda/usuarios");
+        //response.sendRvvedirect("../../..suarios");
         response.sendRedirect(request.getContextPath() + "/tienda/usuarios");
     }
 

@@ -1,18 +1,31 @@
 <%@ page import="java.util.Optional" %>
+<%@ page import="org.iesbelen.model.Usuario" %>
 <!-- Menu Navigation Bar -->
 <nav class="menu">
     <a href="${pageContext.request.contextPath}"><i class="bi bi-house-lock-fill"></i> HOME</a>
-    <a href="${pageContext.request.contextPath}/tienda/fabricantes/"><i class="bi bi-buildings-fill"></i> Fabricantes</a>
+    <a href="${pageContext.request.contextPath}/tienda/fabricantes/"><i class="bi bi-buildings-fill"></i>
+        Fabricantes</a>
     <a href="${pageContext.request.contextPath}/tienda/productos/"><i class="bi bi-backpack"></i> Productos</a>
     <a href="${pageContext.request.contextPath}/tienda/usuarios/"><i class="bi bi-people-fill"></i> Usuarios</a>
     <div class="menu-log">
         <% Optional<Usuario> us = (Optional<Usuario>) session.getAttribute("usuario-logado");
-            if (us != null && us.isPresent() ){%>
+            if (us != null && us.isPresent()) {%> <!--cada linea de codigo va entre %> =-->
 
-        <h1><%=us.get().getUsuario()%></h1>
+        <h1><%=us.get().getUsuario()%> <!--es una variable por eso el =-->
+            <form action="${pageContext.request.contextPath}/tienda/usuarios/logout/" method="post"
+                  style="display: inline;">
+                <input type="hidden" name="__method__" value="logout">
+                <button type="submit" class="btn btn-warning">
+                    <i class="bi bi-door-open"></i> LOGOUT
+                </button>
+            </form>
+        </h1>
+        <%
+        } else {
+        %><!--Abro la linea de codigo del else-->
+        <a href="${pageContext.request.contextPath}/tienda/usuarios/login/"><i class="bi bi-door-open"></i> LOGIN</a>
         <%
             }
-        %>
-        <a href="${pageContext.request.contextPath}/tienda/usuarios/login/"><i class="bi bi-door-open"></i> LOGIN</a>
+        %><!--Cierro la linea de codigo del else-->
     </div>
 </nav>
