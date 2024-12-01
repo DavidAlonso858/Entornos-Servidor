@@ -90,7 +90,7 @@ public class ProductosServlet extends HttpServlet {
                 // /productos/{id}
                 try {
                     request.setAttribute("producto", fabDAO.find(Integer.parseInt(pathParts[1])));
-                    dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/detalle-producto.jsp");
+                    dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/productos/detalle-producto.jsp");
 
                 } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
@@ -104,7 +104,7 @@ public class ProductosServlet extends HttpServlet {
                 // /productos/editar/{id}
                 try {
                     request.setAttribute("producto", fabDAO.find(Integer.parseInt(pathParts[2])));
-                    dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/editar-producto.jsp");
+                    dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/productos/editar-producto.jsp");
 
                 } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
@@ -170,8 +170,9 @@ public class ProductosServlet extends HttpServlet {
             throws ServletException, IOException {
 
         ProductoDAO fabDAO = new ProductoDAOImpl();
-        String codigo = request.getParameter("codigo");
+        String codigo = request.getParameter("idProducto");
         String nombre = request.getParameter("nombre");
+        Double precio = Double.parseDouble(request.getParameter("precio"));
         Producto fab = new Producto();
 
         try {
@@ -179,6 +180,7 @@ public class ProductosServlet extends HttpServlet {
             int id = Integer.parseInt(codigo);
             fab.setIdProducto(id);
             fab.setNombre(nombre);
+            fab.setPrecio(precio);
             fabDAO.update(fab);
 
         } catch (NumberFormatException nfe) {

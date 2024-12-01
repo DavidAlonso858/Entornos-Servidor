@@ -186,12 +186,12 @@ public class ProductoDAOImpl extends AbstractDAOImpl implements ProductoDAO{
         try {
         	conn = connectDB();
         	
-        	ps = conn.prepareStatement("UPDATE producto SET nombre = ?,precio = ?  WHERE idProducto = ?");
+        	ps = conn.prepareStatement("UPDATE productos SET nombre = ?,precio = ?  WHERE idProducto = ?");
         	int idx = 1;
         	ps.setString(idx++, producto.getNombre());
 			ps.setDouble(idx++, producto.getPrecio());
         	ps.setInt(idx, producto.getIdProducto());
-        	
+
         	int rows = ps.executeUpdate();
         	
         	if (rows == 0) 
