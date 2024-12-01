@@ -9,6 +9,7 @@
          pageEncoding="UTF-8" %>
 <%@page import="org.iesbelen.model.Usuario" %>
 <%@page import="java.util.List" %>
+<%@page import="java.util.Optional" %>
 
 <!DOCTYPE html>
 <html>
@@ -38,10 +39,17 @@
                 <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
 
                     <div style="position: absolute; left: 39%; top : 39%;">
-
+                        <% Usuario Usu = (Usuario) session.getAttribute("usuario-logado");
+                            if (Usu != null) {
+                                if ("administrador".equals(Usu.getRol())) {
+                        %>
                         <form action="${pageContext.request.contextPath}/tienda/usuarios/crear">
                             <input type="submit" value="Crear">
                         </form>
+                        <%
+                                }
+                            }
+                        %>
                     </div>
 
                 </div>
@@ -71,11 +79,15 @@
                 </div>
                 <div style="float: left;width: 30%"><%= usu.getUsuario()%>
                 </div>
-                <div style="float: left;width: 20%"><%= usu.getPassword().substring(0,4)%> <!--Para que no muestre todo el hash -->
+                <div style="float: left;width: 20%"><%= usu.getPassword().substring(0, 4)%>
+                    <!--Para que no muestre todo el hash -->
                 </div>
                 <div style="float: left;width: 10%"><%= usu.getRol()%>
                 </div>
                 <div style="float: none;width: auto;overflow: hidden;">
+                    <% if (Usu != null && "administrador".equals(Usu.getRol())) {
+
+                    %>
                     <form action="${pageContext.request.contextPath}/tienda/usuarios/<%= usu.getIdUsuario()%>"
                           style="display: inline;">
                         <input type="submit" value="Ver Detalle"/>
@@ -90,6 +102,7 @@
                         <input type="hidden" name="idUsuario" value="<%= usu.getIdUsuario()%>"/>
                         <input type="submit" value="Eliminar"/>
                     </form>
+                    <%}%>
                 </div>
             </div>
             <%

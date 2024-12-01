@@ -175,7 +175,7 @@ public class UsuarioServlet extends HttpServlet {
 
                 if (usuOpt.get().getPassword().equals(password2)) {
                     if (usuOpt.isPresent()) {
-                        session.setAttribute("usuario-logado", usuOpt);
+                        session.setAttribute("usuario-logado", usuOpt.get());
                         System.out.println("Hola");
                         dispatcher = request.getRequestDispatcher("/");
                         dispatcher.forward(request, response);
