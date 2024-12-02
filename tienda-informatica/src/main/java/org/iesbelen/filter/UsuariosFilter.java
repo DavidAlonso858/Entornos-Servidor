@@ -74,8 +74,7 @@ public class UsuariosFilter extends HttpFilter implements Filter {
             chain.doFilter(request, response);
             return;
 
-        } else if (url.endsWith("/usuarios/crear")
-                || url.contains("/usuarios/editar")
+        } else if (url.contains("/usuarios/editar")
                 || url.contains("/usuarios/borrar")) {
 
             // Usuario no administrador trata de acceder a páginas de crear y editar, y el filtro lo redirige a login

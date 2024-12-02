@@ -7,17 +7,4 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-    <filter>
-        <filter-name>UsuariosFilter</filter-name> <!--Nombre clase del Filtro  -->
-        <filter-class>org.iesbelen.filter.UsuariosFilter</filter-class> <!--Ubicacion del Filtro  -->
-        <init-param>
-            <param-name>aceso-concedido-a-rol</param-name> <!--nombre del webInitParam dentro del WebFilter  -->
-            <param-value>adminitrador</param-value> <!--value del webInitParam dentro del WebFilter  -->
-        </init-param>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>UsuariosFilter</filter-name> <!--Nombre clase del Filtro  -->
-        <url-pattern>/tienda/usuarios/*</url-pattern> <!--Rutas en las que se aplica el filtro (usuarios/editar....) -->
-    </filter-mapping>
 </web-app>
