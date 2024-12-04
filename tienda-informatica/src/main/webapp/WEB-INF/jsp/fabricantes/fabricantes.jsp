@@ -122,6 +122,8 @@
             </form>
         </div>
     </main>
+    
     <%@ include file ="/WEB-INF/jsp/fragmentos/footer.jspf"%>
 </body>
 </html>
+

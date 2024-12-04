@@ -95,6 +95,7 @@ public class FabricanteDAOImpl extends AbstractDAOImpl implements FabricanteDAO 
     /**
      * Devuelve lista con todos los fabricantes.
      */
+
     @Override
     public List<Fabricante> getAll() {
 
@@ -237,3 +238,5 @@ public class FabricanteDAOImpl extends AbstractDAOImpl implements FabricanteDAO 
     }
 
 }
+
+
