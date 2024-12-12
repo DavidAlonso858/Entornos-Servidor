@@ -57,7 +57,7 @@ public class ProductosServlet extends HttpServlet {
             }
             request.setAttribute("listaProductos", listaProducto);
             dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/productos/productos.jsp");
-dav
+
         } else {
             // GET
             // 		/productos/{id}

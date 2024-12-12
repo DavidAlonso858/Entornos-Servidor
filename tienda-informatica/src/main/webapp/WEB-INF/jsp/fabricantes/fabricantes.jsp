@@ -18,6 +18,7 @@
     </style>
     <%@include file="/WEB-INF/jsp/fragmentos/estilo.jspf"%>
     <%@include file="/WEB-INF/jsp/fragmentos/boostrap2.jspf"%>
+
 </head>
 <body>
     <%@ include file="/WEB-INF/jsp/fragmentos/header.jspf" %>
@@ -122,7 +123,7 @@
             </form>
         </div>
     </main>
-    
+
     <%@ include file ="/WEB-INF/jsp/fragmentos/footer.jspf"%>
 </body>
 </html>
