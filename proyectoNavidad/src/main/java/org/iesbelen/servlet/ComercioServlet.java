@@ -6,7 +6,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "comercio", value = "/comercio/categoria/*")
-public class HelloServlet extends HttpServlet {
+public class ComercioServlet extends HttpServlet {
     private String message;
 
     public void init() {
