@@ -1,11 +1,30 @@
 package org.iesbelen.model;
 
+import java.util.Objects;
+
 public class Producto {
 
     private int idProducto;
     private String nombre;
     private double precio;
+    private String descripcion;
     private int idCategoria;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
 
     public int getIdProducto() {
         return idProducto;
@@ -31,12 +50,16 @@ public class Producto {
         this.precio = precio;
     }
 
-    public int getCodigo_categoria() {
-        return idCategoria;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Producto producto = (Producto) o;
+        return idProducto == producto.idProducto && Double.compare(precio, producto.precio) == 0 && idCategoria == producto.idCategoria && Objects.equals(nombre, producto.nombre) && Objects.equals(descripcion, producto.descripcion);
     }
 
-    public void setCodigo_categoria(int idCategoria) {
-        this.idCategoria = idCategoria;
+    @Override
+    public int hashCode() {
+        return Objects.hash(idProducto, nombre, precio, descripcion, idCategoria);
     }
-
 }

@@ -4,7 +4,16 @@ public class Usuario {
     private int idUsuario;
     private String usuario;
     private String password;
+    private String direccion;
     private String rol;
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;

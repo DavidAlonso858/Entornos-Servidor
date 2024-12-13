@@ -37,4 +37,6 @@ public class DetallesPedido {
     public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
     }
+
+
 }
