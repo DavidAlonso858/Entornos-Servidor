@@ -1,9 +1,11 @@
 package org.iesbelen.dao;
 
+import org.iesbelen.model.Usuario;
+
 import java.util.List;
 import java.util.Optional;
 
-public interface Usuario {
+public interface UsuarioDAO {
     public void create(Usuario Usuario);
 
     public List<Usuario> getAll();
