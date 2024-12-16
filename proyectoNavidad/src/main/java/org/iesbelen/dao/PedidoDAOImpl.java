@@ -21,7 +21,7 @@ public class PedidoDAOImpl extends AbstractDAOImpl implements PedidoDAO {
             ps = conn.prepareStatement("INSERT INTO pedido (fecha,idUsuario) VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
 
             int idx = 1;
-            //  ps.setDate(idx++, new java.sql.Date(pedido.getFecha().getTime()));
+            //   ps.setDate(idx++, new java.sql.Date(pedido.getFecha().getTime()));
             ps.setInt(idx, pedido.getIdUsuario());
 
             int row = ps.executeUpdate();
