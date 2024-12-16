@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Pedido {
     private int idPedido;
     private int idUsuario;
-    private Date fecha;
+    private LocalDate fecha;
 
     public int getIdPedido() {
         return idPedido;
@@ -25,11 +25,11 @@ public class Pedido {
         this.idUsuario = idUsuario;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

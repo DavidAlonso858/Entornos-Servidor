@@ -3,6 +3,7 @@ package org.iesbelen.dao;
 import org.iesbelen.model.Pedido;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,7 @@ public class PedidoDAOImpl extends AbstractDAOImpl implements PedidoDAO {
             ps = conn.prepareStatement("INSERT INTO pedido (fecha,idUsuario) VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
 
             int idx = 1;
-            ps.setDate(idx++, (Date) (pedido.getFecha()));
+            ps.setDate(idx++, Date.valueOf(pedido.getFecha()));
             ps.setInt(idx, pedido.getIdUsuario());
 
             int row = ps.executeUpdate();
@@ -64,7 +65,7 @@ public class PedidoDAOImpl extends AbstractDAOImpl implements PedidoDAO {
             while (rs.next()) {
                 Pedido pedido = new Pedido();
                 pedido.setIdPedido(rs.getInt(idx++));
-                pedido.setFecha(rs.getDate(idx++));
+                pedido.setFecha(rs.getDate(idx++).toLocalDate());
                 pedido.setIdUsuario(rs.getInt(idx));
                 listPedidos.add(pedido);
             }
@@ -99,7 +100,7 @@ public class PedidoDAOImpl extends AbstractDAOImpl implements PedidoDAO {
             if (rs.next()) {
                 Pedido pedido = new Pedido();
                 pedido.setIdPedido(rs.getInt(idx++));
-                pedido.setFecha(rs.getDate(idx++));
+                pedido.setFecha(rs.getDate(idx++).toLocalDate());
                 pedido.setIdUsuario(rs.getInt(idx));
 
                 return Optional.of(pedido);
@@ -130,7 +131,7 @@ public class PedidoDAOImpl extends AbstractDAOImpl implements PedidoDAO {
 
             int idx = 1;
 
-            ps.setDate(idx++, (Date) pedido.getFecha());
+            ps.setDate(idx++, Date.valueOf(pedido.getFecha()));
             ps.setInt(idx, pedido.getIdPedido());
 
             int row = ps.executeUpdate();
