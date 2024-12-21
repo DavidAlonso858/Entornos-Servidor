@@ -1,8 +1,13 @@
 
 
 <!-- Header Section -->
-<header>
-    <div class="head1">Tienda Informatica</div>
-    <div class="head2">Sitio de mantenimiento de tienda de informatica</div>
-</header>
+<header class="header bg-dark pt-2">
+    <nav class="menu">
+        <a class="nav1" href="index.html"><img src="favicon/pelicula-de-terror.png" alt="icono" width="45px" height="37px"> HOME</a>
+        <a class="nav1" href="src/director/listaDirectores.html"><i class="bi bi-camera-reels-fill"></i> Directores</a>
+        <a class="nav1" href="<"><i class="bi bi-film"></i>
+            Peliculas</a>
 
+    </nav>
+
+</header>

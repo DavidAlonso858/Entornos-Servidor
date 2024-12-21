@@ -1,7 +1,11 @@
 
 <!-- Footer Section -->
-<footer>David Alonso Garcia
-    @Copiryght
-    Terminos de Uso
-    Politica de Privacidad
+<footer class="bg-dark text-white text-center py-3 fixed-bottom">
+    <span class="fs-3 fw-bold">David Alonso Garcia</span>
+    <br>
+
+    <span class="fs-6 fw-bold text-info">@Copiryght</span>
+    <span class="fs-6 fw-bold">Terminos de Uso</span>
+    <span class="fs-6 fw-bold">Politica de Privacidad</span>
 </footer>
+
