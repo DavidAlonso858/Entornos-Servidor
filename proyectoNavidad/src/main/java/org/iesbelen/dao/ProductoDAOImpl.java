@@ -64,10 +64,10 @@ public class ProductoDAOImpl extends AbstractDAOImpl implements ProductoDAO {
 
             rs = s.executeQuery("SELECT * FROM producto");
 
-            int idx = 1;
 
             while (rs.next()) {
                 Producto p = new Producto();
+            int idx = 1;
                 p.setIdProducto(rs.getInt(idx++));
                 p.setNombre(rs.getString(idx++));
                 p.setPrecio(rs.getDouble(idx++));

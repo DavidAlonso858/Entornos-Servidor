@@ -42,7 +42,7 @@ public class ProductoServlet extends HttpServlet {
             // /productos
 
             List<Producto> proList = proDAO.getAll();
-
+            System.out.println("Productos: " + proList);
             req.setAttribute("listaProductos", proList);
 
             dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/productos/productos.jsp");
