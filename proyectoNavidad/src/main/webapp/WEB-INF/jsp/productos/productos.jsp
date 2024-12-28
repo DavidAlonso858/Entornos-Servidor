@@ -23,41 +23,49 @@
 </div>
 <main>
     <section>
-    <div class="container">
+        <div class="container">
+            <% if(request.getAttribute("listaProductos") != null) {
+                List<Producto> pr = (List<Producto>) request.getAttribute("listaProductos");
+                for (Producto pro : pr) {
+            %>
+            <div class="border border-5 border-shadow bg-black text-white mx-auto my-4 p-4 rounded w-75">
+                <h2 class="fw-bold text-center"><%= pro.getNombre() %></h2>
 
-        <%
-            if(request.getAttribute("listaProductos") != null) {
-            List<Producto> pr = (List<Producto>) request.getAttribute("listaProductos");
-            for (Producto pro : pr) {
-
-        %>
-<div class="border border-shadow mb-4">
-
-    <h4><%=pro.getNombre()%>
-    <img src="${pageContext.request.contextPath}/assets/<%= pro.getIdProducto()%>.jpg" style="width: 200px; height:200px;">
-    </h4>
-
-    <div class="col-4">
-                    <form action="${pageContext.request.contextPath}/comercio/productos/editar/<%= pro.getIdProducto()%>"
-                          style="display: inline;">
-                        <input  class="text-white bg-info" type="submit" value="Editar"/>
-                    </form>
+                <div class="d-flex justify-content-center my-3">
+                    <img src="${pageContext.request.contextPath}/assets/<%= pro.getIdProducto() %>.jpg"
+                         class="img-fluid border border-info border-5"
+                         style="width: 350px; height: 500px; object-fit: cover;">
                 </div>
 
-                <div class="col-4">
-                    <form action="${pageContext.request.contextPath}/comercio/productos/">
-                        <input class="text-white bg-info" type="submit" value="Borrar"/>
-                    </form>
+                <p class="m-2 text-center"><%=pro.getDescripcion()%></p>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-4 mb-2 text-center">
+                        <form action="" style="display: inline;">
+                            <input class="btn btn-warning text-black fw-bold w-100" type="submit" value="Añadir Carrito">
+                        </form>
+                        <h4 class="m-1 fst-italic"><%=pro.getPrecio()%>  €</h4>
+                    </div>
                 </div>
 
-                <div class="col-4">
-                    <form action="${pageContext.request.contextPath}/comercio/productos/">
-                        <input class="text-white bg-info" type="submit" value="Ver Detalle"/>
-                    </form>
+                <div class="row justify-content-center">
+                    <div class="col-md-4 mb-2 text-center">
+                        <form action="${pageContext.request.contextPath}/comercio/productos/editar/<%= pro.getIdProducto() %>" style="display: inline;">
+                            <input class="btn btn-info text-white fw-bold w-100" type="submit" value="Editar">
+                        </form>
+                    </div>
+                    <div class="col-md-4 mb-2 text-center">
+                        <form action="${pageContext.request.contextPath}/comercio/productos/">
+                            <input class="btn btn-danger text-white fw-bold w-100" type="submit" value="Borrar">
+                        </form>
+                    </div>
+                    <div class="col-md-4 mb-2 text-center">
+                        <form action="${pageContext.request.contextPath}/comercio/productos/">
+                            <input class="btn btn-success text-white fw-bold w-100" type="submit" value="Ver Detalle">
+                        </form>
+                    </div>
                 </div>
             </div>
-
-
 
         <%
             }
