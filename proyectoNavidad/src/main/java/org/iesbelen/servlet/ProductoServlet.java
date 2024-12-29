@@ -6,8 +6,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.iesbelen.dao.CategoriaDAO;
+import org.iesbelen.dao.CategoriaDAOImpl;
 import org.iesbelen.dao.ProductoDAO;
 import org.iesbelen.dao.ProductoDAOImpl;
+import org.iesbelen.model.Categoria;
 import org.iesbelen.model.Producto;
 
 import java.io.IOException;
@@ -59,9 +62,15 @@ public class ProductoServlet extends HttpServlet {
             String[] pathParts = path.split("/");
 
             if (pathParts.length == 2 && "crear".equals(pathParts[1])) {
-                // GET
+               //para pasarle al select a la hora de crearla
+                CategoriaDAO cat = new CategoriaDAOImpl();
+                       // GET
                 // /productos/crear
-                dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/productos/producto-crear.jsp");
+                List<Categoria> listaCategoria = cat.getAll();
+
+
+                req.setAttribute("listaCategoria", listaCategoria);
+                dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/productos/crear-producto.jsp");
             } else if (pathParts.length == 2) {
                 ProductoDAO proDAO = new ProductoDAOImpl();
 
@@ -70,7 +79,7 @@ public class ProductoServlet extends HttpServlet {
                     Optional<Producto> producto = proDAO.find(id);
 
                     req.setAttribute("producto", producto);
-                    dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/productos/producto-detalle.jsp");
+                    dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/productos/detalle-producto.jsp");
                 } catch (NumberFormatException n) {
                     n.printStackTrace();
                     dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/productos/productos.jsp");
@@ -105,7 +114,7 @@ public class ProductoServlet extends HttpServlet {
 
         String __method__ = req.getParameter("__method__");
 
-        if (__method__ != null) {
+        if (__method__  == null) {
             ProductoDAO proDAO = new ProductoDAOImpl();
 
             String nombre = req.getParameter("nombre");

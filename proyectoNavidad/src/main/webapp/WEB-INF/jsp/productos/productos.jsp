@@ -13,6 +13,11 @@
 <head>
     <meta charset="UTF-8">
     <title>FilmBox-Productos</title>
+    <style>
+        body {
+            padding-bottom: 60px; /* para que el footer no corte al ultimo cuando lo creo */
+        }
+    </style>
   <%@include file="../../../boostrap.jspf"%>
 </head>
 <body  class="bg-danger text-white">
@@ -22,6 +27,11 @@
     <h2 class="head1 display-4 fw-bold text-center text-white">Productos</h2>
 </div>
 <main>
+    <div class="row justify-content-end m-2">
+            <form action="${pageContext.request.contextPath}/comercio/productos/crear">
+                <input class="bg-primary text-white" type="submit" value="Crear Producto">
+            </form>
+        </div>
     <section>
         <div class="container">
             <% if(request.getAttribute("listaProductos") != null) {
@@ -50,17 +60,19 @@
 
                 <div class="row justify-content-center">
                     <div class="col-md-4 mb-2 text-center">
-                        <form action="${pageContext.request.contextPath}/comercio/productos/editar/<%= pro.getIdProducto() %>" style="display: inline;">
+                        <form action="${pageContext.request.contextPath}/comercio/productos/editar/<%= pro.getIdProducto() %>" >
                             <input class="btn btn-info text-white fw-bold w-100" type="submit" value="Editar">
                         </form>
                     </div>
                     <div class="col-md-4 mb-2 text-center">
-                        <form action="${pageContext.request.contextPath}/comercio/productos/">
+                        <form action="${pageContext.request.contextPath}/comercio/productos/borrar">
+                            <input type="hidden" name="__method__" value="delete"/>
+                            <input type="hidden" name="ID" value="<%= pro.getIdProducto()%>"/>
                             <input class="btn btn-danger text-white fw-bold w-100" type="submit" value="Borrar">
                         </form>
                     </div>
                     <div class="col-md-4 mb-2 text-center">
-                        <form action="${pageContext.request.contextPath}/comercio/productos/">
+                        <form action="${pageContext.request.contextPath}/comercio/productos/<%= pro.getIdProducto() %>">
                             <input class="btn btn-success text-white fw-bold w-100" type="submit" value="Ver Detalle">
                         </form>
                     </div>
