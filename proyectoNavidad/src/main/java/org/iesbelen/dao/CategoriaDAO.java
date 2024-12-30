@@ -17,4 +17,6 @@ public interface CategoriaDAO {
 
     public void delete(int id);
 
+    public List<Producto> findByCategoria(int idCategoria);
+
 }

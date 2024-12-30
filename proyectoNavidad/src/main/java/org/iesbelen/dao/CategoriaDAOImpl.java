@@ -1,6 +1,7 @@
 package org.iesbelen.dao;
 
 import org.iesbelen.model.Categoria;
+import org.iesbelen.model.Producto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -78,6 +79,42 @@ public class CategoriaDAOImpl extends AbstractDAOImpl implements CategoriaDAO {
         }
         return listCategorias;
 
+    }
+    @Override
+    public List<Producto> findByCategoria(int idCategoria) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Producto> productos = new ArrayList<>();
+
+        try {
+            conn = connectDB();
+
+            String query = "SELECT * FROM producto WHERE idCategoria = ?";
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, idCategoria);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Producto producto = new Producto();
+                producto.setIdProducto(rs.getInt("ID"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setPrecio(rs.getDouble("precio"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setIdCategoria(rs.getInt("idCategoria"));
+
+                productos.add(producto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            closeDb(conn, ps, rs);
+        }
+
+        return productos;
     }
 
     @Override

@@ -3,6 +3,7 @@ package org.iesbelen.servlet;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,7 @@ import jakarta.servlet.annotation.*;
 import org.iesbelen.dao.CategoriaDAO;
 import org.iesbelen.dao.CategoriaDAOImpl;
 import org.iesbelen.model.Categoria;
+import org.iesbelen.model.Producto;
 
 @WebServlet(name = "categoria", value = "/comercio/categorias/*")
 public class CategoriaServlet extends HttpServlet {
@@ -33,16 +35,25 @@ public class CategoriaServlet extends HttpServlet {
         String pathInfo = request.getPathInfo(); //
 
         if (pathInfo == null || "/".equals(pathInfo)) {
-
-            //GET
-            // /categoria/
-            // /categoria
-
-            List<Categoria> listCategoria = categoriaDAO.getAll();
+            List<Producto> listaProducto;
 
 
-            request.setAttribute("listCategoria", listCategoria);
+            String idCategoria = request.getParameter("idCategoria");
+
+            if (idCategoria != null && !idCategoria.isEmpty()) {
+                int categoriaId = Integer.parseInt(idCategoria);
+                listaProducto = categoriaDAO.findByCategoria(categoriaId);
+            } else {
+                listaProducto = null;
+            }
+
+            request.setAttribute("listaProductos", listaProducto);
+
+            List<Categoria> listaCategorias = categoriaDAO.getAll();
+            request.setAttribute("listaCategorias", listaCategorias);
+
             dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/categorias/categorias.jsp");
+            dispatcher.forward(request, response);
 
         } else {
             // GET

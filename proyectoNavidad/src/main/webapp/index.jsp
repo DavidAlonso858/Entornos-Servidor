@@ -12,7 +12,7 @@
         }
     </style>
 </head>
-<body class="bg-cover" style="background-image: url('./assets/fondoTerror.jpg');">
+<body class="bg-cover" style="background-image: url('${pageContext.request.contextPath}/assets/fondoTerror.jpg');">
 <%@include file="/WEB-INF/jsp/fragmentos/nav.jspf" %>
 
 <div class="bg-dark pb-2">
@@ -25,7 +25,7 @@
 <div class="d-grid justify-content-center gap-2 p-5" style="margin: 100px 100px 360px 100px" >
 
     <a class="btn btn-warning w-auto btn-lg mb-2 fw-bold" href="<%=application.getContextPath()%>/comercio/categorias"
-                                                 >Categoria</a>
+                                                 >Categorias</a>
 
    <a class="btn btn-danger btn-lg fw-bold"  href="<%=application.getContextPath()%>/comercio/productos"
                                                  >Productos</a>

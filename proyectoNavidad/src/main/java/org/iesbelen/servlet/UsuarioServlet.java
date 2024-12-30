@@ -46,7 +46,7 @@ public class UsuarioServlet extends HttpServlet {
             //	/usuarios
 
             List<Usuario> listaUsuarios = usurDAO.getAll();
-
+            System.out.println(listaUsuarios.size());
 
             request.setAttribute("listaUsuarios", listaUsuarios);
 
@@ -139,11 +139,11 @@ public class UsuarioServlet extends HttpServlet {
                 // Hashear la contraseña antes de almacenarla
                 String hashedPassword = Util.hashPassword(password); // importada la clase
 
-                nuevoUsu.setPassword(hashedPassword);  // Establecer la contraseña hasheada
-
                 nuevoUsu.setUsuario(usuario);
-                nuevoUsu.setRol(rol);
+                nuevoUsu.setPassword(hashedPassword);  // Establecer la contraseña hasheada
                 nuevoUsu.setDireccion(direccion);
+                nuevoUsu.setRol(rol);
+
                 usuDAO.create(nuevoUsu);  // Insertar con la contraseña hasheada
 
             } catch (NoSuchAlgorithmException e) {
@@ -166,13 +166,12 @@ public class UsuarioServlet extends HttpServlet {
             String usuario = request.getParameter("usuario");
             String password = request.getParameter("password");
 
-            try {
-                String password2 = Util.hashPassword(password);
+
                 Optional<Usuario> usuOpt = usuDAO.findLogin(usuario);
                 System.out.println("Password hasheado (de entrada): " + password);
                 System.out.println("Password almacenado en BD: " + usuOpt.get().getPassword());
 
-                if (usuOpt.get().getPassword().equals(password2)) {
+                if (usuOpt.get().getPassword().equals(password)) {
                     if (usuOpt.isPresent()) {
                         session.setAttribute("usuario-logado", usuOpt.get());
                         System.out.println("Hola");
@@ -184,9 +183,7 @@ public class UsuarioServlet extends HttpServlet {
                         dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/usuarios/usuarios.jsp");
                     }
                 }
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
+
 
         } else if (__method__ != null && "logout".equalsIgnoreCase(__method__)) {
             System.out.println("Holaaaaa");
@@ -216,7 +213,7 @@ public class UsuarioServlet extends HttpServlet {
             usu.setIdUsuario(id);
             usu.setUsuario(usuario);
             usu.setPassword(Util.hashPassword(password));
-            usu.setRol(direccion);
+            usu.setDireccion(direccion);
             usu.setRol(rol);
             usuDao.update(usu);
 
