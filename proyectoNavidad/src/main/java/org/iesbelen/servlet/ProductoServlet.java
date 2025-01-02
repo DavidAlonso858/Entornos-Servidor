@@ -6,12 +6,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.iesbelen.dao.CategoriaDAO;
-import org.iesbelen.dao.CategoriaDAOImpl;
-import org.iesbelen.dao.ProductoDAO;
-import org.iesbelen.dao.ProductoDAOImpl;
+import org.iesbelen.dao.*;
 import org.iesbelen.model.Categoria;
 import org.iesbelen.model.Producto;
+import org.iesbelen.model.Usuario;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,8 +42,10 @@ public class ProductoServlet extends HttpServlet {
             // /productos/
             // /productos
 
+
             List<Producto> proList = proDAO.getAll();
             System.out.println("Productos: " + proList);
+
             req.setAttribute("listaProductos", proList);
 
             dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/productos/productos.jsp");

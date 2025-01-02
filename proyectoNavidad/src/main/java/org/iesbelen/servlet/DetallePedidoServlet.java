@@ -38,6 +38,8 @@ public class DetallePedidoServlet extends HttpServlet {
         RequestDispatcher dispatcher;
 
         String pathInfo = request.getPathInfo(); //
+        HttpSession session = request.getSession(false);
+        Object usuarioLogueado = (session != null) ? session.getAttribute("usuario-logado") : null;
 
         if (pathInfo == null || "/".equals(pathInfo)) {
             DetallePedidoDAO dpDAO = new DetallePedidoDAOImpl();

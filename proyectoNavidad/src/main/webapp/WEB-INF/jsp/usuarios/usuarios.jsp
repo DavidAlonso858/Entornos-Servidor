@@ -29,7 +29,6 @@
                 <% } %>
             </div>
 
-            <!-- Tabla de Usuarios -->
             <div class="table-responsive">
                 <table class="table table-striped table-bordered ">
                     <thead>
@@ -39,8 +38,7 @@
                         <th>Contraseña</th>
                         <th>Direccion</th>
                         <th>Rol</th>
-                        <% if ("administrador".equals(rol)) { %>
-                        <% } %>
+
                     </tr>
                     </thead>
                     <tbody>

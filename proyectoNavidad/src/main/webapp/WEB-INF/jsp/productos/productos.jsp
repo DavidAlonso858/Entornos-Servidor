@@ -27,11 +27,15 @@
     <h2 class="head1 display-4 fw-bold text-center text-white">Productos</h2>
 </div>
 <main>
+    <% Usuario u = (Usuario) session.getAttribute("usuario-logado");
+        String rol = (u != null) ? u.getRol() : " ";
+        if ("administrador".equals(rol)) { %>
     <div class="row justify-content-end m-2">
             <form action="${pageContext.request.contextPath}/comercio/productos/crear">
                 <input class="bg-primary text-white" type="submit" value="Crear Producto">
             </form>
         </div>
+    <% } %>
     <section>
         <div class="container">
             <% if(request.getAttribute("listaProductos") != null) {
@@ -48,16 +52,37 @@
                 </div>
 
                 <p class="m-2 text-center"><%=pro.getDescripcion()%></p>
-
+                <%
+                    // Verifica si hay un usuario en la sesión
+                    Usuario uss = (Usuario) session.getAttribute("usuario-logado");
+                    if (uss != null) {
+                %>
                 <div class="row justify-content-center">
                     <div class="col-md-4 mb-2 text-center">
-                        <form action="" style="display: inline;">
+                        <form action="${pageContext.request.contextPath}/comercio/detallepedidos/" method="get" style="display: inline;">
+                            <input type="hidden" name="codigo" value="<%= pro.getIdProducto() %>">
                             <input class="btn btn-warning text-black fw-bold w-100" type="submit" value="Añadir Carrito">
                         </form>
                         <h4 class="m-1 fst-italic"><%=pro.getPrecio()%>  €</h4>
                     </div>
                 </div>
+                <%
+                } else {
+                %>
+                <div class="row justify-content-center">
+                    <div class="col-md-4 mb-2 text-center">
+                        <form action="${pageContext.request.contextPath}/comercio/usuarios/login/" method="get" style="display: inline;">
+                            <input type="hidden" name="codigo" value="<%= pro.getIdProducto() %>">
+                            <input class="btn btn-warning text-black fw-bold w-100" type="submit" value="Añadir Carrito">
+                        </form>
+                        <h4 class="m-1 fst-italic"><%=pro.getPrecio()%>  €</h4>
+                    </div>
+                </div>
+                <%
+                    }
+                %>
 
+                <%    if ("administrador".equals(rol)) { %>
                 <div class="row justify-content-center">
                     <div class="col-md-4 mb-2 text-center">
                         <form action="${pageContext.request.contextPath}/comercio/productos/editar/<%= pro.getIdProducto() %>" >
@@ -77,8 +102,8 @@
                         </form>
                     </div>
                 </div>
+            <% } %>
             </div>
-
         <%
             }
         } else {
