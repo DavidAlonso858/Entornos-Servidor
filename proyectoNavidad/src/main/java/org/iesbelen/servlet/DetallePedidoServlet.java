@@ -11,10 +11,9 @@ import jakarta.servlet.http.HttpSession;
 import org.iesbelen.dao.*;
 import org.iesbelen.model.DetallesPedido;
 import org.iesbelen.model.Pedido;
-import org.iesbelen.utilities.Util;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,22 +37,53 @@ public class DetallePedidoServlet extends HttpServlet {
         RequestDispatcher dispatcher;
 
         String pathInfo = request.getPathInfo(); //
-        HttpSession session = request.getSession(false);
-        Object usuarioLogueado = (session != null) ? session.getAttribute("usuario-logado") : null;
 
         if (pathInfo == null || "/".equals(pathInfo)) {
             DetallePedidoDAO dpDAO = new DetallePedidoDAOImpl();
+            PedidoDAO pedidoDAO = new PedidoDAOImpl();
             //GET
             //	/detallepedidos/
             //	/detallepedidos
+            String idUsuarioStr = request.getParameter("idUsuario");
+            if (idUsuarioStr != null && !idUsuarioStr.isEmpty()) {
+            Integer idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+            System.out.println(idUsuario);
+            Pedido nuevoPed;
+            Optional<Pedido> pedidoOpt = pedidoDAO.find(idUsuario);
+if (!pedidoOpt.isPresent()) { // se crea un pedido si el usuario no lo ha hecho
+    LocalDate fecha = LocalDate.parse(request.getParameter("fecha"));
+
+    nuevoPed = new Pedido();
+    nuevoPed.setFecha(fecha);
+    nuevoPed.setIdUsuario(idUsuario);
+
+    pedidoDAO.create(nuevoPed);
+}else {
+    nuevoPed = pedidoOpt.get();
+    System.out.println(nuevoPed.getIdPedido());
+
+}
+            System.out.println(pedidoDAO.find(idUsuario).get().getIdPedido());
+            Double cantidad =Double.parseDouble( request.getParameter("precio"));
+            Integer idProducto = Integer.parseInt(request.getParameter("codigo"));
+            Integer idPedido = nuevoPed.getIdPedido();
+
+            DetallesPedido dt = new DetallesPedido();
+
+            dt.setCantidad(cantidad);
+            dt.setIdPedido(idPedido);
+            dt.setIdProducto(idProducto);
+
+            dpDAO.create(dt);
+            }
+
 
             List<DetallesPedido> listDetallePedido = dpDAO.getAll();
 
 
-            request.setAttribute("listaDetallePedidos", listDetallePedido);
+    request.setAttribute("listaDetallePedidos", listDetallePedido);
 
-            dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/detallepedidos/detallepedidos.jsp");
-
+    dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/detallepedidos/detallepedidos.jsp");
 
         } else {
             // GET

@@ -82,7 +82,7 @@ public class PedidoDAOImpl extends AbstractDAOImpl implements PedidoDAO {
     }
 
     @Override
-    public Optional<Pedido> find(int id) {
+    public Optional<Pedido> find(int idUsuario) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -90,18 +90,16 @@ public class PedidoDAOImpl extends AbstractDAOImpl implements PedidoDAO {
         try {
             conn = connectDB();
 
-            ps = conn.prepareStatement("SELECT * FROM pedido WHERE ID=?");
+            ps = conn.prepareStatement("SELECT * FROM pedido WHERE idUsuario=?");
 
-            int idx = 1;
-
-            ps.setInt(idx, id);
+ps.setInt(1, idUsuario);
             rs = ps.executeQuery();
 
             if (rs.next()) {
                 Pedido pedido = new Pedido();
-                pedido.setIdPedido(rs.getInt(idx++));
-                pedido.setFecha(rs.getDate(idx++).toLocalDate());
-                pedido.setIdUsuario(rs.getInt(idx));
+                pedido.setIdPedido(rs.getInt(1));
+                pedido.setFecha(rs.getDate(2).toLocalDate());
+                pedido.setIdUsuario(rs.getInt(3));
 
                 return Optional.of(pedido);
             }

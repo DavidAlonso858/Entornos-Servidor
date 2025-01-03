@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ page import="org.iesbelen.model.Producto" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %><%--
   Created by IntelliJ IDEA.
   User: david
   Date: 26/12/2024
@@ -60,7 +63,16 @@
                 <div class="row justify-content-center">
                     <div class="col-md-4 mb-2 text-center">
                         <form action="${pageContext.request.contextPath}/comercio/detallepedidos/" method="get" style="display: inline;">
+                            <%
+                                // pa almacenar la fecha
+                                LocalDateTime fechaActual = LocalDateTime.now();
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                                String fechaActualFormateada = fechaActual.format(formatter);
+                            %>
                             <input type="hidden" name="codigo" value="<%= pro.getIdProducto() %>">
+                            <input type="hidden" name="idUsuario" value="<%= uss.getIdUsuario() %>">
+                            <input type="hidden" name="fecha" value="<%= fechaActualFormateada %>">
+                            <input type="hidden" name="precio" value="<%= pro.getPrecio() %>">
                             <input class="btn btn-warning text-black fw-bold w-100" type="submit" value="Añadir Carrito">
                         </form>
                         <h4 class="m-1 fst-italic"><%=pro.getPrecio()%>  €</h4>

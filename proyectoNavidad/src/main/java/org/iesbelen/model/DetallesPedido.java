@@ -3,7 +3,7 @@ package org.iesbelen.model;
 public class DetallesPedido {
     private int id;
     private int idProducto;
-    private int cantidad;
+    private double cantidad;
     private int idPedido;
 
     public int getId() {
@@ -22,11 +22,11 @@ public class DetallesPedido {
         this.idProducto = idProducto;
     }
 
-    public int getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 

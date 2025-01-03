@@ -23,7 +23,7 @@ public class DetallePedidoDAOImpl extends AbstractDAOImpl implements DetallePedi
 
             int idx = 1;
 
-            ps.setInt(idx++, detallesPedido.getCantidad());
+            ps.setDouble(idx++, detallesPedido.getCantidad());
             ps.setInt(idx++, detallesPedido.getIdProducto());
             ps.setInt(idx, detallesPedido.getIdPedido());
 
@@ -68,7 +68,7 @@ public class DetallePedidoDAOImpl extends AbstractDAOImpl implements DetallePedi
             while (rs.next()) {
                 DetallesPedido detallesPedido = new DetallesPedido();
                 detallesPedido.setId(idx++);
-                detallesPedido.setCantidad(rs.getInt(idx++));
+                detallesPedido.setCantidad(rs.getDouble(idx++));
                 detallesPedido.setIdProducto(rs.getInt(idx++));
                 detallesPedido.setIdPedido(rs.getInt(idx));
                 listDP.add(detallesPedido);
@@ -103,7 +103,7 @@ public class DetallePedidoDAOImpl extends AbstractDAOImpl implements DetallePedi
             while (rs.next()) {
                 DetallesPedido detallesPedido = new DetallesPedido();
                 detallesPedido.setId(idx++);
-                detallesPedido.setCantidad(rs.getInt(idx++));
+                detallesPedido.setCantidad(rs.getDouble(idx++));
                 detallesPedido.setIdProducto(rs.getInt(idx++));
                 detallesPedido.setIdPedido(rs.getInt(idx));
 
@@ -134,7 +134,7 @@ public class DetallePedidoDAOImpl extends AbstractDAOImpl implements DetallePedi
 
             int idx = 1;
 
-            ps.setInt(idx++, detallesPedido.getCantidad());
+            ps.setDouble(idx++, detallesPedido.getCantidad());
             ps.setInt(idx, detallesPedido.getId());
 
             int row = ps.executeUpdate();
