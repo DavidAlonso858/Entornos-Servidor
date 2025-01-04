@@ -44,12 +44,16 @@ public class DetallePedidoServlet extends HttpServlet {
             //GET
             //	/detallepedidos/
             //	/detallepedidos
+
+            List<DetallesPedido> listDetallePedido = dpDAO.getAll();
             String idUsuarioStr = request.getParameter("idUsuario");
+
             if (idUsuarioStr != null && !idUsuarioStr.isEmpty()) {
             Integer idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
             System.out.println(idUsuario);
             Pedido nuevoPed;
             Optional<Pedido> pedidoOpt = pedidoDAO.find(idUsuario);
+
 if (!pedidoOpt.isPresent()) { // se crea un pedido si el usuario no lo ha hecho
     LocalDate fecha = LocalDate.parse(request.getParameter("fecha"));
 
@@ -75,10 +79,8 @@ if (!pedidoOpt.isPresent()) { // se crea un pedido si el usuario no lo ha hecho
             dt.setIdProducto(idProducto);
 
             dpDAO.create(dt);
+            listDetallePedido.add(dt);
             }
-
-
-            List<DetallesPedido> listDetallePedido = dpDAO.getAll();
 
 
     request.setAttribute("listaDetallePedidos", listDetallePedido);

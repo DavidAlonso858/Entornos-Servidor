@@ -4,6 +4,9 @@
 <%@page import="java.util.List"%>
 <%@ page import="org.iesbelen.dao.ProductoDAO" %>
 <%@ page import="org.iesbelen.dao.ProductoDAOImpl" %>
+<%@ page import="org.iesbelen.dao.PedidoDAO" %>
+<%@ page import="org.iesbelen.dao.PedidoDAOImpl" %>
+<%@ page import="org.iesbelen.model.Pedido" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -31,9 +34,12 @@
           if (listaDetalles != null && !listaDetalles.isEmpty()) {
             for (DetallesPedido detalle : listaDetalles) {
               ProductoDAO productoDAO = new ProductoDAOImpl();
-              Optional<Producto> pr = Optional.of(new Producto());
+              PedidoDAO pd = new PedidoDAOImpl();
+              Optional<Producto> pr;
+              Optional<Pedido> pe;
               pr = productoDAO.find(detalle.getIdProducto());
-              double subtotal = detalle.getCantidad(); // Usar el campo de cantidad como subtotal
+              pe = pd.find(detalle.getIdPedido());
+              double subtotal = detalle.getCantidad();
               sumaTotal += subtotal;
         %>
         <div class="col-md-4 mb-3">
@@ -43,7 +49,7 @@
               <p class="card-text">
                 Pelicula Blu-ray: <strong><%= pr.get().getNombre() %> </strong><br>
                 Precio: <strong><%= detalle.getCantidad() %> €</strong><br>
-                Subtotal: <strong><%= subtotal %> €</strong>
+                Fecha: <strong><%= pe.get().getFecha() %> </strong>
               </p>
             </div>
           </div>
@@ -52,7 +58,6 @@
           }
         } else {
         %>
-        <!-- Mostrar un mensaje si no hay detalles -->
         <div class="col-12">
           <p class="text-center text-muted">No hay detalles de pedido registrados.</p>
         </div>
