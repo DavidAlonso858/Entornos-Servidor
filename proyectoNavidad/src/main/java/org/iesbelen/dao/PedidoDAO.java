@@ -12,7 +12,7 @@ public interface PedidoDAO {
     public List<Pedido> getAll();
 
     public Optional<Pedido> find(int id);
-
+    public Optional<Pedido> find2(int id);
     public void update(Pedido pedido);
 
     public void delete(int id);

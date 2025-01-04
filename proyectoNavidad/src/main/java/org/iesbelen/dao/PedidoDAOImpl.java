@@ -117,6 +117,41 @@ ps.setInt(1, idUsuario);
     }
 
     @Override
+    public Optional<Pedido> find2(int ID) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = connectDB();
+
+            ps = conn.prepareStatement("SELECT * FROM pedido WHERE ID=?");
+
+            ps.setInt(1, ID);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(rs.getInt(1));
+                pedido.setFecha(rs.getDate(2).toLocalDate());
+                pedido.setIdUsuario(rs.getInt(3));
+
+                return Optional.of(pedido);
+            }
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            closeDb(conn, ps, rs);
+        }
+
+        return Optional.empty();
+    }
+
+    @Override
     public void update(Pedido pedido) {
         Connection conn = null;
         PreparedStatement ps = null;

@@ -12,13 +12,7 @@
             if (us != null) {%> <!--cada linea de codigo va entre %> =-->
 
         <h4 class="text-white"><%=us.getUsuario()%>
-            <form action="${pageContext.request.contextPath}/comercio/detallepedidos/" method="get"
-                  style="display: inline;">
 
-                <button type="submit" class="btn btn-success">
-                    <i class="bi bi-basket-fill"></i> DetallePedido
-                </button>
-            </form>
             <form action="${pageContext.request.contextPath}/comercio/usuarios/logout/" method="post"
                   style="display: inline;">
                 <input type="hidden" name="__method__" value="logout">

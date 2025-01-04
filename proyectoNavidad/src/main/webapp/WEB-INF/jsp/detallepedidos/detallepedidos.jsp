@@ -38,7 +38,7 @@
               Optional<Producto> pr;
               Optional<Pedido> pe;
               pr = productoDAO.find(detalle.getIdProducto());
-              pe = pd.find(detalle.getIdPedido());
+              pe = pd.find2(detalle.getIdPedido());
               double subtotal = detalle.getCantidad();
               sumaTotal += subtotal;
         %>

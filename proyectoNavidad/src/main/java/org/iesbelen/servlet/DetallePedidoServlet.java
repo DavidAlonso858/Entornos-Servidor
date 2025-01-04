@@ -14,6 +14,7 @@ import org.iesbelen.model.Pedido;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,45 +46,55 @@ public class DetallePedidoServlet extends HttpServlet {
             //	/detallepedidos/
             //	/detallepedidos
 
-            List<DetallesPedido> listDetallePedido = dpDAO.getAll();
             String idUsuarioStr = request.getParameter("idUsuario");
 
             if (idUsuarioStr != null && !idUsuarioStr.isEmpty()) {
-            Integer idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-            System.out.println(idUsuario);
-            Pedido nuevoPed;
-            Optional<Pedido> pedidoOpt = pedidoDAO.find(idUsuario);
+                Integer idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+                System.out.println(idUsuario);
 
-if (!pedidoOpt.isPresent()) { // se crea un pedido si el usuario no lo ha hecho
-    LocalDate fecha = LocalDate.parse(request.getParameter("fecha"));
+                Pedido nuevoPed;
+                Optional<Pedido> pedidoOpt = pedidoDAO.find(idUsuario);
 
-    nuevoPed = new Pedido();
-    nuevoPed.setFecha(fecha);
-    nuevoPed.setIdUsuario(idUsuario);
+                HttpSession session = request.getSession();
+                List<DetallesPedido> listDetallePedido = (List<DetallesPedido>) session.getAttribute("listaDetallePedidos");
 
-    pedidoDAO.create(nuevoPed);
-}else {
-    nuevoPed = pedidoOpt.get();
-    System.out.println(nuevoPed.getIdPedido());
+                if (listDetallePedido == null) {
+                    listDetallePedido = new ArrayList<>();
+                }
 
-}
-            System.out.println(pedidoDAO.find(idUsuario).get().getIdPedido());
-            Double cantidad =Double.parseDouble( request.getParameter("precio"));
-            Integer idProducto = Integer.parseInt(request.getParameter("codigo"));
-            Integer idPedido = nuevoPed.getIdPedido();
+                // Si el pedido no existe, lo creamos
+                if (!pedidoOpt.isPresent()) {
+                    LocalDate fecha = LocalDate.parse(request.getParameter("fecha"));
 
-            DetallesPedido dt = new DetallesPedido();
+                    nuevoPed = new Pedido();
+                    nuevoPed.setFecha(fecha);
+                    nuevoPed.setIdUsuario(idUsuario);
 
-            dt.setCantidad(cantidad);
-            dt.setIdPedido(idPedido);
-            dt.setIdProducto(idProducto);
+                    pedidoDAO.create(nuevoPed);
+                } else {
+                    nuevoPed = pedidoOpt.get();
+                    System.out.println(nuevoPed.getIdPedido());
+                }
 
-            dpDAO.create(dt);
-            listDetallePedido.add(dt);
+                System.out.println(pedidoDAO.find(idUsuario).get().getIdPedido());
+
+                Double cantidad = Double.parseDouble(request.getParameter("precio"));
+                Integer idProducto = Integer.parseInt(request.getParameter("codigo"));
+                Integer idPedido = nuevoPed.getIdPedido();
+
+                DetallesPedido dt = new DetallesPedido();
+                dt.setCantidad(cantidad);
+                dt.setIdPedido(idPedido);
+                dt.setIdProducto(idProducto);
+
+                dpDAO.create(dt);
+                listDetallePedido.add(dt);
+
+                session.setAttribute("listaDetallePedidos", listDetallePedido);
+                request.setAttribute("listaDetallePedidos", listDetallePedido);
             }
 
 
-    request.setAttribute("listaDetallePedidos", listDetallePedido);
 
     dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/detallepedidos/detallepedidos.jsp");
 

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface DetallePedidoDAO {
     public void create(DetallesPedido detallesPedido);
-
+    public List<DetallesPedido> findByPedidoId(int idPedido);
     public List<DetallesPedido> getAll();
 
     public Optional<DetallesPedido> find(int id);

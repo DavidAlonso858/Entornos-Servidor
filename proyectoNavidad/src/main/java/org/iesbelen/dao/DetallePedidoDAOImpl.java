@@ -48,7 +48,26 @@ public class DetallePedidoDAOImpl extends AbstractDAOImpl implements DetallePedi
         }
 
     }
-
+    @Override
+    public List<DetallesPedido> findByPedidoId(int idPedido) {
+        List<DetallesPedido> detalles = new ArrayList<>();
+        try (Connection conn = connectDB();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM detallespedido WHERE idPedido = ?")) {
+            ps.setInt(1, idPedido);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    DetallesPedido detalle = new DetallesPedido();
+                    detalle.setCantidad(rs.getDouble("cantidad"));
+                    detalle.setIdProducto(rs.getInt("idProducto"));
+                    detalle.setIdPedido(rs.getInt("idPedido"));
+                    detalles.add(detalle);
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return detalles;
+    }
     @Override
     public List<DetallesPedido> getAll() {
         Connection conn = null;
