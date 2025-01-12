@@ -1,10 +1,10 @@
-package org.iesbelen.prueba;
+package org.iesbelen.prueba2;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PruebaApplicationTests {
+class Prueba2ApplicationTests {
 
     @Test
     void contextLoads() {

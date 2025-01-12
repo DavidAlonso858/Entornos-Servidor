@@ -1,13 +1,13 @@
-package org.iesbelen.prueba;
+package org.iesbelen.prueba2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PruebaApplication {
+public class Prueba2Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(PruebaApplication.class, args);
+        SpringApplication.run(Prueba2Application.class, args);
     }
 
 }

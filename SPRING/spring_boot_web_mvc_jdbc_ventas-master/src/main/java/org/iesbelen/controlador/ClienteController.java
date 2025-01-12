@@ -38,4 +38,14 @@ public class ClienteController {
         return "clientes";
 
     }
+
+    @GetMapping("/") //Al no tener ruta base para el controlador, cada método tiene que tener la ruta completa
+    public String init(Model model) {
+
+        List<Cliente> listaClientes = clienteService.listAll();
+        model.addAttribute("listaClientes", listaClientes);
+
+        return "clientes";
+
+    }
 }
