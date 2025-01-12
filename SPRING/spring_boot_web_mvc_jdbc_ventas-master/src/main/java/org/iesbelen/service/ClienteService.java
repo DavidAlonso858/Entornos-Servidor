@@ -15,6 +15,7 @@ public class ClienteService {
 	//Por tanto, se puede omitir la anotación Autowired
 	//@Autowired
 	public ClienteService(ClienteDAO clienteDAO) {
+
 		this.clienteDAO = clienteDAO;
 	}
 	
