@@ -69,6 +69,7 @@
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
+			<version>5.0.1</version>
 			<!-- hay que aceptar el warning para compatibilidad con java11+
 			https://github.com/brettwooldridge/HikariCP-->
 		</dependency>
