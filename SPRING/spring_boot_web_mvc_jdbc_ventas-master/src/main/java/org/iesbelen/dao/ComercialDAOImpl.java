@@ -25,6 +25,7 @@ public class ComercialDAOImpl implements ComercialDAO {
 
     //JdbcTemplate se inyecta por el constructor de la clase automáticamente
     //
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
