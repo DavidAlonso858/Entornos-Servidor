@@ -1,7 +1,17 @@
 package org.iesbelen;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.iesbelen.dao.ClienteDAO;
 import org.iesbelen.dao.ComercialDAO;
 import org.iesbelen.modelo.Cliente;
@@ -19,6 +29,7 @@ public class SpringBootWebMvcJdbcVentasApplication implements CommandLineRunner 
 
     @Autowired
     private ClienteDAO clienteDAO;
+    @Autowired
     private ComercialDAO comercialDAO;
 
     public static void main(String[] args) {
@@ -122,3 +133,5 @@ public class SpringBootWebMvcJdbcVentasApplication implements CommandLineRunner 
     }
 
 }
+
+

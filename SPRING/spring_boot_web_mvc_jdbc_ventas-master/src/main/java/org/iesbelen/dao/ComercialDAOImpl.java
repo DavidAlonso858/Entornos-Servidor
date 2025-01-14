@@ -77,7 +77,7 @@ public class ComercialDAOImpl implements ComercialDAO {
                 (rs, rowNum) -> new Comercial(rs.getInt("id"),
                         rs.getString("nombre"),
                         rs.getString("apellido1"),
-                        rs.getString("aepellido2"),
+                        rs.getString("apellido2"),
                         rs.getFloat("comisión"))
                 , id
         );
