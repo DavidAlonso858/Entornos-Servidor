@@ -56,7 +56,7 @@
 
             <div class="row">
                 <div class="col-4">
-                    <form action="${pageContext.request.contextPath}/web/empleados/editar<%=emp.getCodigo()%>">
+                    <form action="${pageContext.request.contextPath}/web/empleados/editar/<%=emp.getCodigo()%>">
                         <input type="submit" value="Editar"/>
                     </form>
                 </div>

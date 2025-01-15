@@ -2,6 +2,7 @@ package org.iesbelen.servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,46 +19,49 @@ public class EmpleadoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         RequestDispatcher dispatcher;
 
-        String pathInfo = req.getPathInfo(); //
-
+        String pathInfo = request.getPathInfo(); //
+        System.out.println(pathInfo);
         if (pathInfo == null || "/".equals(pathInfo)) {
-            EmpleadosDAO empDAO = new EmpleadoDAOImpl();
+            EmpleadosDAO emDAO = new EmpleadoDAOImpl();
 
-            // GET
-            // /empleados/
-            // /empleados
+            //GET
+            //	/empleados/
+            //	/empleados
 
-            List<Empleados> listaEmpleados = empDAO.getAll();
-            System.out.println(listaEmpleados);
-            req.setAttribute("listaEmpleados", listaEmpleados);
-            dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/empleados/empleados.jsp");
+            List<Empleados> listaEmpleados = emDAO.getAll();
+
+
+            request.setAttribute("listaEmpleados", listaEmpleados);
+            dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empleados/empleados.jsp");
 
         } else {
             pathInfo = pathInfo.replaceAll("/$", "");
             String[] pathParts = pathInfo.split("/");
 
+
             if (pathParts.length == 3 && "editar".equals(pathParts[1])) {
-                EmpleadosDAO empDAO = new EmpleadoDAOImpl();
-
+                EmpleadosDAO emDAO = new EmpleadoDAOImpl();
+                // /empleados/editar{id}
                 try {
-                    req.setAttribute("empleado", empDAO.find(Integer.parseInt(pathParts[2])));
-                    dispatcher = req.getRequestDispatcher("/WEB-ING/jsp/empleados/editar-empleados.jsp");
+                    request.setAttribute("empleado", emDAO.find(Integer.parseInt(pathParts[2])));
+                    dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empleados/editar-empleados.jsp");
 
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                    dispatcher = req.getRequestDispatcher("/WEB-ING/jsp/empleados/empleados.jsp");
+                } catch (NumberFormatException nfe) {
+                    nfe.printStackTrace();
+                    dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empleados/empleado.jsp");
                 }
+
             } else {
                 System.out.println("Opcion no soportada");
-                dispatcher = req.getRequestDispatcher("/WEB-ING/jsp/empleados/empleados.jsp");
+                dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empleados/empleados.jsp");
             }
         }
-        dispatcher.forward(req, resp);
+        dispatcher.forward(request, response);
     }
 
     @Override
@@ -65,13 +69,13 @@ public class EmpleadoServlet extends HttpServlet {
 
         String __method__ = req.getParameter("__method__");
 
-        if (__method__ == null || "put".equals(__method__)) {
+        if (__method__ != null || "put".equals(__method__)) {
             doPut(req, resp);
         } else {
             System.out.println("Opcion no soportada");
         }
 
-        resp.sendRedirect(req.getContextPath() + "web/empleados");
+        resp.sendRedirect(req.getContextPath() + "/web/empleados/");
     }
 
     @Override
