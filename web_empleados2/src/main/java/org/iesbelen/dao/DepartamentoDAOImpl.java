@@ -10,6 +10,71 @@ import java.util.Optional;
 
 public class DepartamentoDAOImpl extends AbstractDAOImpl implements DepartamentosDAO {
     @Override
+    public List<Departamentos> filtroPresupuesto(int menor, int mayor) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        List<Departamentos> listDept = new ArrayList<>();
+
+        try {
+            conn = connectDB();
+
+            String consulta = "SELECT * FROM departamento WHERE (presupuesto - gastos) >= ? AND (presupuesto - gastos) <= ?";
+            ps = conn.prepareStatement(consulta);
+            ps.setInt(1, menor);
+            ps.setInt(2, mayor);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Departamentos dept = new Departamentos();
+                int idx = 1;
+                dept.setCodigo(rs.getInt(idx++));
+                dept.setNombre(rs.getString(idx++));
+                dept.setPresupuesto(rs.getInt(idx++));
+                dept.setGastos(rs.getInt(idx++));
+
+                listDept.add(dept);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            closeDb(conn, ps, rs);
+        }
+        return listDept;
+    }
+
+    @Override
+    public Optional<Integer> getCountDepartamentos(int id) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            conn = connectDB();
+
+            ps = conn.prepareStatement("SELECT COUNT(*) FROM empleado WHERE codigo_departamento = ?");
+
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return Optional.of(count);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            closeDb(conn, ps, rs);
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public synchronized void create(Departamentos departamento) {
         Connection conn = null;
         PreparedStatement ps = null;

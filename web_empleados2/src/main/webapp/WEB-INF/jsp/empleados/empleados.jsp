@@ -66,7 +66,7 @@
                     </form>
                 </div>
                 <div class="col-4">
-                    <form action="${pageContext.request.contextPath}/web/empleados/">
+                    <form action="${pageContext.request.contextPath}/web/empleados/<%=emp.getCodigo()%>">
                         <input type="submit" value="Ver Detalle"/>
                     </form>
                 </div>

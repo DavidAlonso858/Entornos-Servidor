@@ -13,6 +13,7 @@ import org.iesbelen.model.Empleados;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet(name = "empleadoServlet", value = "/web/empleados/*")
 public class EmpleadoServlet extends HttpServlet {
@@ -56,6 +57,17 @@ public class EmpleadoServlet extends HttpServlet {
                     dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empleados/empleado.jsp");
                 }
 
+            } else if (pathParts.length == 2) {
+                EmpleadosDAO emDAO = new EmpleadoDAOImpl();
+
+                try {
+                    request.setAttribute("empleado", emDAO.find(Integer.parseInt(pathParts[1])));
+                    dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empleados/detalle-empleado.jsp");
+
+                } catch (NumberFormatException nfe) {
+                    nfe.printStackTrace();
+                    dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empleados/empleado.jsp");
+                }
             } else {
                 System.out.println("Opcion no soportada");
                 dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/empleados/empleados.jsp");
