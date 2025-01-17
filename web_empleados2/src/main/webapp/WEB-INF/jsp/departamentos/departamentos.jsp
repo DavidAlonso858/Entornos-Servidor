@@ -32,7 +32,7 @@
                 <input type="submit" value="Filtrar">
             </form>
         </div>
-        <div>
+        </div>
             <div class="container">
                 <div class="row">
                     <div class="col-2">Codigo</div>
@@ -94,9 +94,10 @@
                 <%}%>
             </div>
 
-
 </main>
 
 </body>
 
 </html>
+
+
