@@ -5,10 +5,13 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
+// @RestController
 @Controller
 public class DemoController {
 
@@ -58,6 +61,15 @@ public class DemoController {
         model.addAttribute("libro", libro);
 
         return "vistaPrueba";
+    }
+
+    // podria poner /demo5/{name} y le paso el atributo en la url
+    // tendría que ir entre los parentesis de la clase
+    // la anotacion @PathVariable String nombre
+    @GetMapping("/demoPrueba/{name}")
+    public String demoPrueba(@PathVariable String name) {
+
+        return "Hola " + name;
     }
 
     @GetMapping("/demo5")
