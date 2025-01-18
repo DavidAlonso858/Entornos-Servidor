@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba 5</title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<a th:href="@{/registrar}">Registrar</a>
+<br/>
+<br/>
+<!-- QUERY PARAMs -->
+<a th:href="@{/libros(id=${libro.id},titulo=${libro.titulo})}" th:text="'Ver libro: '+${libro.titulo}">Ver libro</a>
+<br/>
+<br/>
+<a th:href="@{/libros/editar(id=${libro.id})}" th:text="'Editar libro: '+${libro.titulo}">Editar libro</a>
+<!--en el caso de múltiples query params se observa la acción de codificación de la url
+que este operador @{...} realiza sobre el espacio en blanco que se traduce a %20-->
+<br/>
+<br/>
+<a th:href="@{/libros/editar(autor=${libro.autor})}" th:text="'Editar Autor: '+${libro.autor}">Editar Autor</a>
+
+</body>
+</html>
+
+

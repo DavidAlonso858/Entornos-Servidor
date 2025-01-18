@@ -8,18 +8,18 @@
 </head>
 <body>
 <div class="bg-warning text-dark w-50 m-4 p-4">
-<h1 class="fw-bold" th:text="'Prueba de todo'">
+    <h1 class="fw-bold" th:text="'Prueba de todo'">
 
-</h1>
-<!-- <p th:text="${parrafo}+ ' añadido del controller'"> -->
-</p>
+    </h1>
+    <!-- <p th:text="${parrafo}+ ' añadido del controller'"> -->
+    </p>
 
-<!--<th:block  th:each="libro : ${libroList}">
-    <p th:text="${libro.id}+ ' - ID'"></p>
-    <p th:text="${libro.titulo}+ ' - Titulo'"></p>
-    <p th:text="${libro.autor}+ ' - Autor'"></p>
-    <br>
-</th:block>-->
+    <!--<th:block  th:each="libro : ${libroList}">
+        <p th:text="${libro.id}+ ' - ID'"></p>
+        <p th:text="${libro.titulo}+ ' - Titulo'"></p>
+        <p th:text="${libro.autor}+ ' - Autor'"></p>
+        <br>
+    </th:block>-->
 
     <p th:text="${variable}+ ' - Esto es una variable puesta en el modelo que creo la sesion'"></p>
     <p th:text="${session.unaVariableDeSesion}"></p>
@@ -30,12 +30,13 @@
     <p th:text="${session.Extranjero.titulo}"></p>
 
     <div th:object="${libro}">
-          <span th:text="'Título: '+*{titulo}"></span>
-          <br/>
-          <span th:text="'Autor: '+*{autor}"></span>
-      </div>
+        <span th:text="'Título: '+*{titulo}"></span>
+        <br/>
+        <span th:text="'Autor: '+*{autor}"></span>
+        <!--+ concatenador de cadenas y *{ } etiqueta que establece el objeto-->
+    </div>
 
-  </div>
+</div>
 
-  </body>
-  </html>
+</body>
+</html>

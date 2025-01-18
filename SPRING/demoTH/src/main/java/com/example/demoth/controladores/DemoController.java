@@ -59,4 +59,29 @@ public class DemoController {
 
         return "vistaPrueba";
     }
+
+    @GetMapping("/demo5")
+    public String demoth5(Model model) {
+        Libro libro = new Libro(3, "El Extranjero", "Albert Camus");
+        model.addAttribute("libro", libro);
+
+        return "demo5";
+    }
+
+    @GetMapping("/demo6")
+    public String demoth6(Model model) {
+
+        Libro libro = new Libro(2, "Crimen y Castigo", "Fedor Dostoiesvski");
+
+        model.addAttribute("libro", libro);
+
+        return "demo6";
+    }
+
+    @GetMapping("/demo7")
+    public String demoth7(Model model) {
+
+        return "demo7";
+    }
+
 }
