@@ -96,4 +96,10 @@ public class DemoController {
         return "demo7";
     }
 
+    @GetMapping("/mensaje")
+    public String mensaje(Model model) {
+
+        return "mensaje";
+    }
+
 }
