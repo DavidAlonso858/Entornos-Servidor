@@ -44,7 +44,7 @@ public class ClienteService {
         clienteDAO.update(cliente);
     }
 
-    public void delete(int id) {
+    public void delete(long id) {
         clienteDAO.delete(id);
     }
 }

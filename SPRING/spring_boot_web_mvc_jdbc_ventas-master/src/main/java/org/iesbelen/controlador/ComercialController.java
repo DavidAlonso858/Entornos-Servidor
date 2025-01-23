@@ -1,13 +1,16 @@
 package org.iesbelen.controlador;
 
 import org.iesbelen.dao.ComercialDAO;
+import org.iesbelen.modelo.Cliente;
 import org.iesbelen.modelo.Comercial;
 import org.iesbelen.service.ComercialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -43,6 +46,15 @@ public class ComercialController {
         return "crear-comercial";
     }
 
+    @PostMapping("/comercial/crear")
+    public String crear(@ModelAttribute("coemrcial") Comercial co) {
+
+        comercialService.newComercial(co);
+
+        return "redirect:/comercial";
+    }
+
+
     @GetMapping("/comercial/editar/{id}")
     public String editar(Model model, @PathVariable int id) {
         Comercial comercial = comercialService.findById(id);
@@ -50,5 +62,21 @@ public class ComercialController {
         model.addAttribute("comercial", comercial);
 
         return "editar-comercial";
+    }
+
+    @PostMapping("comercial/editar/{id}")
+    public String editar(@ModelAttribute("comercial") Comercial co) {
+
+        comercialService.update(co);
+
+        return "redirect:/comercial";
+    }
+
+    @PostMapping("comercial/borrar/{id}")
+    public String borrar(@PathVariable int id) {
+
+        comercialService.delete(id);
+
+        return "redirect:/comercial";
     }
 }

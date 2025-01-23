@@ -5,13 +5,11 @@ import java.util.List;
 import org.iesbelen.modelo.Cliente;
 import org.iesbelen.modelo.Comercial;
 import org.iesbelen.service.ClienteService;
+import org.iesbelen.service.ComercialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 //Se puede fijar ruta base de las peticiones de este controlador.
@@ -21,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ClienteController {
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private ComercialService comercialService;
 
     //Se utiliza inyección automática por constructor del framework Spring.
     //Por tanto, se puede omitir la anotación Autowired
@@ -44,16 +45,27 @@ public class ClienteController {
         Cliente cli = clienteService.findById(id);
 
         model.addAttribute("cliente", cli);
+
         return "detalle-cliente";
     }
 
     @GetMapping("/clientes/crear")
     public String crear(Model model) {
         Cliente cli = new Cliente();
+        List<Comercial> listaComercial = comercialService.listAll();
 
         model.addAttribute("cliente", cli);
+        model.addAttribute("listaComercial", listaComercial);
 
         return "crear-cliente";
+    }
+
+    @PostMapping("clientes/crear")
+    public String crear(@ModelAttribute("cliente") Cliente cli) {
+
+        clienteService.newCliente(cli);
+
+        return "redirect:/clientes";
     }
 
     @GetMapping("/clientes/editar/{id}")
@@ -63,6 +75,22 @@ public class ClienteController {
         model.addAttribute("cliente", cli);
 
         return "editar-cliente";
+    }
+
+    @PostMapping("clientes/editar/{id}")
+    public String editar(@ModelAttribute("cliente") Cliente cli) {
+
+        clienteService.update(cli);
+
+        return "redirect:/clientes";
+    }
+
+    @PostMapping("clientes/borrar/{id}")
+    public String borrar(@PathVariable long id) {
+
+        clienteService.delete(id);
+
+        return "redirect:/clientes";
     }
 
 }

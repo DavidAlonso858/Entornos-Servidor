@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Crear Cliente</title>
@@ -82,9 +82,19 @@
             <div style="float: left;width: 50%">
                 Categoria
             </div>
+
             <div style="float: none;width: auto;overflow: hidden;">
-                <input name="ciudad"/>
+                <input name="categoria"/>
             </div>
+
+            <!-- LISTA DE DATOS PASADA Y RECORRIDA EN EL SELECT
+                     <div style="margin-top: 6px;" class="clearfix">
+                          <select>
+                              <th:block th:each="comercial : ${listaComercial}">
+                                  <option th:value="${comercial.getId()}" th:text="${comercial.getNombre()}">nombre</option>
+                              </th:block>
+                          </select>
+                      </div>-->
         </div>
 
     </form>
