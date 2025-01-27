@@ -1,9 +1,10 @@
 package org.iesbelen.controlador;
 
-import org.iesbelen.dao.ComercialDAO;
-import org.iesbelen.modelo.Cliente;
+import org.iesbelen.dto.PedidoDTO;
+import org.iesbelen.mapping.PedidoMapper;
 import org.iesbelen.modelo.Comercial;
 import org.iesbelen.service.ComercialService;
+import org.iesbelen.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,30 +21,38 @@ public class ComercialController {
     @Autowired
     private ComercialService comercialService;
 
+    @Autowired
+    private PedidoService pedidoService;
+
     @GetMapping("/comercial")
     public String listar(Model model) {
         List<Comercial> listaComercial = comercialService.listAll();
 
+
         model.addAttribute("listaComercial", listaComercial);
 
-        return "comerciales";
+        return "comerciales/comerciales";
     }
 
     @GetMapping("/comercial/{id}")
     public String detalle(Model model, @PathVariable int id) {
         Comercial com = comercialService.findById(id);
+        List<PedidoDTO> pedidoDTOS = pedidoService.listPedidosDTO(id);
 
         model.addAttribute("comercial", com);
-        return "detalle-comercial";
+        model.addAttribute("listaPedidos", pedidoDTOS);
+
+        return "comerciales/detalle-comercial";
     }
 
     @GetMapping("/comercial/crear")
     public String crear(Model model) {
         Comercial comercial = new Comercial();
 
+
         model.addAttribute("comercial", comercial);
 
-        return "crear-comercial";
+        return "comerciales/crear-comercial";
     }
 
     @PostMapping("/comercial/crear")
@@ -61,7 +70,7 @@ public class ComercialController {
 
         model.addAttribute("comercial", comercial);
 
-        return "editar-comercial";
+        return "comerciales/editar-comercial";
     }
 
     @PostMapping("comercial/editar/{id}")

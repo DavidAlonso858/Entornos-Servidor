@@ -36,7 +36,7 @@ public class ClienteController {
         List<Cliente> listaClientes = clienteService.listAll();
         model.addAttribute("listaClientes", listaClientes);
 
-        return "clientes";
+        return "clientes/clientes";
 
     }
 
@@ -46,7 +46,7 @@ public class ClienteController {
 
         model.addAttribute("cliente", cli);
 
-        return "detalle-cliente";
+        return "clientes/detalle-cliente";
     }
 
     @GetMapping("/clientes/crear")
@@ -57,7 +57,7 @@ public class ClienteController {
         model.addAttribute("cliente", cli);
         model.addAttribute("listaComercial", listaComercial);
 
-        return "crear-cliente";
+        return "clientes/crear-cliente";
     }
 
     @PostMapping("clientes/crear")
@@ -74,7 +74,7 @@ public class ClienteController {
 
         model.addAttribute("cliente", cli);
 
-        return "editar-cliente";
+        return "clientes/editar-cliente";
     }
 
     @PostMapping("clientes/editar/{id}")
