@@ -1,5 +1,7 @@
 package org.iesbelen.modelo;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,10 +13,15 @@ import java.util.Date;
 @NoArgsConstructor
 
 public class Pedido {
+
     private int id;
+
     private double total;
+
     private Date fecha;
+
     private int id_cliente;
+
     private int id_comercial;
 
 }
