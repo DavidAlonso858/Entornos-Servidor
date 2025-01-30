@@ -19,6 +19,7 @@
     <div class="clearfix">
         <div style="float: left; width: 50%">
             <h1 th:text="#{Clientes}"></h1>
+            <!--Se usa el #{} para acceder a los messages.properties que tienen el mismo nombre-->
         </div>
         <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
 
@@ -26,6 +27,7 @@
 
                 <form action="/clientes/crear">
                     <input type="submit" th:value="#{Crear}">
+                    <!--Se usa el #{} para acceder a los messages.properties que tienen el mismo nombre-->
                 </form>
             </div>
 
@@ -36,6 +38,7 @@
     </div>
     <div class="clearfix">
         <div style="float: left;width: 14%">Id</div>
+        <!--Se usa el #{} para acceder a los messages.properties que tienen el mismo nombre-->
         <div style="float: left;width: 14%" th:text="#{Nombre}"></div>
         <div style="float: left;width: 14%" th:text="#{Apellido}"></div>
         <div style="float: left;width: 14%" th:text="#{Apellido2}"></div>

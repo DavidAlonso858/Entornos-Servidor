@@ -16,18 +16,13 @@ public class PedidoDAOImpl implements PedidoDAO {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<Pedido> getallPedidos() {
-        List<Pedido> listaPedidos = jdbcTemplate.query("SELECT * FROM pedido",
-                (rs, rowNum) -> new Pedido(rs.getInt("id"),
-                        rs.getDouble("total"),
-                        rs.getDate("fecha"),
-                        rs.getInt("id_cliente"),
-                        rs.getInt("id_comercial")
-                )
+    public int countPedidos() {
+        int conteoPedidos = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM pedido", Integer.class
         );
 
-        log.info("Lista con {} pedidos.", listaPedidos.size());
-        return listaPedidos;
+        log.info("Hay {} pedidos.", conteoPedidos);
+        return conteoPedidos;
     }
 
     @Override

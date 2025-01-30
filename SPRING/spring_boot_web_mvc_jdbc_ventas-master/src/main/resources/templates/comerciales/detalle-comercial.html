@@ -107,7 +107,19 @@
         </tr>
         </tbody>
     </table>
+    <br>
+    <div class="container">
+        <h4>Total de pedidos realizados en general
+            ->
+            <span class="fw-bold text-success"><th:block th:text="${totalPedidos}"/></span>
+        </h4>
+        <h4>La media de pedidos realizados por el comercial
+            <th:block th:text="${comercial.nombre}"/>
+            ->
+            <span class="fw-bold text-warning"><th:block th:text="${media}"/> % TOTAL</span>
+        </h4>
 
+    </div>
 
 </div>
 

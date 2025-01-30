@@ -38,9 +38,14 @@ public class ComercialController {
     public String detalle(Model model, @PathVariable int id) {
         Comercial com = comercialService.findById(id);
         List<PedidoDTO> pedidoDTOS = pedidoService.listPedidosDTO(id);
+        int total = pedidoService.conteoTodos();
+
+        double media = pedidoService.mediaPedidos(total, pedidoDTOS.size());
 
         model.addAttribute("comercial", com);
         model.addAttribute("listaPedidos", pedidoDTOS);
+        model.addAttribute("totalPedidos", total);
+        model.addAttribute("media", media);
 
         return "comerciales/detalle-comercial";
     }

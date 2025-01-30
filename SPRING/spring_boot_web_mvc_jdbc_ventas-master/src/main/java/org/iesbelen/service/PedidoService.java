@@ -23,8 +23,9 @@ public class PedidoService {
 
     @Autowired
     private PedidoMapper pedidoMapper;
-    public List<Pedido> listall() {
-        return pedidoDAO.getallPedidos();
+
+    public int conteoTodos() {
+        return pedidoDAO.countPedidos();
     }
 
     public List<PedidoDTO> listPedidosDTO(int idComercial) {
@@ -43,5 +44,15 @@ public class PedidoService {
             }
         }
         return pedidosDTO;
+    }
+
+    public double mediaPedidos(int total, int concreto) {
+        double media;
+
+        System.out.println(concreto);
+
+        media = (double) concreto / total;
+        media = media * 100;
+        return media;
     }
 }

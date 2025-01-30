@@ -94,7 +94,7 @@ public class ProductoDAOImpl extends AbstractDAOImpl implements ProductoDAO {
 
             conn = connectDB();
 
-            ps = conn.prepareStatement("INSERT INTO producto (idcat, nombre, precio, stock) VALUES (?, ?, ?, ?)");
+            ps = conn.prepareStatement("INSERT INTO producto (idcat, nombre, precio, stock) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             int idx = 1;
             ps.setInt(idx++, producto.getIdcat());
             ps.setString(idx++, producto.getNombre());
