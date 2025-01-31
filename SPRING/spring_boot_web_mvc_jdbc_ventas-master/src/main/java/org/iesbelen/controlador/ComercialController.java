@@ -1,5 +1,6 @@
 package org.iesbelen.controlador;
 
+import jakarta.validation.Valid;
 import org.iesbelen.dto.PedidoDTO;
 import org.iesbelen.mapping.PedidoMapper;
 import org.iesbelen.modelo.Comercial;
@@ -8,6 +9,7 @@ import org.iesbelen.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,9 +63,15 @@ public class ComercialController {
     }
 
     @PostMapping("/comercial/crear")
-    public String crear(@ModelAttribute("coemrcial") Comercial co) {
+    public String crear(@Valid @ModelAttribute Comercial comercial, BindingResult result, Model model) {
 
-        comercialService.newComercial(co);
+        if (result.hasErrors()) {
+            model.addAttribute("comercial", comercial);
+            return "comerciales/crear-comercial";
+
+        }
+
+        comercialService.newComercial(comercial);
 
         return "redirect:/comercial";
     }

@@ -1,6 +1,7 @@
 package org.iesbelen;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
@@ -100,8 +101,8 @@ public class SpringBootWebMvcJdbcVentasApplication implements CommandLineRunner 
             log.info("Comercial {}: {}", idComercial, comercial.get());
             // la info del comerical devuelto por el Optional gracias al jdbcTempalte.queryFromObject
 
-            Float comisionAntigua = comercial.get().getComision();
-            comercial.get().setComision(0.22f);
+            BigDecimal comisionAntigua = comercial.get().getComision();
+         //   comercial.get().setComision(0.22);
 
             comercialDAO.update(comercial.get());
 
@@ -114,17 +115,17 @@ public class SpringBootWebMvcJdbcVentasApplication implements CommandLineRunner 
             comercialDAO.update(comercial.get());
         }
         // Como es un cliente nuevo a persistir, id a 0
-        Comercial comercialNuevo = new Comercial(0, "David", "Alonso", "García", 2);
+      //  Comercial comercialNuevo = new Comercial(0, "David", "Alonso", "García", 2);
 
         //create actualiza el id
-        comercialDAO.create(comercialNuevo);
+     //   comercialDAO.create(comercialNuevo);
 
-        log.info("Comercial nuevo con id = {}", comercialNuevo.getId());
+       // log.info("Comercial nuevo con id = {}", comercialNuevo.getId());
 
         comercialDAO.getAll().forEach(co -> log.info("Comercial: {}", co));
 
         //borrando por el id obtenido de create
-        comercialDAO.delete(comercialNuevo.getId());
+       // comercialDAO.delete(comercialNuevo.getId());
 
         comercialDAO.getAll().forEach(co -> log.info("Comercial: {}", co));
         log.info("************************************");

@@ -22,7 +22,7 @@
 </div>
 
 <div id="contenedora" style="float:none; margin: 0 auto;width: 900px;">
-    <form action="/clientes/crear" method="post">
+    <form action="/clientes/crear" method="post" th:object="${cliente}">
         <div class="clearfix">
             <div style="float: left; width: 50%">
                 <h1>Crear Cliente</h1>
@@ -43,48 +43,52 @@
 
 
         <div style="margin-top: 6px;" class="clearfix">
-            <div style="float: left;width: 50%">
-                Nombre
+            <div style="float: left;width: 50%" th:text="#{Nombre}">
+
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input name="nombre"/>
+                <spa th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></spa>
             </div>
         </div>
 
         <div style="margin-top: 6px;" class="clearfix">
-            <div style="float: left;width: 50%">
-                Apellido1
+            <div style="float: left;width: 50%" th:text="#{Apellido}">
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input name="apellido1"/>
+                <spa th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}"></spa>
             </div>
         </div>
 
         <div style="margin-top: 6px;" class="clearfix">
-            <div style="float: left;width: 50%">
-                Apellido2
+            <div style="float: left;width: 50%" th:text="#{Apellido2}">
+
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input name="apellido2"/>
+                <spa th:if="${#fields.hasErrors('apellido2')}" th:errors="*{apellido2}"></spa>
             </div>
         </div>
 
         <div style="margin-top: 6px;" class="clearfix">
-            <div style="float: left;width: 50%">
-                Ciudad
+            <div style="float: left;width: 50%" th:text="#{Ciudad}">
+
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input name="ciudad"/>
+                <spa th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></spa>
             </div>
         </div>
 
         <div style="margin-top: 6px;" class="clearfix">
-            <div style="float: left;width: 50%">
+            <div style="float: left;width: 50%" th:text="#{Categoria}">
                 Categoria
             </div>
 
             <div style="float: none;width: auto;overflow: hidden;">
                 <input name="categoria"/>
+                <spa th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></spa>
             </div>
 
             <!-- LISTA DE DATOS PASADA Y RECORRIDA EN EL SELECT

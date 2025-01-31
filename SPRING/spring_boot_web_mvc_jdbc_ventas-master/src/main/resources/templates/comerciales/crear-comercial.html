@@ -22,7 +22,7 @@
 </div>
 
 <div id="contenedora" style="float:none; margin: 0 auto;width: 900px;">
-    <form action="/comercial/crear" method="post">
+    <form action="/comercial/crear" method="post" th:object="${comercial}">
         <div class="clearfix">
             <div style="float: left; width: 50%">
                 <h1>Crear Comercial</h1>
@@ -42,38 +42,47 @@
         </div>
 
         <div style="margin-top: 6px;" class="clearfix">
-            <div style="float: left;width: 50%">
-                Nombre
+            <div style="float: left;width: 50%" th:text="#{Nombre}">
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
-                <input name="nombre"/>
+                <input th:field="*{nombre}"/>
+                <ul class="text-danger" th:if="${#fields.hasErrors('nombre')}">
+                    <li th:each="err : ${#fields.errors('nombre')}" th:text="${err}" class="error"/>
+                </ul>
             </div>
         </div>
 
         <div style="margin-top: 6px;" class="clearfix">
-            <div style="float: left;width: 50%">
-                Apellido1
+            <div style="float: left;width: 50%" th:text="#{Apellido}">
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
-                <input name="apellido1"/>
+                <input th:field="*{apellido1}"/>
+                <ul class="text-danger" th:if="${#fields.hasErrors('apellido1')}">
+                    <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" class="error"/>
+                </ul>
             </div>
         </div>
 
         <div style="margin-top: 6px;" class="clearfix">
-            <div style="float: left;width: 50%">
-                Apellido2
+            <div style="float: left;width: 50%" th:text="#{Apellido2}">
+
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
-                <input name="apellido2"/>
+                <input th:field="*{apellido2}"/>
+                <ul class="text-danger" th:if="${#fields.hasErrors('apellido2')}">
+                    <li th:each="err : ${#fields.errors('apellido2')}" th:text="${err}" class="error"/>
+                </ul>
             </div>
         </div>
 
         <div style="margin-top: 6px;" class="clearfix">
-            <div style="float: left;width: 50%">
-                Comision
+            <div style="float: left;width: 50%" th:text="#{Comision}">
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
-                <input name="comision"/>
+                <input th:field="*{comision}"/>
+                <ul class="text-danger" th:if="${#fields.hasErrors('comision')}">
+                    <li th:each="err : ${#fields.errors('comision')}" th:text="${err}" class="error"/>
+                </ul>
             </div>
         </div>
 

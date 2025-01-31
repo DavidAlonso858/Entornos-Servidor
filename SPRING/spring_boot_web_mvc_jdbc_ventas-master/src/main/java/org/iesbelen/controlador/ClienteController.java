@@ -2,6 +2,7 @@ package org.iesbelen.controlador;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.iesbelen.modelo.Cliente;
 import org.iesbelen.modelo.Comercial;
 import org.iesbelen.service.ClienteService;
@@ -9,6 +10,7 @@ import org.iesbelen.service.ComercialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -61,7 +63,7 @@ public class ClienteController {
     }
 
     @PostMapping("clientes/crear")
-    public String crear(@ModelAttribute("cliente") Cliente cli) {
+    public String crear(@ModelAttribute("cliente") @Valid Cliente cliente, BindingResult result, Cliente cli) {
 
         clienteService.newCliente(cli);
 
