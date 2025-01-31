@@ -37,4 +37,8 @@ public class Cliente {
     @Min(value = 100, message = "{error.categoria.min}")
     @Max(value = 1000, message = "{error.categoria.max}")
     private int categoria;
+
+    //@NotBlank(message = "Por favor, introduzca email.")
+    //@Email(message = "Formato de email incorrecto", regexp="^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\\.[a-zA-Z.]{2,5}")
+    // private String email;
 }
