@@ -63,9 +63,15 @@ public class ClienteController {
     }
 
     @PostMapping("clientes/crear")
-    public String crear(@ModelAttribute("cliente") @Valid Cliente cliente, BindingResult result, Cliente cli) {
+    public String crear(@Valid @ModelAttribute Cliente cliente, BindingResult result, Model model) {
 
-        clienteService.newCliente(cli);
+        // si tiene errores se queda en la vista de crear
+        if (result.hasErrors()) {
+            model.addAttribute("cliente", cliente);
+            return "clientes/crear-cliente";
+        }
+
+        clienteService.newCliente(cliente);
 
         return "redirect:/clientes";
     }
