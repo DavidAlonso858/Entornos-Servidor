@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.iesbelen.validacionPersonalizada.RangoCategoriaValidation;
+import org.iesbelen.validacionPersonalizada.RangoCategoriaValidationPlus;
 
 //La anotación @Data de lombok proporcionará el código de:
 //getters/setters, toString, equals y hashCode
@@ -39,6 +40,7 @@ public class Cliente {
     @Max(value = 1000, message = "{error.categoria.max}")
     // Anotacion Personalizada con la interfaz
     @RangoCategoriaValidation
+  //  @RangoCategoriaValidationPlus(values = {100,200,300,400,500,600,700,800,900,1000})
     private int categoria;
 
     //@NotBlank(message = "Por favor, introduzca email.")

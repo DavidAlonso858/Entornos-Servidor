@@ -8,6 +8,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+ // @Repeatable(org.iesbelen.validacionPersonalizada.RangoCatego.List.class)
 // Limitado por la clase que le paso
 @Constraint(validatedBy = {RangoCatego.class})
 public @interface RangoCategoriaValidation {
