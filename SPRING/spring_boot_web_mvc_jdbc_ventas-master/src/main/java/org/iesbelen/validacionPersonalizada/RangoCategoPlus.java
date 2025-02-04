@@ -13,11 +13,18 @@ public class RangoCategoPlus implements ConstraintValidator<RangoCategoriaValida
 
     @Override
     public void initialize(RangoCategoriaValidationPlus constraintAnnotation) {
-       valuesValidos = constraintAnnotation.values();
+        valuesValidos = constraintAnnotation.values();
     }
 
     @Override
     public boolean isValid(Integer integer, ConstraintValidatorContext constraintValidatorContext) {
+
+        for (int v : valuesValidos) {
+            if (v == integer) {
+                return true;
+            }
+        }
+
         return false;
     }
 }

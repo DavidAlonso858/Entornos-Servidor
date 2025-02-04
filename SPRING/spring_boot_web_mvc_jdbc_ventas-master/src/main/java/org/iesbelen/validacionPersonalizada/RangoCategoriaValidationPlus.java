@@ -1,6 +1,7 @@
 package org.iesbelen.validacionPersonalizada;
 
 import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
@@ -11,6 +12,10 @@ import java.lang.annotation.*;
 public @interface RangoCategoriaValidationPlus {
 
     int[] values();
+
     public String message() default "La categoría del cliente no es valida";
+
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
 
 }
