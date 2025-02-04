@@ -34,3 +34,4 @@ public class RangoCategoPlus implements ConstraintValidator<RangoCategoriaValida
         return false;
     }
 }
+
