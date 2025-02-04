@@ -36,11 +36,13 @@ public class Cliente {
     @Size(max = 50, message = "{error.ciudad.size}")
     private String ciudad;
 
-    @Min(value = 100, message = "{error.categoria.min}")
-    @Max(value = 1000, message = "{error.categoria.max}")
+    // @Min(value = 100, message = "{error.categoria.min}")
+    // @Max(value = 1000, message = "{error.categoria.max}")
     // Anotacion Personalizada con la interfaz
-   // @RangoCategoriaValidation
-    @RangoCategoriaValidationPlus(values = {100,200,300,400,500,600,700,800,900,1000})
+    // @RangoCategoriaValidation
+    @RangoCategoriaValidationPlus(values = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000},
+            min = 100,
+            max=1000)
     private int categoria;
 
     //@NotBlank(message = "Por favor, introduzca email.")

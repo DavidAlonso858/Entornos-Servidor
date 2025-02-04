@@ -9,19 +9,25 @@ import java.util.List;
 
 public class RangoCategoPlus implements ConstraintValidator<RangoCategoriaValidationPlus, Integer> {
 
-    int[] valuesValidos;
+    private int[] valuesValidos;
+    private int max;
+    private int min;
 
     @Override
     public void initialize(RangoCategoriaValidationPlus constraintAnnotation) {
         valuesValidos = constraintAnnotation.values();
+        max = constraintAnnotation.max();
+        min = constraintAnnotation.min();
     }
 
     @Override
     public boolean isValid(Integer integer, ConstraintValidatorContext constraintValidatorContext) {
 
-        for (int v : valuesValidos) {
-            if (v == integer) {
-                return true;
+        if (integer >= min && integer <= max) {
+            for (int v : valuesValidos) {
+                if (v == integer) {
+                    return true;
+                }
             }
         }
 
