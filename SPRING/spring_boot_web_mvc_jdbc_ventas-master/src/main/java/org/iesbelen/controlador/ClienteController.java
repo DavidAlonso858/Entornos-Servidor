@@ -102,16 +102,10 @@ public class ClienteController {
         return "redirect:/clientes";
     }
 
-    // Simula una RuntimeException al acceder a esta ruta
-    @GetMapping("/error-runtime")
-    public String lanzarRuntimeException() {
-        throw new RuntimeException("¡Ocurrió un error inesperado!");
-    }
-
     // Simula una MiExcepcion al acceder a esta ruta
+
     @GetMapping("/error-custom")
     public String lanzarMiExcepcion() throws MiExcepcion {
         throw new MiExcepcion("¡excepción personalizada!");
     }
-
 }
