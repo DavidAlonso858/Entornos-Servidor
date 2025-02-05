@@ -3,6 +3,7 @@ package org.iesbelen.controlador;
 import java.util.List;
 
 import jakarta.validation.Valid;
+import org.iesbelen.excepcion.MiExcepcion;
 import org.iesbelen.modelo.Cliente;
 import org.iesbelen.modelo.Comercial;
 import org.iesbelen.service.ClienteService;
@@ -99,6 +100,18 @@ public class ClienteController {
         clienteService.delete(id);
 
         return "redirect:/clientes";
+    }
+
+    // Simula una RuntimeException al acceder a esta ruta
+    @GetMapping("/error-runtime")
+    public String lanzarRuntimeException() {
+        throw new RuntimeException("¡Ocurrió un error inesperado!");
+    }
+
+    // Simula una MiExcepcion al acceder a esta ruta
+    @GetMapping("/error-custom")
+    public String lanzarMiExcepcion() throws MiExcepcion {
+        throw new MiExcepcion("¡excepción personalizada!");
     }
 
 }
