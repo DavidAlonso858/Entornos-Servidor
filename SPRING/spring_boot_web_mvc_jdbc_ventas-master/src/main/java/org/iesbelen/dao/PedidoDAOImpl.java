@@ -28,13 +28,13 @@ public class PedidoDAOImpl implements PedidoDAO {
     @Override
     public List<Pedido> getPedidoByIdComercial(int id_comercial) {
 
-        List<Pedido> listaPedidos = jdbcTemplate.query("SELECT * FROM pedido WHERE id_comercial = ?",
+        List<Pedido> listaPedidos = jdbcTemplate.query("SELECT id, total, YEAR(fecha) AS fecha, id_cliente, id_comercial FROM pedido WHERE id_comercial = ?",
                 (rs, rowNum) -> new Pedido(rs.getInt("id"),
                         rs.getDouble("total"),
-                        rs.getDate("fecha"),
+                        rs.getInt("fecha"),
                         rs.getInt("id_cliente"),
                         rs.getInt("id_comercial")
-                ),id_comercial
+                ), id_comercial
         );
 
         log.info("Lista con {} pedidos de ese comercial.", listaPedidos.size());

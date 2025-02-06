@@ -16,7 +16,7 @@ public class PedidoDTO {
     private String nombre_cliente;
     private int id;
     private double total;
-    private Date fecha;
+    private int fecha;
     private int id_cliente;
     private int id_comercial;
 

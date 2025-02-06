@@ -16,7 +16,7 @@ public class Pedido {
 
     private double total;
 
-    private Date fecha;
+    private int fecha;
 
     private int id_cliente;
 

@@ -87,10 +87,14 @@ public class ComercialController {
     }
 
     @PostMapping("comercial/editar/{id}")
-    public String editar(@ModelAttribute("comercial") Comercial co) {
+    public String editar(@Valid @ModelAttribute Comercial comercial, BindingResult result, Model model) {
 
-        comercialService.update(co);
+        if (result.hasErrors()) {
+            model.addAttribute("comercial", comercial);
+            return "comerciales/editar-comercial";
+        }
 
+        comercialService.update(comercial);
         return "redirect:/comercial";
     }
 

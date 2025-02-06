@@ -11,6 +11,7 @@ public class RangoCatego implements ConstraintValidator<RangoCategoriaValidation
 
 
     // compruebo si la categoria esta en la lista de las que son validas
+
     @Override
     public boolean isValid(Integer categoria, ConstraintValidatorContext C) {
         List<Integer> categoriaValidas = List.of(100, 200, 300, 400, 500, 600, 700, 800, 1000);

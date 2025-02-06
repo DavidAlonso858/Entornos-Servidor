@@ -88,9 +88,14 @@ public class ClienteController {
     }
 
     @PostMapping("clientes/editar/{id}")
-    public String editar(@ModelAttribute("cliente") Cliente cli) {
+    public String editar(@Valid @ModelAttribute Cliente cliente, BindingResult result, Model model) {
 
-        clienteService.update(cli);
+        if (result.hasErrors()) {
+            model.addAttribute("cliente", cliente);
+            return "clientes/editar-cliente";
+        }
+
+        clienteService.update(cliente);
 
         return "redirect:/clientes";
     }
