@@ -108,4 +108,10 @@ public class ClienteController {
     public String lanzarMiExcepcion() throws MiExcepcion {
         throw new MiExcepcion("¡excepción personalizada!");
     }
+
+    @GetMapping("/error-runtime")
+    public String lanzarRuntimeException() {
+        throw new RuntimeException("¡Ocurrió un error inesperado!");
+    }
+
 }
