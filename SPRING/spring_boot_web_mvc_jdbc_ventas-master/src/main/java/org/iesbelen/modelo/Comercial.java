@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+// @Builder para hacer Cliente.builder().nombre(rs.getInt("nombre") en vez del new Cliente
 public class Comercial {
 
     private int id;

@@ -1,7 +1,5 @@
 package org.iesbelen.modelo;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +9,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+// @Builder para hacer Cliente.builder().nombre(rs.getInt("nombre") en vez del new Cliente
 public class Pedido {
 
     private int id;

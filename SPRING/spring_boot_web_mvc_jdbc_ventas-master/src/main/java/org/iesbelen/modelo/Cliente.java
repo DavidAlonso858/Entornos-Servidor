@@ -17,6 +17,7 @@ import org.iesbelen.validacionPersonalizada.RangoCategoriaValidationPlus;
 //Para generar un constructor con lombok con todos los args
 @AllArgsConstructor
 @NoArgsConstructor
+// @Builder para hacer Cliente.builder().nombre(rs.getInt("nombre") en vez del new Cliente
 public class Cliente {
 
     private long id;
@@ -42,7 +43,7 @@ public class Cliente {
     // @RangoCategoriaValidation
     @RangoCategoriaValidationPlus(values = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000},
             min = 100,
-            max=1000)
+            max = 1000)
     private int categoria;
 
     //@NotBlank(message = "Por favor, introduzca email.")
