@@ -68,7 +68,6 @@ public class ClienteDAOImpl implements ClienteDAO {
 	 */
 	@Override
 	public List<Cliente> getAll() {
-		
 		List<Cliente> listFab = jdbcTemplate.query(
                 "SELECT * FROM cliente",
                 (rs, rowNum) -> new Cliente(rs.getInt("id"),

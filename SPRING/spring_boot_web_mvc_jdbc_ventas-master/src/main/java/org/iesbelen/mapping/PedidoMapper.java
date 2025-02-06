@@ -12,7 +12,4 @@ public interface PedidoMapper {
     @Mapping(target = "nombre_cliente", source = "nombre_cliente")
     public PedidoDTO pedidoDTO(Pedido pedido, String nombre_cliente);
 
-
-    public Pedido pedidoDTOAPedido(PedidoDTO pedido);
-
 }

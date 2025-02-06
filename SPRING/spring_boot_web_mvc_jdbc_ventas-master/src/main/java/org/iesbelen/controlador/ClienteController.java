@@ -32,7 +32,8 @@ public class ClienteController {
 
     //@RequestMapping(value = "/clientes", method = RequestMethod.GET)
     //equivalente a la siguiente anotación
-    @GetMapping({"/clientes", "/"})
+
+    @GetMapping("/clientes")
     //Al no tener ruta base para el controlador, cada método tiene que tener la ruta completa
     public String listar(Model model) {
 
