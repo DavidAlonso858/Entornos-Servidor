@@ -27,13 +27,10 @@ public class Categoria {
     private String nombre;
 
     @ManyToMany(
-            mappedBy = "categorias")
+            mappedBy = "categorias") // devuelve el set de categorias creado en Pelicula
     @JsonIgnore
     Set<Pelicula> peliculas = new HashSet<>();
 
-    @Column(name = "ultima_actualizacion")
-    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",  shape = JsonFormat.Shape.STRING)
-    private Date ultimaActualizacion;
 
 
 }

@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="pelicula")
+@Table(name = "pelicula")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +21,7 @@ public class Pelicula {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_pelicula")
+    @Column(name = "id_pelicula")
     private long idPelicula;
 
     private String titulo;
@@ -29,40 +29,21 @@ public class Pelicula {
     private String descripcion;
 
     @Column(name = "anyo_lanzamiento")
-    @JsonFormat(pattern = "yyyy",  shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy", shape = JsonFormat.Shape.STRING)
     private Date anyoLanzamiento;
 
     @ManyToOne()
     @JoinColumn(name = "id_idioma", nullable = false) // nombre del atributo en la tabla BD
     private Idioma idioma;
 
-    @ManyToOne()
-    @JoinColumn(name = "id_idioma_original") // nombre del atributo en la tabla BD
-    private Idioma idiomaOriginal;
-
-    @Column(name = "duracion_alquiler")
-    private int duracionAlquiler;
-
-    @Column(name = "rental_rate")
-    private BigDecimal rentalRate;
     private int duracion;
-
-    @Column(name = "replacement_cost")
-    private BigDecimal replacementCost;
-    private String clasificacion;
-
-    @Column(name = "caracteristicas_especiales")
-    private String caracteristicasEspeciales;
 
     @ManyToMany
     @JoinTable(
-            name = "pelicula_categoria",
-            joinColumns = @JoinColumn(name = "id_pelicula", referencedColumnName = "id_pelicula"),
+            name = "pelicula_categoria", // nombre de la tabla
+            joinColumns = @JoinColumn(name = "id_pelicula", referencedColumnName = "id_pelicula"), // name tabla intermedia // referenced el de la principal
             inverseJoinColumns = @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria"))
     Set<Categoria> categorias = new HashSet<>();
 
-    @Column(name = "ultima_actualizacion")
-    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",  shape = JsonFormat.Shape.STRING)
-    private Date ultimaActualizacion;
 
 }
