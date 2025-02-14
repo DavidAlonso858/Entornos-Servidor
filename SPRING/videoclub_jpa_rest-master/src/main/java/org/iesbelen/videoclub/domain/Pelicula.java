@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.Year;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +31,7 @@ public class Pelicula {
 
     @Column(name = "anyo_lanzamiento")
     @JsonFormat(pattern = "yyyy", shape = JsonFormat.Shape.STRING)
-    private Date anyoLanzamiento;
+    private Year anyoLanzamiento;
 
     @ManyToOne()
     @JoinColumn(name = "id_idioma", nullable = false) // nombre del atributo en la tabla BD
