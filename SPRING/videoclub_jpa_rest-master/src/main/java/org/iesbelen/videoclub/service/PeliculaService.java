@@ -32,16 +32,22 @@ public class PeliculaService {
 
     public Pelicula replace(Long id, Pelicula pelicula) {
 
-        return this.peliculaRepository.findById(id).map( p -> (id.equals(pelicula.getIdPelicula())  ?
-                                                            this.peliculaRepository.save(pelicula) : null))
+        return this.peliculaRepository.findById(id).map(p -> (id.equals(pelicula.getIdPelicula()) ?
+                        this.peliculaRepository.save(pelicula) : null))
                 .orElseThrow(() -> new PeliculaNotFoundException(id));
 
     }
 
     public void delete(Long id) {
-        this.peliculaRepository.findById(id).map(p -> {this.peliculaRepository.delete(p);
-                                                        return p;})
+        this.peliculaRepository.findById(id).map(p -> {
+                    this.peliculaRepository.delete(p);
+                    return p;
+                })
                 .orElseThrow(() -> new PeliculaNotFoundException(id));
+    }
+
+    private Pelicula peliculasDuracionMenorCantidad(int cantidad) {
+        return this.peliculaRepository.findByDuracionLessThan(cantidad);
     }
 
 }

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -18,6 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+// Para que funcione la coleccion de Set<Categoria> en Pelicula
+@EqualsAndHashCode(of = "nombre")
+
 //Si utilizo @OneToMany(FetchType.LAZY) además debo usar
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Idioma {

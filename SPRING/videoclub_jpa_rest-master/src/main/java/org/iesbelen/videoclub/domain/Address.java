@@ -5,11 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Embeddable
+@Embeddable // anotacion para pillar los atributos de esta clase en Socio
 public class Address {
     //@Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int addressId;
 
     private String street;
 

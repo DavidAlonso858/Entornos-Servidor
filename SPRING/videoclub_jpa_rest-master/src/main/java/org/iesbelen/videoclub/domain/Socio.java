@@ -43,6 +43,9 @@ public class Socio {
     })
     private Set<Address> addresses = new HashSet<>();
 
+    @Embedded // anotacion para pillar los atributos de la otra clase
+    private Address addressClase;
+
     @ElementCollection
     @CollectionTable(name = "socio_phone_numbers", joinColumns = @JoinColumn(name = "socio_id"))
     @Column(name = "phone_numbers")

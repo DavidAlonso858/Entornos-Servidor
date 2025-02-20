@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -19,10 +20,26 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
 
-    @GetMapping({"/", ""})
+    @GetMapping(value = {"/", ""}, params = {"!buscar", "!ordenar"})
+    // mapping que excluye las rutas con params ! (negacion)
     public List<Categoria> all() {
         log.info("Accediendo a todas las categorias");
         return this.categoriaService.all();
+    }
+
+    @GetMapping(value = {"", "/"})
+    public List<Categoria> all(
+            @RequestParam("buscar") Optional<String> buscarOptional,
+            @RequestParam("ordenar") Optional<String> ordenarOptional
+    ) {
+        log.info("Accediendo a todas las películas con filtro buscar: %s y ordenar: %s",
+                buscarOptional.orElse("VOID"),
+                ordenarOptional.orElse("VOID")
+        );
+
+        return this.categoriaService.allByQueryFiltersStream(buscarOptional, ordenarOptional);
+        //return this.categoriaService.allByQueryFiltersMethodQuery(buscarOptional, ordenarOptional);
+        //return this.categoriaService.allByQueryFiltersAnnotationQuery(buscarOptional, ordenarOptional);
     }
 
     @PostMapping({"", "/"})
@@ -46,4 +63,6 @@ public class CategoriaController {
     public void deleteCategoria(@PathVariable("id") Long id) {
         this.categoriaService.delete(id);
     }
+
+
 }
