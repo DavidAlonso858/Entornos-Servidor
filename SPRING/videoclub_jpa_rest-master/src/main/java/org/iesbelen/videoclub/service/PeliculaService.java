@@ -89,4 +89,20 @@ public class PeliculaService {
 
         return mapilla;
     }
+//
+//    // PAGINACION
+//    public String[] all(int pagina, int tamanio) {
+//        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("idPelicula").ascending());
+//        Page<Pelicula> pageAll = this.peliculaRepository.findAll(paginado);
+//
+//        Map<String, Object> mapilla = new HashMap<>();
+//
+//        mapilla.put("peliculas", pageAll.getContent());
+//        mapilla.put("paginaActual", pageAll.getNumber());
+//        mapilla.put("totalElementos", pageAll.getTotalElements());
+//        mapilla.put("totalPages", pageAll.getTotalPages());
+//
+//        return mapilla;
+//    }
+
 }
