@@ -38,8 +38,11 @@ public class CategoriaController {
         );
 
         return this.categoriaService.allByQueryFiltersStream(buscarOptional, ordenarOptional);
-        //return this.categoriaService.allByQueryFiltersMethodQuery(buscarOptional, ordenarOptional);
-        //return this.categoriaService.allByQueryFiltersAnnotationQuery(buscarOptional, ordenarOptional);
+    }
+
+    @GetMapping("/{id}/numeroPeliculas")
+    public int numeroPeliculas(@PathVariable Long id) {
+        return this.categoriaService.one(id).getPeliculas().size();
     }
 
     @PostMapping({"", "/"})
