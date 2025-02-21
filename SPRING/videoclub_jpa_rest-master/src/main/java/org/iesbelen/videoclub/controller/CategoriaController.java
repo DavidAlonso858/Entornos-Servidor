@@ -55,8 +55,8 @@ public class CategoriaController {
         return this.categoriaService.one(id);
     }
 
-    @PutMapping("/{id}")
-    public Categoria replaceCategoria(@PathVariable("id") Long id, @RequestBody Categoria categoria) {
+    @PutMapping("/{id}") // si en la ruta se llama igual no hace falta poner ("id) al lado de Path
+    public Categoria replaceCategoria(@PathVariable Long id, @RequestBody Categoria categoria) {
         return this.categoriaService.replace(id, categoria);
     }
 

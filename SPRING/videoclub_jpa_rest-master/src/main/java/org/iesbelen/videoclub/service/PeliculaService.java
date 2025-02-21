@@ -1,23 +1,31 @@
 package org.iesbelen.videoclub.service;
 
+import org.iesbelen.videoclub.domain.Categoria;
 import org.iesbelen.videoclub.exception.PeliculaNotFoundException;
 import org.iesbelen.videoclub.repository.PeliculaRepository;
 import org.iesbelen.videoclub.domain.Pelicula;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PeliculaService {
 
-    private final PeliculaRepository peliculaRepository;
+    @Autowired
+    private PeliculaRepository peliculaRepository;
+    @Autowired
+    private CategoriaService categoriaService;
 
-    public PeliculaService(PeliculaRepository peliculaRepository) {
-
-        this.peliculaRepository = peliculaRepository;
-    }
-
+    // invocacion al repositorio sin paginacion
     public List<Pelicula> all() {
+
         return this.peliculaRepository.findAll();
     }
 
@@ -46,8 +54,39 @@ public class PeliculaService {
                 .orElseThrow(() -> new PeliculaNotFoundException(id));
     }
 
-    private Pelicula peliculasDuracionMenorCantidad(int cantidad) {
+    public Pelicula peliculasDuracionMenorCantidad(int cantidad) {
         return this.peliculaRepository.findByDuracionLessThan(cantidad);
     }
 
+    // AGREGA CATEGORIA A LA PELICULA EN EL POST
+    public boolean addCategoriaToPelicula(long idPelicula, long idCategoria) {
+        boolean res = false;
+
+        Categoria categoria = categoriaService.one(idCategoria);
+        Pelicula pelicula = this.one(idPelicula);
+
+        res = pelicula.getCategorias().add(categoria)
+                && categoria.getPeliculas().add(pelicula); // se trabaja con los modelos por eso se lo agrego a los dos
+
+        if (res) {
+            this.replace(idPelicula, pelicula);
+        }
+        return res;
+    }
+
+
+    // PAGINACION
+    public Map<String, Object> all(int pagina, int tamanio) {
+        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("idPelicula").ascending());
+        Page<Pelicula> pageAll = this.peliculaRepository.findAll(paginado);
+
+        Map<String, Object> mapilla = new HashMap<>();
+
+        mapilla.put("peliculas", pageAll.getContent());
+        mapilla.put("paginaActual", pageAll.getNumber());
+        mapilla.put("totalElementos", pageAll.getTotalElements());
+        mapilla.put("totalPages", pageAll.getTotalPages());
+
+        return mapilla;
+    }
 }

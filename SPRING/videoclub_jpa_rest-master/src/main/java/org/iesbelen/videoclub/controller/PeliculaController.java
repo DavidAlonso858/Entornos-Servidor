@@ -7,11 +7,10 @@ import org.iesbelen.videoclub.service.CategoriaService;
 import org.iesbelen.videoclub.service.PeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -26,24 +25,33 @@ public class PeliculaController {
     private CategoriaService categoriaService;
 
 
-    @GetMapping({"", "/"})
+    @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio"})
     public List<Pelicula> all() {
         log.info("Accediendo a todas las películas");
         return this.peliculaService.all();
     }
 
+    // tamanio es las peliculas que entran en una pagina 
+    @GetMapping(value = {"", "/"})
+    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "pagina", defaultValue = "0") int pagina, @RequestParam(value = "tamanio", defaultValue = "3") int tamanio) {
+
+        log.info("Accediendo a todas la peliculas con paginacion");
+
+        Map<String, Object> responseAll = this.peliculaService.all(pagina, tamanio);
+
+        return ResponseEntity.ok(responseAll);
+    }
+
+
     @PostMapping({"", "/"})
+
     public Pelicula newPelicula(@RequestBody Pelicula pelicula) {
         return this.peliculaService.save(pelicula);
     }
 
-    @PostMapping("/{id}/add/{id_categoria}")
+    @PostMapping("/{id}/add/{id_categoria}") // si en la ruta se llama igual no hace falta poner ("id) al lado de Path
     public void addPelicula(@PathVariable long id, @PathVariable long id_categoria) {
-        Categoria categoriaEncontrada = categoriaService.one(id_categoria); // encuentro la categoria
-        Pelicula peliculasEncontrada = peliculaService.one(id); // encuentro la categoria
-
-        peliculasEncontrada.getCategorias().add(categoriaEncontrada);
-        this.peliculaService.replace(id, peliculaService.one(id)); // reemplazo la que tenia
+        this.peliculaService.addCategoriaToPelicula(id, id_categoria);
     }
 
     @GetMapping("/{id}")
