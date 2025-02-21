@@ -2,6 +2,7 @@ package org.iesbelen.videoclub.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,6 +49,7 @@ public class Pelicula {
             name = "pelicula_categoria", // nombre de la tabla
             joinColumns = @JoinColumn(name = "id_pelicula", referencedColumnName = "id_pelicula"), // name tabla intermedia // referenced el de la principal
             inverseJoinColumns = @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria"))
+    @JsonIgnore
     Set<Categoria> categorias = new HashSet<>();
 
 
