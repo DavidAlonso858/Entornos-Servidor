@@ -24,6 +24,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoria")
     private long id;
+
     private String nombre;
 
     @ManyToMany(
