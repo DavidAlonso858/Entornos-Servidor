@@ -33,7 +33,9 @@ public class PeliculaController {
 
     // tamanio es las peliculas que entran en una pagina 
     @GetMapping(value = {"", "/"})
-    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "pagina", defaultValue = "0") int pagina, @RequestParam(value = "tamanio", defaultValue = "3") int tamanio) {
+    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "pagina", defaultValue = "0")
+                                                   int pagina,
+                                                   @RequestParam(value = "tamanio", defaultValue = "3") int tamanio) {
 
         log.info("Accediendo a todas la peliculas con paginacion");
 
@@ -44,8 +46,8 @@ public class PeliculaController {
 
 
     @PostMapping({"", "/"})
-
     public Pelicula newPelicula(@RequestBody Pelicula pelicula) {
+
         return this.peliculaService.save(pelicula);
     }
 
@@ -55,12 +57,13 @@ public class PeliculaController {
     }
 
     @GetMapping("/{id}")
-    public Pelicula one(@PathVariable("id") Long id) {
+    public Pelicula one(@PathVariable long id)
+    {
         return this.peliculaService.one(id);
     }
 
     @PutMapping("/{id}")
-    public Pelicula replacePelicula(@PathVariable("id") Long id, @RequestBody Pelicula pelicula) {
+    public Pelicula replacePelicula(@PathVariable long id, @RequestBody Pelicula pelicula) {
         return this.peliculaService.replace(id, pelicula);
     }
 

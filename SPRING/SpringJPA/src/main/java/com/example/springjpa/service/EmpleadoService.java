@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmpleadoService {
@@ -21,4 +22,7 @@ public class EmpleadoService {
         return empleadoRepository.save(empleado);
     }
 
+    public Optional<Empleado> obtenerPorId(Long id) {
+        return empleadoRepository.findById(id);
+    }
 }

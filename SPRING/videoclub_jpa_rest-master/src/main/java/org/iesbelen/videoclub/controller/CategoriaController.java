@@ -51,7 +51,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
-    public Categoria one(@PathVariable("id") Long id) {
+    public Categoria one(@PathVariable long id) {
         return this.categoriaService.one(id);
     }
 
