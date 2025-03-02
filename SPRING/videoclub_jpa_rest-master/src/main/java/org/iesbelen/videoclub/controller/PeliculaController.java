@@ -39,7 +39,7 @@ public class PeliculaController {
 
         log.info("Accediendo a todas la peliculas con paginacion");
 
-        Map<String, Object> responseAll = this.peliculaService.all(pagina, tamanio);
+        Map<String, Object> responseAll = this.peliculaService.paginacion(pagina, tamanio);
 
         return ResponseEntity.ok(responseAll);
     }

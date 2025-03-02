@@ -15,6 +15,7 @@ public class Tarjeta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="id_tarjeta")
     private Long id;
 
     private Date caducidad;

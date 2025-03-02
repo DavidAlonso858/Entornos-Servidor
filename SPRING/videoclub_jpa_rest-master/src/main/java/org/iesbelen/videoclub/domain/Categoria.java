@@ -32,6 +32,4 @@ public class Categoria {
 //    @JsonIgnore
     Set<Pelicula> peliculas = new HashSet<>();
 
-
-
 }

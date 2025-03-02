@@ -29,8 +29,12 @@ public class Idioma {
 
     private String nombre;
 
+
+    // Seleciono el modelo Pelicula como una lista
+    // para relacionarla de forma indeterminada y uso el mappedBy para indicar que es bidireccional
+
     @OneToMany(mappedBy = "idioma") // relacion con el modelo Idioma pillando el atributo concreto
-    @JsonIgnore
+    @JsonIgnore // evita el bucle infinito
     private List<Pelicula> peliculasIdioma;
 
 }

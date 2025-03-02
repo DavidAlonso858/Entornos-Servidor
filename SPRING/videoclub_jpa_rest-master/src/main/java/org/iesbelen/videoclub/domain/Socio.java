@@ -18,6 +18,7 @@ public class Socio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="id_socio")
     private Long id;
 
     @NaturalId
@@ -29,7 +30,7 @@ public class Socio {
 
 
     @OneToOne
-    @JoinColumn(name = "tarjeta_id", referencedColumnName = "id") // nombre que yo quiero
+    @JoinColumn(name = "id_tarjeta") // nombre que yo quiero
     // y la referencia la valor real en el modelo
     private Tarjeta tarjeta;
 
