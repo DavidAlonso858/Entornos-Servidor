@@ -45,6 +45,17 @@ public class PeliculaController {
     }
 
 
+    @GetMapping(value = {"","/"})
+    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "paginado", defaultValue = "0") String[] paginacion) {
+
+        log.info("Accediendo a todas las películas con paginacion");
+
+
+        Map<String, Object> responseAll = this.peliculaService.paginacionArray(paginacion);
+
+        return ResponseEntity.ok(responseAll);
+    }
+
     @PostMapping({"", "/"})
     public Pelicula newPelicula(@RequestBody Pelicula pelicula) {
 
