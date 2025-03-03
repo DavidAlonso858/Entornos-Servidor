@@ -25,7 +25,7 @@ public class PeliculaController {
     private CategoriaService categoriaService;
 
 
-    @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio"})
+    @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio", "!paginado"})
     public List<Pelicula> all() {
         log.info("Accediendo a todas las películas");
         return this.peliculaService.all();
@@ -35,7 +35,7 @@ public class PeliculaController {
     @GetMapping(value = {"", "/"})
     public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "pagina", defaultValue = "0")
                                                    int pagina,
-                                                   @RequestParam(value = "tamanio", defaultValue = "3") int tamanio) {
+                                                   @RequestParam(value = "tamanio", defaultValue = "1") int tamanio) {
 
         log.info("Accediendo a todas la peliculas con paginacion");
 
@@ -45,7 +45,7 @@ public class PeliculaController {
     }
 
 
-    @GetMapping(value = {"","/"})
+    @GetMapping(value = {"","/"} , params = {"!pagina", "!tamanio"})
     public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "paginado", defaultValue = "0") String[] paginacion) {
 
         log.info("Accediendo a todas las películas con paginacion");
@@ -55,6 +55,7 @@ public class PeliculaController {
 
         return ResponseEntity.ok(responseAll);
     }
+
 
     @PostMapping({"", "/"})
     public Pelicula newPelicula(@RequestBody Pelicula pelicula) {

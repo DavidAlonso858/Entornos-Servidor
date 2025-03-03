@@ -78,6 +78,7 @@ public class PeliculaService {
     // PAGINACION
     public Map<String, Object> paginacion(int pagina, int tamanio) {
         Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("idPelicula").ascending());
+
         Page<Pelicula> pageAll = this.peliculaRepository.findAll(paginado);
 
         Map<String, Object> mapilla = new HashMap<>();

@@ -19,12 +19,14 @@ public class CategoriaCustomRepositoryJQLImpl implements CategoriaCustomReposito
     public List<Categoria> queryCustomCategoria(Optional<String> buscarOptional, Optional<String> ordenarOptional) {
         StringBuilder queryBuilder = new StringBuilder("SELECT C FROM Categoria C");
 
+        // si encuentra el optional le agrego eso a la sentencia
         if (buscarOptional.isPresent()) {
             queryBuilder.append(" ").append("WHERE C.nombre like :nombre");
         }
 
+        // si encuentra el optional le agrego eso a la sentencia
         if (ordenarOptional.isPresent()) {
-            if ( "asc".equalsIgnoreCase(ordenarOptional.get())) {
+            if ("asc".equalsIgnoreCase(ordenarOptional.get())) {
                 queryBuilder.append(" ").append("ORDER BY C.nombre ASC");
             } else if ("desc".equalsIgnoreCase(ordenarOptional.get())) {
                 queryBuilder.append(" ").append("ORDER BY C.nombre DESC");
