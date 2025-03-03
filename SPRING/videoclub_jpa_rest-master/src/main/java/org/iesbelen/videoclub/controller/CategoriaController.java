@@ -63,7 +63,7 @@ public class CategoriaController {
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteCategoria(@PathVariable("id") Long id) {
+    public void deleteCategoria(@PathVariable Long id) {
         this.categoriaService.delete(id);
     }
 

@@ -47,8 +47,8 @@ public class Pelicula {
     @ManyToMany
     @JoinTable(
             name = "pelicula_categoria", // nombre de la tabla
-            joinColumns = @JoinColumn(name = "id_pelicula", referencedColumnName = "id_pelicula"), // name tabla intermedia // referenced el de la principal
-            inverseJoinColumns = @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria"))
+            joinColumns = @JoinColumn(name = "id_pelicula"), // name tabla intermedia // referenced el de la principal
+            inverseJoinColumns = @JoinColumn(name = "id_categoria"))
     @JsonIgnore
     Set<Categoria> categorias = new HashSet<>();
 
