@@ -92,7 +92,6 @@ public class PeliculaService {
     }
 
 
-
     public Map<String, Object> paginacionArray(String[] paginacion) {
         Pageable paginado = PageRequest.of(Integer.parseInt(paginacion[0]),Integer.parseInt(paginacion[1]), Sort.by("idPelicula").ascending());
         // igual que el ejemplo pero pasando a int los atributos del array de string
@@ -106,21 +105,5 @@ public class PeliculaService {
         response.put("totalElements", pageAll.getTotalElements());
         return response;
     }
-
-//
-//    // PAGINACION
-//    public String[] all(int pagina, int tamanio) {
-//        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("idPelicula").ascending());
-//        Page<Pelicula> pageAll = this.peliculaRepository.findAll(paginado);
-//
-//        Map<String, Object> mapilla = new HashMap<>();
-//
-//        mapilla.put("peliculas", pageAll.getContent());
-//        mapilla.put("paginaActual", pageAll.getNumber());
-//        mapilla.put("totalElementos", pageAll.getTotalElements());
-//        mapilla.put("totalPages", pageAll.getTotalPages());
-//
-//        return mapilla;
-//    }
 
 }

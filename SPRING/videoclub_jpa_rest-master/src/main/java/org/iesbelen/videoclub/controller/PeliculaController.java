@@ -24,7 +24,7 @@ public class PeliculaController {
     @Autowired
     private CategoriaService categoriaService;
 
-
+    // params de las paginaciones
     @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio", "!paginado"})
     public List<Pelicula> all() {
         log.info("Accediendo a todas las películas");
@@ -44,9 +44,9 @@ public class PeliculaController {
         return ResponseEntity.ok(responseAll);
     }
 
-
-    @GetMapping(value = {"","/"} , params = {"!pagina", "!tamanio"})
-    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "paginado", defaultValue = "0") String[] paginacion) {
+    // paginacion pasandole array de string
+    @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio"})
+    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "paginado") String[] paginacion) {
 
         log.info("Accediendo a todas las películas con paginacion");
 
@@ -69,8 +69,7 @@ public class PeliculaController {
     }
 
     @GetMapping("/{id}")
-    public Pelicula one(@PathVariable long id)
-    {
+    public Pelicula one(@PathVariable long id) {
         return this.peliculaService.one(id);
     }
 
