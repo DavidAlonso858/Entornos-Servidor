@@ -24,8 +24,8 @@ public class PeliculaController {
     @Autowired
     private CategoriaService categoriaService;
 
-    // params de las paginaciones
-    @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio", "!paginado"})
+    // niego los param de paginacion y orden para entrar
+    @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio", "!paginado", "!orden"})
     public List<Pelicula> all() {
         log.info("Accediendo a todas las películas");
         return this.peliculaService.all();
@@ -45,7 +45,7 @@ public class PeliculaController {
     }
 
     // paginacion pasandole array de string
-    @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio"})
+    @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio", "!orden"})
     public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "paginado") String[] paginacion) {
 
         log.info("Accediendo a todas las películas con paginacion");
@@ -56,7 +56,22 @@ public class PeliculaController {
         return ResponseEntity.ok(responseAll);
     }
 
+    // ORDEN
+    @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio", "!paginado"})
+    public ResponseEntity<List<Pelicula>> allOrdenado(@RequestParam(value = "orden") Optional<String[]> orden) {
+        log.info("Accediendo a todas las películas con ordenación: " + orden.get()[0]);
 
+        List<Pelicula> peliculas = this.peliculaService.peliculasOrdenadas(orden);
+
+        return ResponseEntity.ok(peliculas);
+    }
+
+    @GetMapping("/{id}")
+    public Pelicula one(@PathVariable long id) {
+        return this.peliculaService.one(id);
+    }
+
+    // CREACION
     @PostMapping({"", "/"})
     public Pelicula newPelicula(@RequestBody Pelicula pelicula) {
 
@@ -68,16 +83,14 @@ public class PeliculaController {
         this.peliculaService.addCategoriaToPelicula(id, id_categoria);
     }
 
-    @GetMapping("/{id}")
-    public Pelicula one(@PathVariable long id) {
-        return this.peliculaService.one(id);
-    }
 
+    // EDICION
     @PutMapping("/{id}")
     public Pelicula replacePelicula(@PathVariable long id, @RequestBody Pelicula pelicula) {
         return this.peliculaService.replace(id, pelicula);
     }
 
+    // BORRADO
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")

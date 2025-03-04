@@ -20,13 +20,14 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
 
+    // niego los param de busqueda y orden para entrar
     @GetMapping(value = {"/", ""}, params = {"!buscar", "!ordenar"})
-    // mapping que excluye las rutas con params ! (negacion)
     public List<Categoria> all() {
         log.info("Accediendo a todas las categorias");
         return this.categoriaService.all();
     }
 
+    //OBTENCION
     @GetMapping(value = {"", "/"})
     public List<Categoria> all(
             @RequestParam("buscar") Optional<String> buscarOptional,
@@ -45,27 +46,29 @@ public class CategoriaController {
         return this.categoriaService.one(id).getPeliculas().size();
     }
 
-    @PostMapping({"", "/"})
-    public Categoria newCategoria(@RequestBody Categoria categoria) {
-        return this.categoriaService.save(categoria);
-    }
-
     @GetMapping("/{id}")
     public Categoria one(@PathVariable long id) {
         return this.categoriaService.one(id);
     }
 
+    // CREACION
+    @PostMapping({"", "/"})
+    public Categoria newCategoria(@RequestBody Categoria categoria) {
+        return this.categoriaService.save(categoria);
+    }
+
+    // EDICION
     @PutMapping("/{id}") // si en la ruta se llama igual no hace falta poner ("id) al lado de Path
     public Categoria replaceCategoria(@PathVariable Long id, @RequestBody Categoria categoria) {
         return this.categoriaService.replace(id, categoria);
     }
 
+    // BORRADO
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteCategoria(@PathVariable Long id) {
         this.categoriaService.delete(id);
     }
-
 
 }

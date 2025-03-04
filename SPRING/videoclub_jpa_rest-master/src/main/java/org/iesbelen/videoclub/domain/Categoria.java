@@ -29,7 +29,7 @@ public class Categoria {
 
     @ManyToMany(
             mappedBy = "categorias") // devuelve el set de categorias creado en Pelicula
-//    @JsonIgnore
+    @JsonIgnore // oculta la lista de peliculas en el postman
     Set<Pelicula> peliculas = new HashSet<>();
 
 }

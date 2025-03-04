@@ -2,6 +2,7 @@ package org.iesbelen.videoclub.service;
 
 import org.iesbelen.videoclub.domain.Categoria;
 import org.iesbelen.videoclub.exception.PeliculaNotFoundException;
+import org.iesbelen.videoclub.repository.PeliculaCustomRepository;
 import org.iesbelen.videoclub.repository.PeliculaRepository;
 import org.iesbelen.videoclub.domain.Pelicula;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,19 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class PeliculaService {
 
     @Autowired
     private PeliculaRepository peliculaRepository;
+
     @Autowired
     private CategoriaService categoriaService;
+
+    @Autowired
+    private PeliculaCustomRepository peliculaCustomRepository;
 
     // invocacion al repositorio sin paginacion
     public List<Pelicula> all() {
@@ -93,7 +99,7 @@ public class PeliculaService {
 
 
     public Map<String, Object> paginacionArray(String[] paginacion) {
-        Pageable paginado = PageRequest.of(Integer.parseInt(paginacion[0]),Integer.parseInt(paginacion[1]), Sort.by("idPelicula").ascending());
+        Pageable paginado = PageRequest.of(Integer.parseInt(paginacion[0]), Integer.parseInt(paginacion[1]), Sort.by("idPelicula").ascending());
         // igual que el ejemplo pero pasando a int los atributos del array de string
         Page<Pelicula> pageAll = this.peliculaRepository.findAll(paginado);
 
@@ -106,4 +112,7 @@ public class PeliculaService {
         return response;
     }
 
+    public List<Pelicula> peliculasOrdenadas(Optional<String[]> orden) {
+        return peliculaCustomRepository.peliculasOrdenadas(orden);
+    }
 }

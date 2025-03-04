@@ -18,14 +18,10 @@ public class IdiomaController {
     @Autowired
     private IdiomaService idiomaService;
 
+    // OBTENCION
     @GetMapping({"", "/"})
     public List<Idioma> all() {
         return this.idiomaService.all();
-    }
-
-    @PostMapping({"", "/"})
-    public Idioma newIdioma(@RequestBody Idioma idioma) {
-        return this.idiomaService.save(idioma);
     }
 
     @GetMapping("/{id}")
@@ -33,12 +29,19 @@ public class IdiomaController {
         return this.idiomaService.one(id);
     }
 
+    // CREACION
+    @PostMapping({"", "/"})
+    public Idioma newIdioma(@RequestBody Idioma idioma) {
+        return this.idiomaService.save(idioma);
+    }
+
+    // EDICION
     @PutMapping("{id}")
     public Idioma replaceIdioma(@PathVariable Long id, @RequestBody Idioma idioma) {
         return this.idiomaService.replace(id, idioma);
     }
 
-
+    // BORRADO
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
