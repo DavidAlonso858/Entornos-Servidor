@@ -112,6 +112,7 @@ public class PeliculaService {
         return response;
     }
 
+    //ORDEN
     public List<Pelicula> peliculasOrdenadas(Optional<String[]> orden) {
         return peliculaCustomRepository.peliculasOrdenadas(orden);
     }

@@ -22,6 +22,7 @@ public class CategoriaCustomRepositoryJQLImpl implements CategoriaCustomReposito
         // si encuentra el optional le agrego eso a la sentencia
         if (buscarOptional.isPresent()) {
             queryBuilder.append(" ").append("WHERE C.nombre like :nombre");
+            // el :nombre es para establecerlo luego
         }
 
         // si encuentra el optional le agrego eso a la sentencia
@@ -36,6 +37,7 @@ public class CategoriaCustomRepositoryJQLImpl implements CategoriaCustomReposito
 // En este caso se trata de una consulta JPQL, es decir, sintaxis de SQL pero con Entidades de JPA
         Query query = em.createQuery(queryBuilder.toString());
 
+        // explicao los dos : del nombre
         if (buscarOptional.isPresent()) {
             query.setParameter("nombre", "%" + buscarOptional.get() + "%");
         }

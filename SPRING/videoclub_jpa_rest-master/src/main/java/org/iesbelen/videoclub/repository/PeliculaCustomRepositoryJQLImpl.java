@@ -27,10 +27,10 @@ public class PeliculaCustomRepositoryJQLImpl implements PeliculaCustomRepository
             String sentido = ord[1];
             query.append(" ORDER BY p." + columna + " ");
 
-            if (sentido.equalsIgnoreCase("asc")) {
+            if ((sentido.equalsIgnoreCase("asc") || (sentido.equalsIgnoreCase("desc")))) {
                 query.append(sentido);
-            } else if (sentido.equalsIgnoreCase("desc")) {
-                query.append(sentido);
+            } else {
+                System.out.println("Sentido mal introducido tiene que ser ASC O DESC");
             }
         }
         return em.createQuery(query.toString(), Pelicula.class).getResultList();
