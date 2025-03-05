@@ -31,7 +31,7 @@ public class PeliculaCustomRepositoryJQLImpl implements PeliculaCustomRepository
                 query.append(sentido);
             }
         }
-        
+
         return em.createQuery(query.toString(), Pelicula.class).getResultList();
     }
 }
