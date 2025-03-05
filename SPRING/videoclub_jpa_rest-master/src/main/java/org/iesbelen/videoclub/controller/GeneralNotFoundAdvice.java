@@ -1,8 +1,6 @@
 package org.iesbelen.videoclub.controller;
 
-import org.iesbelen.videoclub.exception.CategoriaNotFoundException;
-import org.iesbelen.videoclub.exception.IdiomaNotFoundException;
-import org.iesbelen.videoclub.exception.PeliculaNotFoundException;
+import org.iesbelen.videoclub.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,7 +27,21 @@ public class GeneralNotFoundAdvice {
     @ResponseBody
     @ExceptionHandler(IdiomaNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String categooriaNotFoundHandler(IdiomaNotFoundException idiomaNotFoundException) {
+    String idiomaNotFoundHandler(IdiomaNotFoundException idiomaNotFoundException) {
         return idiomaNotFoundException.getMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(SocioNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String socioNotFoundHandler(SocioNotFoundException socioNotFoundException) {
+        return socioNotFoundException.getMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(TarjetaNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String tarjetaNotFoundHandler(TarjetaNotFoundException tarjetaNotFoundException) {
+        return tarjetaNotFoundException.getMessage();
     }
 }

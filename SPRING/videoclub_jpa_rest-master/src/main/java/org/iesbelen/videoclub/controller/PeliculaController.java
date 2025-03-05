@@ -58,12 +58,9 @@ public class PeliculaController {
 
     // ORDEN
     @GetMapping(value = {"", "/"}, params = {"!pagina", "!tamanio", "!paginado"})
-    public ResponseEntity<List<Pelicula>> allOrdenado(@RequestParam(value = "orden") Optional<String[]> orden) {
-        log.info("Accediendo a todas las películas con ordenación: " + orden.get()[0]);
+    public List<Pelicula> allOrdenado(@RequestParam(value = "orden") Optional<String[]> orden) {
 
-        List<Pelicula> peliculas = this.peliculaService.peliculasOrdenadas(orden);
-
-        return ResponseEntity.ok(peliculas);
+        return this.peliculaService.peliculasOrdenadas(orden);
     }
 
     @GetMapping("/{id}")

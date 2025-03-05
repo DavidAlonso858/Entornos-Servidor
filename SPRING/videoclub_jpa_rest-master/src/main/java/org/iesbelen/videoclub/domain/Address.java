@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 public class Address {
     //@Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int addressId;
+//    private int addressId;
 
     private String street;
 

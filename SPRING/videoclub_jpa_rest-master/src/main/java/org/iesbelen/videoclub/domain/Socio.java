@@ -29,7 +29,7 @@ public class Socio {
     private String apellido;
 
 
-    @OneToOne
+    @OneToOne() // para que se elimene aun estando relacionado cascade = CascadeType.Persist
     @JoinColumn(name = "id_tarjeta") // nombre que yo quiero
     // y la referencia la valor real en el modelo
     private Tarjeta tarjeta;
@@ -37,8 +37,8 @@ public class Socio {
     @ElementCollection
     @CollectionTable(name = "socio_address", joinColumns = @JoinColumn(name = "socio_id"))
     @AttributeOverrides({
-            @AttributeOverride(name = "houseNumber", column = @Column(name = "house_number")),
             @AttributeOverride(name = "street", column = @Column(name = "street")),
+            @AttributeOverride(name = "houseNumber", column = @Column(name = "house_number")),
             @AttributeOverride(name = "city", column = @Column(name = "city")),
             @AttributeOverride(name = "zipCode", column = @Column(name = "zip_code")),
     })

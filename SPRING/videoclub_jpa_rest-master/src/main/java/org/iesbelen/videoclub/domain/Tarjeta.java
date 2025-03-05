@@ -1,5 +1,6 @@
 package org.iesbelen.videoclub.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,11 +16,13 @@ public class Tarjeta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id_tarjeta")
+    @Column(name = "id_tarjeta")
     private Long id;
 
-    private Date caducidad;
+    @Column(length = 10)
+    private String caducidad;
 
     @OneToOne(mappedBy = "tarjeta") // nombre del atributo en el modelo Tarjeta
+    @JsonIgnore
     private Socio socio;
 }

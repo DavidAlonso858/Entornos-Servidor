@@ -56,7 +56,7 @@ public class PeliculaService {
         this.peliculaRepository.findById(id).map(p -> {
                     this.peliculaRepository.delete(p);
                     return p;
-                })
+                }) 
                 .orElseThrow(() -> new PeliculaNotFoundException(id));
     }
 
