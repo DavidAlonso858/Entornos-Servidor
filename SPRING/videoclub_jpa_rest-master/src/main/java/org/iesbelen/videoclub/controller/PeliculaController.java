@@ -32,7 +32,7 @@ public class PeliculaController {
     }
 
     // tamanio es las peliculas que entran en una pagina 
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = {"", "/"}, params = {"!paginado", "!orden"})
     public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "pagina", defaultValue = "0")
                                                    int pagina,
                                                    @RequestParam(value = "tamanio", defaultValue = "1") int tamanio) {
