@@ -4,8 +4,14 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Embeddable // anotacion para pillar los atributos de esta clase en Socio
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
     //@Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)

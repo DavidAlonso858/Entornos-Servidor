@@ -11,6 +11,7 @@ import java.util.Set;
 
 
 @Entity
+@Table(name = "socio")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
