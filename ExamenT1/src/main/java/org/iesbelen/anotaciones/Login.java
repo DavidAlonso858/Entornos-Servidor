@@ -68,7 +68,7 @@ public class Login {
         String usuario = sc.nextLine();
 
         System.out.println("Introduce una contraseña: ");
-        String contraseña = sc.nextLine();
+        String password = sc.nextLine();
 
 
     }
